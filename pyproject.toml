@@ -1,0 +1,12 @@
+[project]
+name = "gap-hunter-2"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "docling>=2.82.0",
+    "duckdb>=1.5.1",
+    "langchain-ollama>=1.0.1",
+    "pydantic>=2.0",
+]
