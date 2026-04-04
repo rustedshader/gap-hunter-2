@@ -432,3 +432,61 @@ def save_sections_json(sections: list[ExtractedSection], output_path: Path) -> N
     data = [s.model_dump() for s in sections]
     output_path.write_text(json.dumps(data, indent=2, ensure_ascii=False))
     logger.info("Saved %d sections to %s", len(data), output_path)
+
+
+# ──────────────────────────────────────────────
+# 7. Master List Generation
+# ──────────────────────────────────────────────
+
+def generate_master_list(
+    sections: list[ExtractedSection],
+    model_name: str = "qwen2.5:1.5b",
+) -> list[dict]:
+    """
+    Generate a master list with summaries for all sections.
+    
+    Args:
+        sections: List of extracted sections
+        model_name: LLM model to use for summarization
+    
+    Returns:
+        List of dicts with section metadata and summaries
+    """
+    from agents.summarizer_agent import run_summarizer
+    from models import SectionSummary
+    
+    llm = ChatOllama(model=model_name, temperature=0)
+    master_list = []
+    
+    logger.info("Generating master list for %d sections", len(sections))
+    
+    for section in sections:
+        try:
+            summary = run_summarizer(llm, section)
+            
+            master_list.append({
+                "number": section.number,
+                "title": section.title,
+                "summary": summary,
+                "start_line": section.start_line,
+                "end_line": section.end_line,
+            })
+        except Exception:
+            logger.exception("Failed to summarize section %s: %s", section.number, section.title)
+            # Add without summary on failure
+            master_list.append({
+                "number": section.number,
+                "title": section.title,
+                "summary": "[Summary generation failed]",
+                "start_line": section.start_line,
+                "end_line": section.end_line,
+            })
+    
+    logger.info("Master list generated with %d entries", len(master_list))
+    return master_list
+
+
+def save_master_list(master_list: list[dict], output_path: Path) -> None:
+    """Save the master list to a JSON file."""
+    output_path.write_text(json.dumps(master_list, indent=2, ensure_ascii=False))
+    logger.info("Saved master list to %s", output_path)

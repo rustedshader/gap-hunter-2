@@ -43,6 +43,8 @@ _PATTERNS: list[tuple[str, re.Pattern]] = [
     ("allcaps", re.compile(r'^([A-Z][A-Z\s\d\-\(\)\/\:\&]{4,79})$')),
     # P4 – Bold markdown heading
     ("bold", re.compile(r'^\*\*([^*]{3,80})\*\*$')),
+    # P5 – Bullet points (only used when document has very few other headings)
+    ("bullet", re.compile(r'^-\s+l\s*(.+)$')),
 ]
 
 
@@ -54,12 +56,21 @@ def _clean_title(raw: str, pattern: str) -> str | None:
     title = raw.strip()
     if not title:
         return None
-    # Long sentence ending in a period → body content, not a heading
+    
+    # Bullet points: keep them even if they end with period (they're full sentences)
+    if pattern == "bullet":
+        # Keep first 100 chars as title
+        if len(title) > 100:
+            title = title[:100].strip()
+        return title
+    
+    # For other patterns: Long sentence ending in a period → body content, not a heading
     if title.endswith('.') and len(title) > 20:
         return None
     # Numbered lines that are too long are inline heading+content from Docling
     if pattern == "numbered" and len(title) > 60:
         return None
+    
     return title
 
 
@@ -85,8 +96,33 @@ def detect_headings(doc_lines: list[tuple[int, str]]) -> list[HeadingCandidate]:
         results[pat_name] = candidates
         logger.debug("Pattern %-10s : %d candidates", pat_name, len(candidates))
 
-    # --- Try single-pattern match in priority order ---
+    # --- Special case: Check for bullet-point-heavy documents FIRST ---
+    # This handles policies where bullet points ARE the main structure
+    markdown_count = len(results["markdown"])
+    bullet_count = len(results["bullet"])
+    
+    logger.debug(
+        "Bullet detection check: bullets=%d, markdown=%d, ratio=%.1f",
+        bullet_count, markdown_count, bullet_count / max(markdown_count, 1)
+    )
+    
+    # Use bullets if:
+    # 1. We have many bullets (10+)
+    # 2. Very few markdown headers (≤2, likely just title/logo)
+    # 3. Bullets significantly outnumber markdown headers (5:1 ratio)
+    if bullet_count >= 10 and markdown_count <= 2 and bullet_count >= markdown_count * 5:
+        logger.info(
+            "Heading detection: bullet-heavy document detected (%d bullets, %d markdown headers) - using bullets as sections",
+            bullet_count, markdown_count,
+        )
+        # Combine markdown headers + bullets for complete structure
+        all_headings = results["markdown"] + results["bullet"]
+        return sorted(all_headings, key=lambda h: h.line_num)
+
+    # --- Try single-pattern match in priority order (excluding bullets) ---
     for pat_name, _ in _PATTERNS:
+        if pat_name == "bullet":  # Skip bullets in primary pass
+            continue
         hits = results[pat_name]
         if MIN_SECTIONS <= len(hits) <= MAX_SECTIONS:
             logger.info(

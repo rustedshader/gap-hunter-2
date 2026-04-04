@@ -1,24 +1,22 @@
 """
-Gap Hunter 2 — Policy Section Extractor
+Gap Hunter 2 — NIST CSF Policy Gap Analysis CLI
 
-Extracts structured sections from policy PDFs using a sliding‑window
-LLM approach with carry‑over context for cross‑boundary sections.
+Usage:
+    python src/main.py <policy.pdf>
+    python src/main.py <policy.pdf> --model gemma4:e2b --output-dir reports
+    python src/main.py <policy.pdf> --extract-only
+    python src/main.py <policy.pdf> --skip-extraction --run-dir gap_analysis_reports/20260404_030622
 """
 
+import argparse
 import logging
 import sys
+from datetime import datetime
 from pathlib import Path
 
-from extractor import extract_all_sections, save_sections_json
+from extractor import extract_all_sections, save_sections_json, generate_master_list, save_master_list
+from gap_analyzer import run_gap_analysis, save_gap_analysis_summary, NIST_FUNCTIONS
 
-# ── Configuration ──────────────────────────────
-PDF_SOURCE   = Path("./policies/Data-protection-and-data-security-policy-R1.0-2021-09-24.pdf")
-OUTPUT_JSON  = Path("sections_output.json")
-MODEL_NAME   = "gemma4:e2b"
-WINDOW_SIZE  = 80   # lines per chunk
-OVERLAP      = 20   # lines shared between consecutive chunks
-
-# ── Logging ────────────────────────────────────
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s  %(levelname)-8s  %(name)s  %(message)s",
@@ -27,32 +25,168 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 
-def main() -> None:
-    log.info("Starting extraction: %s → %s", PDF_SOURCE, OUTPUT_JSON)
-    log.info("Model: %s | Window: %d lines | Overlap: %d lines", MODEL_NAME, WINDOW_SIZE, OVERLAP)
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        prog="gap-hunter",
+        description="Analyze a policy PDF against the CIS MS-ISAC NIST CSF Policy Template Guide (2024).",
+    )
+    parser.add_argument(
+        "pdf",
+        type=Path,
+        help="Path to the policy PDF to analyze",
+    )
+    parser.add_argument(
+        "--model",
+        default="gemma4:e2b",
+        help="Ollama model name (default: gemma4:e2b)",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=Path("gap_analysis_reports"),
+        help="Base directory for reports (default: gap_analysis_reports)",
+    )
+    parser.add_argument(
+        "--run-dir",
+        type=Path,
+        default=None,
+        help="Reuse an existing run directory (for --skip-extraction)",
+    )
+    parser.add_argument(
+        "--window-size",
+        type=int,
+        default=80,
+        help="Lines per extraction chunk (default: 80)",
+    )
+    parser.add_argument(
+        "--overlap",
+        type=int,
+        default=20,
+        help="Overlap lines between chunks (default: 20)",
+    )
+    parser.add_argument(
+        "--extract-only",
+        action="store_true",
+        help="Only extract sections, skip gap analysis",
+    )
+    parser.add_argument(
+        "--skip-extraction",
+        action="store_true",
+        help="Skip extraction, reuse existing run directory (requires --run-dir)",
+    )
+    return parser.parse_args()
+
+
+def create_run_dir(output_dir: Path) -> Path:
+    """Create a timestamped run directory."""
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_dir = output_dir / timestamp
+    run_dir.mkdir(parents=True, exist_ok=True)
+    return run_dir
+
+
+def run_extraction(args: argparse.Namespace, run_dir: Path) -> None:
+    """Phase 1: Extract sections from PDF and generate master list."""
+    log.info("Phase 1: Extracting sections from %s", args.pdf)
+
+    if not args.pdf.exists():
+        print(f"Error: PDF not found: {args.pdf}")
+        sys.exit(1)
+
+    sections_path = run_dir / "sections_output.json"
+    master_list_path = run_dir / "master_list.json"
 
     sections = extract_all_sections(
-        pdf_path=PDF_SOURCE,
-        model_name=MODEL_NAME,
-        window_size=WINDOW_SIZE,
-        overlap=OVERLAP,
+        pdf_path=args.pdf,
+        model_name=args.model,
+        window_size=args.window_size,
+        overlap=args.overlap,
     )
 
-    save_sections_json(sections, OUTPUT_JSON)
+    save_sections_json(sections, sections_path)
+    log.info("Extracted %d sections → %s", len(sections), sections_path)
 
-    log.info("Done — extracted %d sections", len(sections))
+    log.info("Generating master list with summaries...")
+    master_list = generate_master_list(sections, model_name=args.model)
+    save_master_list(master_list, master_list_path)
+    log.info("Master list → %s", master_list_path)
 
-    # Quick summary to stdout
     print(f"\n{'─' * 60}")
-    print(f"  Extracted {len(sections)} sections from {PDF_SOURCE.name}")
-    print(f"  Output: {OUTPUT_JSON}")
+    print(f"  Extracted {len(sections)} sections from {args.pdf.name}")
+    print(f"  Output directory: {run_dir}")
+    print(f"  Sections: {sections_path.name}")
+    print(f"  Master List: {master_list_path.name}")
     print(f"{'─' * 60}\n")
 
     for s in sections:
         status = "✓" if s.is_complete else "… (continues)"
         print(f"  [{s.number}] {s.title}  (lines {s.start_line}–{s.end_line})  {status}")
-
     print()
+
+
+def run_analysis(args: argparse.Namespace, run_dir: Path) -> None:
+    """Phase 2: Run NIST CSF gap analysis on extracted sections."""
+    log.info("Phase 2: Running NIST CSF gap analysis")
+
+    master_list_path = run_dir / "master_list.json"
+    sections_path = run_dir / "sections_output.json"
+
+    if not master_list_path.exists():
+        print(f"Error: Master list not found: {master_list_path}")
+        print("Run extraction first (without --skip-extraction)")
+        sys.exit(1)
+
+    print(f"\n{'=' * 60}")
+    print("  NIST Cybersecurity Framework Gap Analysis")
+    print(f"{'=' * 60}")
+    print(f"\n  Policy: {args.pdf.name}")
+    print(f"  Model: {args.model}")
+    print(f"  Run directory: {run_dir}")
+    print(f"  Analyzing against all 6 NIST CSF functions:")
+    for i, func in enumerate(NIST_FUNCTIONS, 1):
+        print(f"    {i}. {func}")
+    print()
+
+    reports = run_gap_analysis(
+        master_list_path=master_list_path,
+        run_output_dir=run_dir,
+        model_name=args.model,
+        sections_path=sections_path,
+    )
+
+    save_gap_analysis_summary(reports, run_dir / "summary.json")
+
+    print(f"\n{'=' * 60}")
+    print("  Gap Analysis Complete!")
+    print(f"{'=' * 60}")
+    print(f"\n  All outputs in: {run_dir}/")
+    print("\n  Files:")
+    print(f"    - sections_output.json")
+    print(f"    - master_list.json")
+    for function in NIST_FUNCTIONS:
+        print(f"    - {function.lower()}_gap_analysis.md")
+    print(f"    - combined_gap_analysis.md")
+    print(f"    - consolidated_gap_analysis.md  ← Executive summary")
+    print(f"    - summary.json")
+    print()
+
+
+def main() -> None:
+    args = parse_args()
+
+    if args.skip_extraction:
+        if not args.run_dir:
+            print("Error: --skip-extraction requires --run-dir <path>")
+            sys.exit(1)
+        run_dir = args.run_dir
+    else:
+        run_dir = args.run_dir or create_run_dir(args.output_dir)
+
+    if not args.skip_extraction:
+        run_extraction(args, run_dir)
+
+    if not args.extract_only:
+        run_analysis(args, run_dir)
 
 
 if __name__ == "__main__":

@@ -49,3 +49,10 @@ class ValidationResult(BaseModel):
         default_factory=list,
         description='Section descriptions that were missed, e.g. "Section 5 Enforcement on LINE 9".',
     )
+
+
+class SummarizationResult(BaseModel):
+    """Result from the summarizer agent."""
+    summary: str | None = Field(
+        description="Concise summary of the section including main purpose, key requirements, and compliance points. Return null if the section is just a heading/title with no substantive content to summarize.",
+    )

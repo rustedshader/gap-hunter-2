@@ -63,3 +63,13 @@ class ChunkResult(BaseModel):
         default=None,
         description="Details of the incomplete section, if any. null otherwise.",
     )
+
+
+class SectionSummary(BaseModel):
+    """Summary of a policy section for master list."""
+
+    number: str = Field(description='Section number like "1", "2", "3.1"')
+    title: str = Field(description="Section heading")
+    summary: str = Field(description="Concise summary with key requirements")
+    start_line: int = Field(description="Starting line number")
+    end_line: int = Field(description="Ending line number")
