@@ -30,6 +30,21 @@ logger = logging.getLogger(__name__)
 # Pydantic schemas
 # ---------------------------------------------------------------------------
 
+class PolicyScopeClassification(BaseModel):
+    """Determines which NIST CSF functions are relevant to a policy document."""
+
+    relevant_functions: list[
+        Literal["Govern", "Identify", "Protect", "Detect", "Respond", "Recover"]
+    ] = Field(
+        description=(
+            "List of NIST CSF functions whose subject matter is relevant to "
+            "this policy document. For example, a Risk Management Policy is "
+            "relevant to Govern and Identify, but NOT to Protect, Detect, "
+            "Respond, or Recover."
+        ),
+    )
+
+
 class ScopeClassification(BaseModel):
     """Result of classifying which subcategories are within the policy's scope."""
 
@@ -78,7 +93,78 @@ class SubcategoryAssessment(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Scope classifier
+# Policy-level function classifier (runs ONCE before everything)
+# ---------------------------------------------------------------------------
+
+def classify_policy_functions(
+    policy_content: str,
+    model_name: str = "gemma4:e2b",
+) -> list[str]:
+    """
+    Determine which NIST CSF functions are relevant to this policy document.
+
+    Runs ONE LLM call. Irrelevant functions are skipped entirely — all their
+    subcategories are marked "Out of Scope" without any further LLM calls.
+
+    Args:
+        policy_content: Full customer policy text.
+        model_name: Ollama model name.
+
+    Returns:
+        List of relevant function names (e.g. ["Govern", "Identify"]).
+    """
+    logger.info("Classifying policy scope across NIST CSF functions...")
+
+    llm = ChatOllama(model=model_name, temperature=0)
+    structured_llm = llm.with_structured_output(PolicyScopeClassification)
+
+    prompt = f"""You are a cybersecurity policy analyst. Given the customer's policy
+document below, determine which NIST CSF functions are relevant to this policy's
+subject matter.
+
+The 6 NIST CSF functions are:
+- **Govern**: Risk management strategy, governance, roles, policy, oversight, supply chain risk
+- **Identify**: Asset management, risk assessment, improvement processes
+- **Protect**: Access control, awareness training, data security, platform security, resilience
+- **Detect**: Continuous monitoring, adverse event analysis, detection processes
+- **Respond**: Incident management, analysis, mitigation, communication
+- **Recover**: Recovery planning, improvements, recovery communication
+
+A function is "relevant" if the policy's TOPIC overlaps with that function's domain
+— even if coverage is weak. A function is NOT relevant if it belongs to a completely
+different policy domain.
+
+Examples:
+- "Risk Management Policy" → Govern, Identify
+- "Access Control Policy" → Protect, Govern
+- "Incident Response Policy" → Respond, Recover, Detect
+- "Information Security Policy" (broad) → Govern, Identify, Protect
+- "Data Privacy and Security Policy" → Protect, Govern
+
+## Customer Policy Document
+
+{policy_content}
+
+## Instructions
+Return ONLY the function names that are relevant to this policy's subject matter.
+"""
+
+    try:
+        result = structured_llm.invoke(prompt)
+        relevant = result.relevant_functions
+        logger.info(
+            "  Policy scope: %d/6 functions relevant — %s",
+            len(relevant),
+            ", ".join(relevant),
+        )
+        return relevant
+    except Exception as exc:
+        logger.warning("  Policy scope classification failed (%s), treating all as relevant", exc)
+        return ["Govern", "Identify", "Protect", "Detect", "Respond", "Recover"]
+
+
+# ---------------------------------------------------------------------------
+# Per-function subcategory scope classifier
 # ---------------------------------------------------------------------------
 
 def _build_scope_prompt(policy_content: str, subcategories: list[dict]) -> str:
@@ -203,7 +289,7 @@ def _compute_maturity(assessments: list[SubcategoryAssessment]) -> str:
     in_scope = [a for a in assessments if a.status != "Out of Scope"]
     total = len(in_scope)
     if total == 0:
-        return "Not Started"
+        return "N/A — No subcategories in scope for this policy type"
 
     score = sum(
         1.0 if a.status == "Addressed"

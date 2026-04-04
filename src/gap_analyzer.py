@@ -13,7 +13,13 @@ from datetime import datetime
 from pathlib import Path
 from typing import Literal
 
-from agents.nist_gap_agents import run_nist_gap_agent, build_consolidated_report, SubcategoryAssessment
+from agents.nist_gap_agents import (
+    run_nist_gap_agent,
+    build_consolidated_report,
+    classify_policy_functions,
+    SubcategoryAssessment,
+)
+from agents.gap_analysis_tools import get_function_subcategories
 
 _CONTENT_CHAR_LIMIT = 12_000  # per section, avoid overloading context window
 
@@ -130,12 +136,56 @@ def run_gap_analysis(
     policy_content = create_combined_policy_content(master_list, sections_path)
     logger.info("Built policy content (%d chars)", len(policy_content))
     
-    # Run each NIST function agent
+    # Step 1: Classify which NIST functions are relevant to this policy
+    logger.info("=" * 60)
+    logger.info("Step 1: Classifying policy scope")
+    logger.info("=" * 60)
+
+    relevant_functions = classify_policy_functions(policy_content, model_name)
+
+    skipped_functions = [f for f in NIST_FUNCTIONS if f not in relevant_functions]
+    if skipped_functions:
+        logger.info(
+            "Skipping %d irrelevant functions: %s",
+            len(skipped_functions),
+            ", ".join(skipped_functions),
+        )
+
+    # Step 2: Run agents for relevant functions, skip the rest
     reports: dict[str, str] = {}
     all_assessments: dict[str, list[SubcategoryAssessment]] = {}
 
     for function in NIST_FUNCTIONS:
         logger.info("=" * 60)
+
+        if function not in relevant_functions:
+            # Mark all subcategories as Out of Scope — zero LLM calls
+            logger.info("Skipping %s (out of scope for this policy)", function)
+            subcategories = get_function_subcategories(function)
+            out_assessments = []
+            for sub in subcategories:
+                policy_templates = ", ".join(sub.get("policies", [])) or "N/A"
+                out_assessments.append(
+                    SubcategoryAssessment(
+                        subcategory_id=sub["id"],
+                        title=sub.get("category", sub["id"]),
+                        status="Out of Scope",
+                        evidence="N/A — function not relevant to this policy type",
+                        gap=f"Requires dedicated policy: {policy_templates}",
+                        recommendation=policy_templates,
+                    )
+                )
+            all_assessments[function] = out_assessments
+
+            # Build a minimal report for this skipped function
+            from agents.nist_gap_agents import _assemble_function_report
+            report = _assemble_function_report(function, out_assessments)
+            reports[function] = report
+
+            report_path = run_output_dir / f"{function.lower()}_gap_analysis.md"
+            report_path.write_text(report)
+            continue
+
         logger.info("Analyzing NIST Function: %s", function)
         logger.info("=" * 60)
 
@@ -149,7 +199,6 @@ def run_gap_analysis(
             reports[function] = report
             all_assessments[function] = assessments
 
-            # Save individual report
             report_path = run_output_dir / f"{function.lower()}_gap_analysis.md"
             report_path.write_text(report)
             logger.info("Saved %s report to %s", function, report_path)
@@ -223,25 +272,6 @@ def save_gap_analysis_summary(reports: dict[str, str], output_path: Path, consol
 
 
 if __name__ == "__main__":
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s  %(levelname)-8s  %(name)s  %(message)s",
-        datefmt="%H:%M:%S",
-    )
-    
-    reports, run_dir = run_gap_analysis()
-    
-    # Save summary
-    save_gap_analysis_summary(reports, run_dir / "summary.json")
-    
-    print("\n" + "=" * 80)
-    print("  Gap Analysis Complete!")
-    print("=" * 80)
-    print(f"\nReports saved to: {run_dir}/")
-    print("\nGenerated reports:")
-    for function in NIST_FUNCTIONS:
-        print(f"  - {function.lower()}_gap_analysis.md")
-    print(f"  - combined_gap_analysis.md")
-    print(f"  - consolidated_gap_analysis.md  ← Final unified report")
-    print(f"  - summary.json")
-    print()
+    # Use src/main.py as the CLI entry point instead.
+    print("Use: python src/main.py <policy.pdf>")
+    print("Run: python src/main.py --help for options")
