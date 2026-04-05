@@ -7,6 +7,8 @@ requires-python = ">=3.13"
 dependencies = [
     "docling>=2.82.0",
     "duckdb>=1.5.1",
+    "langchain-community>=0.4.1",
     "langchain-ollama>=1.0.1",
+    "llama-cpp-python>=0.3.20",
     "pydantic>=2.0",
 ]

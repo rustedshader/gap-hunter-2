@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import logging
 
-from langchain_ollama import ChatOllama
+from langchain_community.chat_models import ChatLlamaCpp
 
 from models import ExtractedSection
 from agents.schemas import SummarizationResult
@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 def run_summarizer(
-    llm: ChatOllama,
+    llm: ChatLlamaCpp,
     section: ExtractedSection,
 ) -> str | None:
     """Run the summarizer agent on a single section."""

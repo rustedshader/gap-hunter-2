@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import logging
 
-from langchain_ollama import ChatOllama
+from langchain_community.chat_models import ChatLlamaCpp
 
 from agents.schemas import ExtractionResult, ValidationResult
 from prompts.validator_prompt import VALIDATOR_SYSTEM
@@ -28,7 +28,7 @@ def format_extraction_for_review(extraction: ExtractionResult) -> str:
 
 
 def run_validator(
-    llm: ChatOllama,
+    llm: ChatLlamaCpp,
     chunk_text: str,
     extraction: ExtractionResult,
 ) -> ValidationResult:

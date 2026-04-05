@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import logging
 
-from langchain_ollama import ChatOllama
+from langchain_community.chat_models import ChatLlamaCpp
 
 from agents.schemas import ExtractionResult, ValidationResult
 from agents.validator_agent import format_extraction_for_review
@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 
 def run_corrector(
-    llm: ChatOllama,
+    llm: ChatLlamaCpp,
     chunk_text: str,
     extraction: ExtractionResult,
     validation: ValidationResult,

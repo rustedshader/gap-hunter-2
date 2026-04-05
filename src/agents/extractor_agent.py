@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import logging
 
-from langchain_ollama import ChatOllama
+from langchain_community.chat_models import ChatLlamaCpp
 
 from models import IncompleteSection
 from agents.schemas import ExtractionResult
@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 
 def run_extractor(
-    llm: ChatOllama,
+    llm: ChatLlamaCpp,
     chunk_text: str,
     start_line: int,
     end_line: int,

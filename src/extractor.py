@@ -18,7 +18,7 @@ import logging
 from pathlib import Path
 from typing import Generator
 
-from langchain_ollama import ChatOllama
+from llm import create_llm
 
 from models import (
     ChunkResult,
@@ -164,7 +164,7 @@ def build_windows(
 # ──────────────────────────────────────────────
 
 def extract_sections_from_chunk(
-    llm: ChatOllama,
+    llm,
     chunk_text: str,
     doc_lines: list[tuple[int, str]],
     start_line: int,
@@ -386,7 +386,7 @@ def extract_all_sections(
     logger.info("Rule-based detection insufficient, falling back to LLM pipeline")
 
     # ── LLM fallback ──
-    llm = ChatOllama(model=model_name, temperature=0)
+    llm = create_llm()
     windows = list(build_windows(doc_lines, window_size, overlap))
     logger.info("Processing %d windows (size=%d, overlap=%d)", len(windows), window_size, overlap)
 
@@ -455,7 +455,7 @@ def generate_master_list(
     from agents.summarizer_agent import run_summarizer
     from models import SectionSummary
     
-    llm = ChatOllama(model=model_name, temperature=0)
+    llm = create_llm()
     master_list = []
     
     logger.info("Generating master list for %d sections", len(sections))

@@ -19,10 +19,24 @@ from gap_analyzer import run_gap_analysis, save_gap_analysis_summary, NIST_FUNCT
 
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s  %(levelname)-8s  %(name)s  %(message)s",
+    format="%(asctime)s  %(levelname)-8s  %(name)-40s  %(message)s",
     datefmt="%H:%M:%S",
 )
 log = logging.getLogger(__name__)
+
+
+def _setup_debug_file_log(run_dir: Path) -> None:
+    """Add a DEBUG-level file handler writing to run_dir/debug.log."""
+    debug_path = run_dir / "debug.log"
+    fh = logging.FileHandler(debug_path, mode="a", encoding="utf-8")
+    fh.setLevel(logging.DEBUG)
+    fh.setFormatter(logging.Formatter(
+        "%(asctime)s  %(levelname)-8s  %(name)-40s  %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    ))
+    logging.getLogger().addHandler(fh)
+    logging.getLogger().setLevel(logging.DEBUG)
+    log.info("Debug log → %s", debug_path)
 
 
 def parse_args() -> argparse.Namespace:
@@ -165,9 +179,12 @@ def run_analysis(args: argparse.Namespace, run_dir: Path) -> None:
     print(f"    - master_list.json")
     for function in NIST_FUNCTIONS:
         print(f"    - {function.lower()}_gap_analysis.md")
+        print(f"    - {function.lower()}_gap_summary.md   ← Executive summary")
     print(f"    - combined_gap_analysis.md")
-    print(f"    - consolidated_gap_analysis.md  ← Executive summary")
+    print(f"    - consolidated_gap_analysis.md")
+    print(f"    - master_gap_summary.md         ← Master executive summary")
     print(f"    - summary.json")
+    print(f"    - debug.log                     ← Full debug trace")
     print()
 
 
@@ -181,6 +198,8 @@ def main() -> None:
         run_dir = args.run_dir
     else:
         run_dir = args.run_dir or create_run_dir(args.output_dir)
+
+    _setup_debug_file_log(run_dir)
 
     if not args.skip_extraction:
         run_extraction(args, run_dir)

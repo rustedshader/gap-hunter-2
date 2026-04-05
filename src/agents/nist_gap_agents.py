@@ -16,8 +16,9 @@ from __future__ import annotations
 import logging
 from typing import Literal
 
-from langchain_ollama import ChatOllama
 from pydantic import BaseModel, Field
+
+from llm import create_llm
 
 from agents.gap_analysis_tools import (
     get_function_subcategories,
@@ -108,14 +109,14 @@ def classify_policy_functions(
 
     Args:
         policy_content: Full customer policy text.
-        model_name: Ollama model name.
+        model_name: Model name (kept for interface compat).
 
     Returns:
         List of relevant function names (e.g. ["Govern", "Identify"]).
     """
     logger.info("Classifying policy scope across NIST CSF functions...")
 
-    llm = ChatOllama(model=model_name, temperature=0)
+    llm = create_llm()
     structured_llm = llm.with_structured_output(PolicyScopeClassification)
 
     prompt = f"""You are a cybersecurity policy analyst. Given the customer's policy
@@ -203,7 +204,7 @@ matter. Do NOT include subcategories that require a completely different policy 
 def _classify_scope(
     policy_content: str,
     subcategories: list[dict],
-    llm: ChatOllama,
+    llm,
 ) -> set[str]:
     """
     Classify which subcategories are in-scope for the given policy.
@@ -211,7 +212,7 @@ def _classify_scope(
     Args:
         policy_content: Customer policy text.
         subcategories: List of subcategory dicts for one NIST function.
-        llm: ChatOllama instance.
+        llm: LLM instance.
 
     Returns:
         Set of subcategory IDs that are in-scope.
@@ -420,7 +421,7 @@ def run_nist_gap_agent(
 
     logger.info("  %d total subcategories for %s", len(subcategories), function_name)
 
-    llm = ChatOllama(model=model_name, temperature=0)
+    llm = create_llm()
 
     # Step 1: Scope classification
     logger.info("  Step 1: Classifying scope...")
@@ -495,6 +496,7 @@ NIST_FUNCTION_ORDER = ["Govern", "Identify", "Protect", "Detect", "Respond", "Re
 
 def build_consolidated_report(
     all_assessments: dict[str, list[SubcategoryAssessment]],
+    summaries: dict | None = None,
 ) -> str:
     """
     Build the consolidated gap analysis report from structured assessment data.
@@ -505,6 +507,7 @@ def build_consolidated_report(
 
     Args:
         all_assessments: Mapping of function name → list of SubcategoryAssessment.
+        summaries: Optional mapping of function name → FunctionGapSummary.
 
     Returns:
         Consolidated markdown report.
@@ -569,6 +572,24 @@ def build_consolidated_report(
     else:
         lines.append("- **Critical Finding**: All in-scope subcategories have at least partial coverage.")
     lines.append("")
+
+    # ---- Section 1.5: Per-Function Executive Summaries ----
+    if summaries:
+        lines.append("## 1.5 Per-Function Executive Summaries\n")
+        for fn in NIST_FUNCTION_ORDER:
+            s = summaries.get(fn)
+            if s is None:
+                continue
+            lines.append(f"### {fn}")
+            lines.append(f"**Maturity**: {s.maturity_rating}\n")
+            lines.append(s.executive_summary)
+            lines.append("")
+            if s.critical_gaps:
+                lines.append("**Critical Gaps:**")
+                for gap in s.critical_gaps[:3]:
+                    lines.append(f"- {gap}")
+                lines.append("")
+        lines.append("")
 
     # ---- Section 2: Maturity by Function ----
     lines.append("## 2. Maturity by Function")
