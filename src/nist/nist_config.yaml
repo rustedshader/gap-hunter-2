@@ -719,6 +719,7 @@ NIST_Cybersecurity_Framework:
               - Access Control Policy
               - Account Management/Access Control Standard
               - Identification and Authentication Policy
+              - Information Security Policy
               - Security Assessment and Authorization Policy
 
           - ID: ID.AM-2
@@ -740,6 +741,7 @@ NIST_Cybersecurity_Framework:
               - Access Control Policy
               - Account Management/Access Control Standard
               - Identification and Authentication Policy
+              - Information Security Policy
               - Security Assessment and Authorization Policy
 
           - ID: ID.AM-3
@@ -792,6 +794,7 @@ NIST_Cybersecurity_Framework:
               - "Does asset classification influence which controls are applied?"
             Policies:
               - Information Classification Standard
+              - Information Security Policy
 
           - ID: ID.AM-7
             Description: >
@@ -1761,6 +1764,7 @@ NIST_Cybersecurity_Framework:
               - Computer Security Threat Response Policy
               - Cyber Incident Response Standard
               - Incident Response Policy
+              - Information Security Policy
 
           - ID: DE.AE-07
             Description: >
@@ -1803,6 +1807,7 @@ NIST_Cybersecurity_Framework:
               - Computer Security Threat Response Policy
               - Cyber Incident Response Standard
               - Incident Response Policy
+              - Information Security Policy
               - System and Information Integrity Policy
               - Vulnerability Scanning Standard
 
