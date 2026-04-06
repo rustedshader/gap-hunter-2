@@ -84,6 +84,11 @@ def parse_args() -> argparse.Namespace:
         help="Only extract sections, skip gap analysis",
     )
     parser.add_argument(
+        "--skip-revision",
+        action="store_true",
+        help="Skip policy revision (Phase 3) after gap analysis",
+    )
+    parser.add_argument(
         "--skip-extraction",
         action="store_true",
         help="Skip extraction, reuse existing run directory (requires --run-dir)",
@@ -188,6 +193,48 @@ def run_analysis(args: argparse.Namespace, run_dir: Path) -> None:
     print()
 
 
+def run_revision(args: argparse.Namespace, run_dir: Path) -> None:
+    """Phase 3: Generate revised policy from gap analysis results."""
+    from policy_reviser import run_policy_revision
+
+    log.info("Phase 3: Generating revised policy")
+
+    sections_path = run_dir / "sections_output.json"
+    assessments_path = run_dir / "assessments.json"
+
+    if not assessments_path.exists():
+        print(f"Error: Assessments not found: {assessments_path}")
+        print("Run gap analysis first (Phase 2 generates assessments.json)")
+        sys.exit(1)
+
+    run_policy_revision(
+        sections_path=sections_path,
+        assessments_path=assessments_path,
+        run_output_dir=run_dir,
+        model_name=args.model,
+    )
+
+    print(f"\n{'=' * 60}")
+    print("  Policy Revision Complete!")
+    print(f"{'=' * 60}")
+    print(f"\n  All outputs in: {run_dir}/")
+    print("\n  Files:")
+    print(f"    - sections_output.json")
+    print(f"    - master_list.json")
+    for function in NIST_FUNCTIONS:
+        print(f"    - {function.lower()}_gap_analysis.md")
+        print(f"    - {function.lower()}_gap_summary.md   ← Executive summary")
+    print(f"    - combined_gap_analysis.md")
+    print(f"    - consolidated_gap_analysis.md")
+    print(f"    - master_gap_summary.md         ← Master executive summary")
+    print(f"    - revised_policy.md             ← Revised policy document")
+    print(f"    - revision_report.md            ← Revision changelog")
+    print(f"    - improvement_roadmap.md        ← Improvement roadmap")
+    print(f"    - summary.json")
+    print(f"    - debug.log                     ← Full debug trace")
+    print()
+
+
 def main() -> None:
     args = parse_args()
 
@@ -206,6 +253,9 @@ def main() -> None:
 
     if not args.extract_only:
         run_analysis(args, run_dir)
+
+    if not args.extract_only and not args.skip_revision:
+        run_revision(args, run_dir)
 
 
 if __name__ == "__main__":

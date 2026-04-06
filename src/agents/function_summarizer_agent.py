@@ -543,21 +543,67 @@ def _aggregate_stats(summaries: dict[str, FunctionGapSummary]) -> dict:
 def _compute_strongest_weakest(
     summaries: dict[str, FunctionGapSummary],
 ) -> tuple[str, str]:
-    """Return (strongest, weakest) function names based on coverage ratios."""
-    best_name, best_ratio = "N/A", -1.0
-    worst_name, worst_not_addressed = "N/A", -1
+    """Return (strongest, weakest) function names based on coverage ratios.
 
-    for name, s in summaries.items():
-        if s.in_scope_count > 0:
-            ratio = s.addressed_count / s.in_scope_count
-            if ratio > best_ratio:
-                best_ratio = ratio
-                best_name = name
-            if s.not_addressed_count > worst_not_addressed:
-                worst_not_addressed = s.not_addressed_count
-                worst_name = name
+    Strongest = highest addressed/in_scope ratio.
+    Weakest = most not_addressed in-scope gaps.
+    When functions are tied, reports the tie honestly rather than forcing
+    a false distinction.
+    """
+    in_scope_funcs = [
+        (name, s) for name, s in summaries.items() if s.in_scope_count > 0
+    ]
+    if not in_scope_funcs:
+        return "N/A", "N/A"
+    if len(in_scope_funcs) == 1:
+        name = in_scope_funcs[0][0]
+        return name, name
+
+    # Compute ratios
+    scored = []
+    for name, s in in_scope_funcs:
+        ratio = s.addressed_count / s.in_scope_count
+        scored.append((name, ratio, s.not_addressed_count))
+
+    # Strongest: highest addressed ratio
+    strongest_sorted = sorted(scored, key=lambda x: (x[1], -x[2]), reverse=True)
+    best = strongest_sorted[0]
+    # Check for tie at the top
+    tied_best = [s for s in strongest_sorted if s[1] == best[1] and s[2] == best[2]]
+    if len(tied_best) > 1:
+        best_name = "Tied (" + ", ".join(s[0] for s in tied_best) + ")"
+    else:
+        best_name = best[0]
+
+    # Weakest: most not_addressed
+    weakest_sorted = sorted(scored, key=lambda x: (x[2], -x[1]), reverse=True)
+    worst = weakest_sorted[0]
+    # Check for tie at the bottom
+    tied_worst = [s for s in weakest_sorted if s[2] == worst[2] and s[1] == worst[1]]
+    if len(tied_worst) > 1:
+        worst_name = "Tied (" + ", ".join(s[0] for s in tied_worst) + ")"
+    else:
+        worst_name = worst[0]
 
     return best_name, worst_name
+
+
+def _collect_all_critical_gaps(summaries: dict[str, FunctionGapSummary]) -> list[str]:
+    """Collect ALL critical gaps across functions, labelled with function name."""
+    gaps: list[str] = []
+    for name, s in summaries.items():
+        if s.in_scope_count > 0:
+            for g in s.critical_gaps:
+                gaps.append(f"[{name}] {g}")
+    return gaps
+
+
+def _collect_all_missing_docs(summaries: dict[str, FunctionGapSummary]) -> list[str]:
+    """Deduplicated list of missing policy documents across ALL functions."""
+    all_docs: set[str] = set()
+    for s in summaries.values():
+        all_docs.update(s.required_policy_documents)
+    return sorted(all_docs)
 
 
 def _format_function_summaries_for_prompt(
@@ -586,6 +632,10 @@ def _format_function_summaries_for_prompt(
     agg = _aggregate_stats(summaries)
     strongest, weakest = _compute_strongest_weakest(summaries)
 
+    # Pre-computed fields the LLM must use verbatim
+    all_gaps = _collect_all_critical_gaps(summaries)
+    all_docs = _collect_all_missing_docs(summaries)
+
     parts.append(
         f"\n## Aggregate Statistics (use these EXACT numbers)\n\n"
         f"Total subcategories: {agg['total']}\n"
@@ -594,8 +644,12 @@ def _format_function_summaries_for_prompt(
         f"Total partially addressed: {agg['partially_addressed']}\n"
         f"Total not addressed: {agg['not_addressed']}\n"
         f"Total out of scope: {agg['out_of_scope']}\n\n"
-        f"Strongest function (highest addressed ratio): {strongest}\n"
-        f"Weakest function (most not-addressed in-scope): {weakest}"
+        f"Strongest function: {strongest}\n"
+        f"Weakest function: {weakest}\n\n"
+        f"## Pre-Computed Top Critical Gaps (include ALL of these equally)\n\n"
+        + "\n".join(f"- {g}" for g in all_gaps)
+        + f"\n\n## Pre-Computed Missing Policy Documents (include ALL of these)\n\n"
+        + "\n".join(f"- {d}" for d in all_docs)
     )
 
     return "\n\n".join(parts)
@@ -739,7 +793,7 @@ The previous master summary was rejected for these reasons. You MUST fix all of 
             {"role": "user", "content": prompt},
         ])
         logger.info("  Master Summarizer: Generated (%d char executive summary)", len(result.executive_summary))
-        _debug_log_master_summary("Master Summarizer output", result)
+        _debug_log_master_summary("Master Summarizer output (raw LLM)", result)
         return result
     except Exception as exc:
         logger.warning("  Master Summarizer failed after all retries: %s — building fallback", exc)
@@ -783,13 +837,45 @@ def run_master_validator(
         if got != expected:
             stat_issues.append(f"Wrong number: {field} is {got}, should be {expected}")
 
-    if master_summary.strongest_function != strongest:
+    # For ties, accept any function name that's part of the tie
+    def _check_function_field(generated: str, expected: str, field_name: str) -> str | None:
+        if expected.startswith("Tied ("):
+            # Extract tied function names; accept any of them or the full "Tied (...)" string
+            tied_names = [n.strip() for n in expected[6:-1].split(",")]
+            if generated not in tied_names and generated != expected:
+                return (
+                    f"Wrong {field_name}: '{generated}', should be one of "
+                    f"{tied_names} (these functions are tied)"
+                )
+        elif generated != expected:
+            return f"Wrong {field_name}: '{generated}', should be '{expected}'"
+        return None
+
+    issue = _check_function_field(master_summary.strongest_function, strongest, "strongest_function")
+    if issue:
+        stat_issues.append(issue)
+    issue = _check_function_field(master_summary.weakest_function, weakest, "weakest_function")
+    if issue:
+        stat_issues.append(issue)
+
+    # Check missing policy documents — every expected doc must be present
+    expected_docs = set(_collect_all_missing_docs(summaries))
+    generated_docs = set(master_summary.missing_policy_documents)
+    missing_docs = expected_docs - generated_docs
+    if missing_docs:
         stat_issues.append(
-            f"Wrong strongest_function: '{master_summary.strongest_function}', should be '{strongest}'"
+            f"Missing policy documents dropped: {len(missing_docs)} of "
+            f"{len(expected_docs)} not included: "
+            + ", ".join(sorted(missing_docs)[:5])
+            + ("..." if len(missing_docs) > 5 else "")
         )
-    if master_summary.weakest_function != weakest:
+
+    # Check critical gaps — every in-scope function's gaps must be represented
+    expected_gaps = _collect_all_critical_gaps(summaries)
+    if len(master_summary.top_critical_gaps) < len(expected_gaps):
         stat_issues.append(
-            f"Wrong weakest_function: '{master_summary.weakest_function}', should be '{weakest}'"
+            f"Critical gaps dropped: only {len(master_summary.top_critical_gaps)} of "
+            f"{len(expected_gaps)} included. All in-scope functions' gaps must be represented."
         )
 
     if stat_issues:
@@ -798,7 +884,7 @@ def run_master_validator(
             logger.warning("    - %s", issue)
         return SummaryValidationResult(is_acceptable=False, issues=stat_issues)
 
-    logger.info("  Master Validator: stats + strongest/weakest verified by code ✓")
+    logger.info("  Master Validator: all factual fields verified by code ✓")
 
     # ── LLM-based qualitative check (fabrication + garbled text only) ──
     llm = create_llm()
@@ -915,10 +1001,68 @@ def run_master_summarize_with_validation(
         )
 
     logger.warning(
-        "  Master summary: max retries (%d) reached — using last generated",
+        "  Master summary: max retries (%d) reached — code-correcting failed fields only",
         MAX_RETRIES,
     )
-    _debug_log_master_summary("Final (unvalidated) — Master", master_summary)
+
+    # Code-correct ONLY the specific fields the validator flagged.
+    # The LLM tried 3 times and couldn't get these right — fix them surgically.
+    agg = _aggregate_stats(summaries)
+    strongest, weakest = _compute_strongest_weakest(summaries)
+    all_gaps = _collect_all_critical_gaps(summaries)
+    all_docs = _collect_all_missing_docs(summaries)
+
+    corrections: list[str] = []
+
+    # Fix stats if wrong
+    stat_fields = [
+        ("total_subcategories", "total"), ("total_in_scope", "in_scope"),
+        ("total_addressed", "addressed"), ("total_partially_addressed", "partially_addressed"),
+        ("total_not_addressed", "not_addressed"), ("total_out_of_scope", "out_of_scope"),
+    ]
+    for attr, key in stat_fields:
+        if getattr(master_summary, attr) != agg[key]:
+            corrections.append(f"{attr}: {getattr(master_summary, attr)} → {agg[key]}")
+            setattr(master_summary, attr, agg[key])
+
+    # Fix strongest/weakest if wrong
+    def _is_valid_for_field(generated: str, expected: str) -> bool:
+        if expected.startswith("Tied ("):
+            tied_names = [n.strip() for n in expected[6:-1].split(",")]
+            return generated in tied_names or generated == expected
+        return generated == expected
+
+    if not _is_valid_for_field(master_summary.strongest_function, strongest):
+        corrections.append(f"strongest_function: '{master_summary.strongest_function}' → '{strongest}'")
+        master_summary.strongest_function = strongest
+    if not _is_valid_for_field(master_summary.weakest_function, weakest):
+        corrections.append(f"weakest_function: '{master_summary.weakest_function}' → '{weakest}'")
+        master_summary.weakest_function = weakest
+
+    # Fix missing docs if dropped
+    expected_doc_set = set(all_docs)
+    generated_doc_set = set(master_summary.missing_policy_documents)
+    if expected_doc_set - generated_doc_set:
+        dropped = len(expected_doc_set - generated_doc_set)
+        corrections.append(f"missing_policy_documents: {dropped} docs were dropped, restoring full list")
+        master_summary.missing_policy_documents = all_docs
+
+    # Fix critical gaps if dropped
+    if len(master_summary.top_critical_gaps) < len(all_gaps):
+        corrections.append(
+            f"top_critical_gaps: {len(master_summary.top_critical_gaps)} → {len(all_gaps)} "
+            f"(restoring gaps from all in-scope functions)"
+        )
+        master_summary.top_critical_gaps = all_gaps
+
+    if corrections:
+        logger.warning("  Code-corrected %d fields after max retries:", len(corrections))
+        for c in corrections:
+            logger.warning("    - %s", c)
+    else:
+        logger.info("  No code corrections needed — last LLM attempt was correct")
+
+    _debug_log_master_summary("Final (after code-correction) — Master", master_summary)
     return master_summary
 
 

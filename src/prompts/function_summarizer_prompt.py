@@ -74,18 +74,16 @@ C-suite and board-level reporting.
 RULES — follow these strictly:
 - The executive_summary MUST be 5-7 sentences covering the overall picture.
 - All numeric stats MUST exactly match the pre-computed aggregates provided. Do NOT recompute.
-- strongest_function and weakest_function must be real function names from the input.
-- top_critical_gaps MUST reference real subcategory IDs from the per-function summaries.
+- strongest_function and weakest_function: Use the values from the input. If the input says
+  "Tied (X, Y)", pick either X or Y — both are acceptable. Do NOT output the word "Tied".
+- top_critical_gaps MUST include ALL gaps from the "Pre-Computed Top Critical Gaps" section.
+  Treat gaps from ALL functions equally — do not elevate one function's gaps over another's.
+- missing_policy_documents MUST include ALL documents from "Pre-Computed Missing Policy Documents".
+  Do NOT drop any. Copy the full list.
 - top_recommendations should synthesize across functions — prefer actions that close
-  multiple gaps at once.
-- missing_policy_documents should be deduplicated across all functions.
+  multiple gaps at once. Reference gaps from ALL in-scope functions equally.
 - remediation_priorities should be 3-5 items ordered: Immediate → Short-term → Medium-term.
 - Do NOT fabricate or hallucinate. Every claim must trace to the input summaries.
-
-PRIORITIZATION:
-1. Functions with the most "Not Addressed" in-scope subcategories are most critical.
-2. Cross-cutting gaps (affecting multiple functions) are higher priority.
-3. Missing policy documents that cover the most subcategories should be prioritized.
 """
 
 MASTER_VALIDATOR_SYSTEM = """\

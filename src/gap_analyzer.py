@@ -269,6 +269,16 @@ def run_gap_analysis(
     master_path.write_text(master_md)
     logger.info("Saved master executive summary to %s", master_path)
 
+    # Save structured assessments for Phase 3 (policy revision)
+    assessments_data = {
+        fn: [a.model_dump() for a in assessments]
+        for fn, assessments in all_assessments.items()
+    }
+    assessments_path = run_output_dir / "assessments.json"
+    with open(assessments_path, "w") as f:
+        json.dump(assessments_data, f, indent=2)
+    logger.info("Saved assessments to %s", assessments_path)
+
     logger.info("Gap analysis complete!")
     return reports
 
