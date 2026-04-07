@@ -5,8 +5,12 @@ Tools for NIST gap analysis agents to access framework documents and config.
 from __future__ import annotations
 
 import yaml
-from pathlib import Path
 from pydantic import BaseModel, Field
+
+from resource_paths import resource_path
+
+_NIST_CONFIG_PATH = resource_path("nist/nist_config.yaml")
+_FRAMEWORK_DOCS_DIR = resource_path("nist/framework-documents")
 
 
 class ReadFrameworkDocumentTool(BaseModel):
@@ -39,7 +43,7 @@ def read_framework_document(document_name: str) -> str:
     if not document_name.endswith(".md"):
         document_name = f"{document_name}.md"
 
-    doc_path = Path("src/nist/framework-documents") / document_name
+    doc_path = _FRAMEWORK_DOCS_DIR / document_name
 
     if not doc_path.exists():
         return f"Error: Document '{document_name}' not found in framework-documents directory."
@@ -57,9 +61,7 @@ def get_nist_function_info(function_name: str) -> dict:
     Returns:
         Dictionary with function description and subcategories
     """
-    config_path = Path("src/nist/nist_config.yaml")
-
-    with open(config_path, "r") as f:
+    with open(_NIST_CONFIG_PATH, "r") as f:
         config = yaml.safe_load(f)
 
     # Find the function in the framework
@@ -76,8 +78,7 @@ def get_nist_function_info(function_name: str) -> dict:
 
 def list_framework_documents() -> list[str]:
     """List all available NIST framework documents."""
-    docs_dir = Path("src/nist/framework-documents")
-    return [f.stem for f in docs_dir.glob("*.md")]
+    return [f.stem for f in _FRAMEWORK_DOCS_DIR.glob("*.md")]
 
 
 def build_function_context(function_name: str) -> str:
@@ -94,8 +95,7 @@ def build_function_context(function_name: str) -> str:
         Formatted string listing every subcategory with description,
         implementation guidance, key questions, and required policy templates.
     """
-    config_path = Path("src/nist/nist_config.yaml")
-    with open(config_path, "r") as f:
+    with open(_NIST_CONFIG_PATH, "r") as f:
         config = yaml.safe_load(f)
 
     func_data = None
@@ -153,8 +153,7 @@ def get_function_subcategories(function_name: str) -> list[dict]:
     Returns:
         List of dicts, one per subcategory.
     """
-    config_path = Path("src/nist/nist_config.yaml")
-    with open(config_path, "r") as f:
+    with open(_NIST_CONFIG_PATH, "r") as f:
         config = yaml.safe_load(f)
 
     func_data = None
@@ -198,7 +197,7 @@ def get_framework_excerpt(policy_names: list[str], max_chars: int = 600) -> str:
     Returns:
         Concatenated excerpt string, or a note if no documents could be loaded.
     """
-    docs_dir = Path("src/nist/framework-documents")
+    docs_dir = _FRAMEWORK_DOCS_DIR
     parts: list[str] = []
     chars_remaining = max_chars
 

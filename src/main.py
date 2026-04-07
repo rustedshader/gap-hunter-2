@@ -10,6 +10,7 @@ Usage:
 
 import argparse
 import logging
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -26,6 +27,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s  %(levelname)-8s  %(name)-40s  %(message)s",
     datefmt="%H:%M:%S",
+    force=True,
 )
 log = logging.getLogger(__name__)
 
@@ -61,7 +63,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--model",
         default="gemma4:e2b",
-        help="Ollama model name (default: gemma4:e2b)",
+        help="LLM model name (default: gemma4:e2b)",
+    )
+    parser.add_argument(
+        "--ollama-url",
+        default=None,
+        help="Ollama base URL (e.g. http://localhost:11434)",
+    )
+    parser.add_argument(
+        "--llm-provider",
+        choices=["ollama", "llamacpp"],
+        default=None,
+        help="LLM provider override (ollama or llamacpp)",
+    )
+    parser.add_argument(
+        "--gguf-model-path",
+        type=Path,
+        default=None,
+        help="Path to local GGUF model (required for llamacpp)",
     )
     parser.add_argument(
         "--output-dir",
@@ -112,6 +131,31 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     return parser.parse_args()
+
+
+def _configure_llm_env(args: argparse.Namespace) -> None:
+    if args.model:
+        os.environ["LLM_MODEL"] = args.model
+    if args.ollama_url:
+        os.environ["OLLAMA_URL"] = args.ollama_url
+    if args.llm_provider:
+        os.environ["LLM_PROVIDER"] = args.llm_provider
+    if args.gguf_model_path:
+        os.environ["GGUF_MODEL_PATH"] = str(args.gguf_model_path)
+
+
+def _validate_llm_args(args: argparse.Namespace) -> None:
+    provider = args.llm_provider or ("ollama" if args.ollama_url else "llamacpp")
+
+    if provider == "ollama":
+        if not args.ollama_url and not os.environ.get("OLLAMA_URL") and not os.environ.get("OLLAMA_HOST"):
+            print("Error: --ollama-url is required when using provider=ollama")
+            sys.exit(1)
+        return
+
+    if not args.gguf_model_path and not os.environ.get("GGUF_MODEL_PATH"):
+        print("Error: --gguf-model-path is required for provider=llamacpp (or set GGUF_MODEL_PATH)")
+        sys.exit(1)
 
 
 def create_run_dir(output_dir: Path) -> Path:
@@ -257,6 +301,8 @@ def run_revision(args: argparse.Namespace, run_dir: Path) -> None:
 
 def main() -> None:
     args = parse_args()
+    _configure_llm_env(args)
+    _validate_llm_args(args)
 
     # --revision-only: skip straight to Phase 3 using an existing run directory
     if args.revision_only:

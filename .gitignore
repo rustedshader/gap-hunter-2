@@ -10,3 +10,13 @@ wheels/
 .venv
 gap_analysis_reports
 .DS_Store
+
+# Electron app
+app/node_modules/
+app/dist/
+app/.vite/
+app/resources/backend/
+
+# Packaging output
+packaging/build/
+packaging/dist/
