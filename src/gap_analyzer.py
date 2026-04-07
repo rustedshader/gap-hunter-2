@@ -33,23 +33,20 @@ _CONTENT_CHAR_LIMIT = 12_000  # per section, avoid overloading context window
 
 logger = logging.getLogger(__name__)
 
-NIST_FUNCTIONS: list[Literal["Govern", "Identify", "Protect", "Detect", "Respond", "Recover"]] = [
-    "Govern",
-    "Identify", 
-    "Protect",
-    "Detect",
-    "Respond",
-    "Recover"
-]
+NIST_FUNCTIONS: list[
+    Literal["Govern", "Identify", "Protect", "Detect", "Respond", "Recover"]
+] = ["Govern", "Identify", "Protect", "Detect", "Respond", "Recover"]
 
 
 def load_master_list(master_list_path: Path) -> list[dict]:
     """Load the master list JSON file."""
-    with open(master_list_path, 'r') as f:
+    with open(master_list_path, "r") as f:
         return json.load(f)
 
 
-def create_combined_policy_content(master_list: list[dict], sections_path: Path | None = None) -> str:
+def create_combined_policy_content(
+    master_list: list[dict], sections_path: Path | None = None
+) -> str:
     """
     Build a rich policy content string for gap analysis agents.
 
@@ -143,7 +140,7 @@ def run_gap_analysis(
     # Build rich policy content (full text preferred over summaries)
     policy_content = create_combined_policy_content(master_list, sections_path)
     logger.info("Built policy content (%d chars)", len(policy_content))
-    
+
     # Step 1: Classify which NIST functions are relevant to this policy
     logger.info("=" * 60)
     logger.info("Step 1: Classifying policy scope")
@@ -188,6 +185,7 @@ def run_gap_analysis(
 
             # Build a minimal report for this skipped function
             from agents.nist_gap_agents import _assemble_function_report
+
             report = _assemble_function_report(function, out_assessments)
             reports[function] = report
 
@@ -207,10 +205,22 @@ def run_gap_analysis(
         logger.info("=" * 60)
 
         try:
+            # Load raw sections for Map phase (parallel section scanning)
+            raw_sections: list[dict] | None = None
+            if sections_path and sections_path.exists():
+                try:
+                    import json as _json
+
+                    with open(sections_path) as _f:
+                        raw_sections = _json.load(_f)
+                except Exception:
+                    pass
+
             report, assessments = run_nist_gap_agent(
                 function_name=function,
                 policy_content=policy_content,
                 model_name=model_name,
+                policy_sections=raw_sections,
             )
 
             reports[function] = report
@@ -288,12 +298,14 @@ def create_combined_report(reports: dict[str, str]) -> str:
     lines = []
     lines.append("# NIST Cybersecurity Framework Gap Analysis Report")
     lines.append("")
-    lines.append("This report provides a comprehensive gap analysis of the organization's policies")
+    lines.append(
+        "This report provides a comprehensive gap analysis of the organization's policies"
+    )
     lines.append("against the NIST Cybersecurity Framework 2.0.")
     lines.append("")
     lines.append("=" * 80)
     lines.append("")
-    
+
     for function in NIST_FUNCTIONS:
         lines.append(f"## {function} Function Analysis")
         lines.append("")
@@ -301,11 +313,13 @@ def create_combined_report(reports: dict[str, str]) -> str:
         lines.append("")
         lines.append("=" * 80)
         lines.append("")
-    
+
     return "\n".join(lines)
 
 
-def save_gap_analysis_summary(reports: dict[str, str], output_path: Path, consolidated: bool = True) -> None:
+def save_gap_analysis_summary(
+    reports: dict[str, str], output_path: Path, consolidated: bool = True
+) -> None:
     """Save a JSON summary of gap analysis results."""
     summary = {
         "timestamp": datetime.now().isoformat(),
@@ -314,15 +328,15 @@ def save_gap_analysis_summary(reports: dict[str, str], output_path: Path, consol
         "reports": {
             func: {
                 "length": len(report),
-                "preview": report[:200] + "..." if len(report) > 200 else report
+                "preview": report[:200] + "..." if len(report) > 200 else report,
             }
             for func, report in reports.items()
-        }
+        },
     }
-    
-    with open(output_path, 'w') as f:
+
+    with open(output_path, "w") as f:
         json.dump(summary, f, indent=2)
-    
+
     logger.info("Saved gap analysis summary to %s", output_path)
 
 

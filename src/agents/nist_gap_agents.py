@@ -1,14 +1,20 @@
 """
-NIST CSF Gap Analysis Agents — scope-first, per-subcategory structured output.
+NIST CSF Gap Analysis Agents — Map-Reduce + scope-first architecture.
 
 Flow per function:
   1. Scope Classifier — one LLM call to classify all subcategories as
      "in-scope" or "out-of-scope" relative to the customer's policy topic.
-  2. Per-subcategory assessment — only for in-scope subcategories.
-  3. Out-of-scope subcategories tagged automatically (no LLM call).
+  2. Map phase — for each in-scope subcategory, scan each policy section
+     with a small focused call (~1K chars) asking "does this section contain
+     evidence for this subcategory?" Returns a short snippet or "not present".
+     Sections are scanned sequentially (ChatLlamaCpp is not thread-safe).
+  3. Reduce phase — for each in-scope subcategory, collect all evidence
+     snippets from the Map phase and make ONE assessment call with only
+     the relevant evidence (not the full policy document).
+  4. Out-of-scope subcategories tagged automatically (no LLM call).
 
-This dramatically reduces LLM calls (typically ~20-30 instead of 106) while
-producing correct "Out of Scope" annotations that feed the roadmap.
+This cuts per-assessment prompt size from ~10K to ~1K chars and removes
+the need to send the full policy document to every assessment call.
 """
 
 from __future__ import annotations
@@ -30,6 +36,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 # Pydantic schemas
 # ---------------------------------------------------------------------------
+
 
 class PolicyScopeClassification(BaseModel):
     """Determines which NIST CSF functions are relevant to a policy document."""
@@ -97,6 +104,7 @@ class SubcategoryAssessment(BaseModel):
 # Policy-level function classifier (runs ONCE before everything)
 # ---------------------------------------------------------------------------
 
+
 def classify_policy_functions(
     policy_content: str,
     model_name: str = "gemma4:e2b",
@@ -160,7 +168,9 @@ Return ONLY the function names that are relevant to this policy's subject matter
         )
         return relevant
     except Exception as exc:
-        logger.warning("  Policy scope classification failed (%s), treating all as relevant", exc)
+        logger.warning(
+            "  Policy scope classification failed (%s), treating all as relevant", exc
+        )
         return ["Govern", "Identify", "Protect", "Detect", "Respond", "Recover"]
 
 
@@ -168,12 +178,21 @@ Return ONLY the function names that are relevant to this policy's subject matter
 # Per-function subcategory scope classifier
 # ---------------------------------------------------------------------------
 
+
 def _build_scope_prompt(policy_content: str, subcategories: list[dict]) -> str:
     """Build prompt for the scope classification agent."""
+    from agents.text_summarizer import summarize_lossless
 
-    sub_list = "\n".join(
-        f"- **{s['id']}**: {s['description'][:150]}"
-        for s in subcategories
+    # Subcategory descriptions — use full text (they are short NIST config fields,
+    # averaging 80-120 chars). No truncation needed.
+    sub_list = "\n".join(f"- **{s['id']}**: {s['description']}" for s in subcategories)
+
+    # Compress the policy content — the scope classifier only needs to understand
+    # the policy's subject domain, not every specific requirement.
+    policy_input = summarize_lossless(
+        policy_content,
+        context_hint="customer policy document being classified for NIST CSF scope",
+        threshold=600,
     )
 
     return f"""You are a cybersecurity policy analyst. Your task is to determine which
@@ -189,7 +208,7 @@ For example:
 
 ## Customer Policy Document
 
-{policy_content}
+{policy_input}
 
 ## Subcategories to Classify
 
@@ -231,13 +250,217 @@ def _classify_scope(
         return in_scope
     except Exception as exc:
         # On failure, treat ALL as in-scope (safe fallback — just slower)
-        logger.warning("    Scope classification failed (%s), treating all as in-scope", exc)
+        logger.warning(
+            "    Scope classification failed (%s), treating all as in-scope", exc
+        )
         return {s["id"] for s in subcategories}
 
 
 # ---------------------------------------------------------------------------
-# Per-subcategory assessment prompt
+# Map-Reduce: Map phase schemas and helpers
 # ---------------------------------------------------------------------------
+
+# Sections shorter than this are skipped in the Map phase (headers / TOC).
+_MIN_SECTION_CHARS = 80
+
+
+class SectionEvidenceResult(BaseModel):
+    """Map phase output — evidence found in ONE section for ONE subcategory."""
+
+    has_evidence: bool = Field(
+        description=(
+            "True if this section contains text that is relevant to the "
+            "subcategory requirement (even if only partially). False otherwise."
+        ),
+    )
+    evidence_snippet: str = Field(
+        description=(
+            "A direct quote (max 200 chars) from the section that relates to "
+            "the subcategory, or 'None found' if has_evidence is False."
+        ),
+    )
+
+
+def _map_one_section(
+    section_number: str,
+    section_title: str,
+    section_content: str,
+    sub_id: str,
+    sub_description: str,
+) -> tuple[str, SectionEvidenceResult]:
+    """
+    Map step: check ONE section for evidence of ONE subcategory requirement.
+
+    Args:
+        section_number: Section identifier (e.g. '4').
+        section_title: Section title for logging.
+        section_content: Section text (already truncated by gap_analyzer).
+        sub_id: NIST subcategory ID (e.g. 'PR.AA-03').
+        sub_description: Short description of the subcategory requirement.
+
+    Returns:
+        Tuple of (section_number, SectionEvidenceResult).
+    """
+    llm = create_llm()
+    structured_llm = llm.with_structured_output(SectionEvidenceResult)
+
+    # Import here to avoid circular import at module level
+    from agents.text_summarizer import summarize_lossless
+
+    # Compress the section content before injecting — sections can be long
+    # and the Map call only needs to know "is evidence for this subcategory present?"
+    section_input = summarize_lossless(
+        section_content,
+        context_hint=f"policy section {section_number} '{section_title}' being scanned for {sub_id} evidence",
+        threshold=600,
+    )
+
+    prompt = (
+        f"Policy section {section_number} — {section_title}:\n\n"
+        f"{section_input}\n\n"
+        f"---\n\n"
+        f"NIST subcategory {sub_id} requires:\n{sub_description}\n\n"
+        f"Does this section contain any text relevant to this requirement? "
+        f"If yes, quote the most relevant passage (max 200 chars). "
+        f"If no, set has_evidence=false."
+    )
+
+    try:
+        result = structured_llm.invoke(prompt)
+        return section_number, result
+    except Exception as exc:
+        logger.warning(
+            "    Map failed for section %s × %s: %s",
+            section_number,
+            sub_id,
+            exc,
+        )
+        return section_number, SectionEvidenceResult(
+            has_evidence=False,
+            evidence_snippet="None found",
+        )
+
+
+def _map_sections_for_subcategory(
+    policy_sections: list[dict],
+    sub_id: str,
+    sub_description: str,
+) -> list[str]:
+    """
+    Run the Map phase for one subcategory across all policy sections sequentially.
+
+    ChatLlamaCpp holds a single model instance and is not safe for concurrent
+    inference from multiple threads. Sections are scanned one at a time.
+    This is still faster than the old approach because each call is ~1K chars
+    instead of ~10K (the full policy document).
+
+    Args:
+        policy_sections: List of section dicts with 'number', 'title', 'content'.
+        sub_id: NIST subcategory ID.
+        sub_description: Short subcategory requirement text.
+
+    Returns:
+        List of evidence snippets (non-empty strings from sections that matched).
+    """
+    meaningful_sections = [
+        s
+        for s in policy_sections
+        if len((s.get("content") or "").strip()) >= _MIN_SECTION_CHARS
+    ]
+
+    if not meaningful_sections:
+        return []
+
+    evidence_snippets: list[str] = []
+
+    for s in meaningful_sections:
+        _, result = _map_one_section(
+            s["number"],
+            s.get("title", ""),
+            s.get("content", ""),
+            sub_id,
+            sub_description,
+        )
+        if result.has_evidence and result.evidence_snippet.strip() not in (
+            "",
+            "None found",
+        ):
+            evidence_snippets.append(result.evidence_snippet)
+
+    return evidence_snippets
+
+
+# ---------------------------------------------------------------------------
+# Map-Reduce: Reduce phase
+# ---------------------------------------------------------------------------
+
+
+def _reduce_to_assessment(
+    sub: dict,
+    evidence_snippets: list[str],
+    framework_excerpt: str,
+    structured_llm,
+) -> SubcategoryAssessment:
+    """
+    Reduce step: assess ONE subcategory using only the collected evidence snippets.
+
+    Replaces the old _build_subcategory_prompt which sent the full policy doc.
+    The model now receives only the relevant snippets (~1K chars total) instead
+    of the full document (~10K chars).
+
+    Args:
+        sub: Subcategory dict from NIST config.
+        evidence_snippets: Relevant passages collected by the Map phase.
+        framework_excerpt: Short reference framework excerpt (max 600 chars).
+        structured_llm: Structured-output LLM instance.
+
+    Returns:
+        SubcategoryAssessment.
+    """
+    sub_id = sub["id"]
+    questions_block = "\n".join(f"  - {q}" for q in sub.get("questions", []))
+    policies_str = ", ".join(sub.get("policies", [])) or "N/A"
+
+    if evidence_snippets:
+        evidence_block = "\n\n".join(
+            f"Snippet {i + 1}: {snip}" for i, snip in enumerate(evidence_snippets)
+        )
+        evidence_section = (
+            f"## Relevant Evidence Found in Policy\n\n"
+            f"The following passages were found across the policy sections:\n\n"
+            f"{evidence_block}"
+        )
+    else:
+        evidence_section = (
+            "## Relevant Evidence Found in Policy\n\n"
+            "No relevant passages were found in any policy section."
+        )
+
+    prompt = (
+        f"You are a cybersecurity compliance analyst assessing a customer's security "
+        f"policy against a specific NIST CSF subcategory.\n\n"
+        f"{evidence_section}\n\n"
+        f"## NIST Subcategory to Assess: {sub_id}\n"
+        f"**Category**: {sub['category']}\n"
+        f"**Requirement**: {sub['description']}\n"
+        f"**Implementation Guidance**: {sub['guidance']}\n"
+        f"**Key Questions**:\n{questions_block}\n"
+        f"**Required Policy Templates**: {policies_str}\n\n"
+        f"## Reference: What a Compliant Policy Should Include\n\n"
+        f"{framework_excerpt}\n\n"
+        f"## Your Task\n"
+        f"Based on the evidence snippets above, assess whether the customer policy "
+        f"addresses this subcategory requirement. "
+        f"Quote only from the evidence snippets provided — do not invent policy text."
+    )
+
+    return structured_llm.invoke(prompt)
+
+
+# ---------------------------------------------------------------------------
+# Per-subcategory assessment prompt (kept for fallback only)
+# ---------------------------------------------------------------------------
+
 
 def _build_subcategory_prompt(
     policy_content: str,
@@ -285,6 +508,7 @@ reference template above.
 # Report assembly
 # ---------------------------------------------------------------------------
 
+
 def _compute_maturity(assessments: list[SubcategoryAssessment]) -> str:
     """Derive overall maturity from in-scope subcategory statuses only."""
     in_scope = [a for a in assessments if a.status != "Out of Scope"]
@@ -293,8 +517,10 @@ def _compute_maturity(assessments: list[SubcategoryAssessment]) -> str:
         return "N/A — No subcategories in scope for this policy type"
 
     score = sum(
-        1.0 if a.status == "Addressed"
-        else 0.5 if a.status == "Partially Addressed"
+        1.0
+        if a.status == "Addressed"
+        else 0.5
+        if a.status == "Partially Addressed"
         else 0.0
         for a in in_scope
     )
@@ -390,28 +616,39 @@ def _assemble_function_report(
 # Main agent runner
 # ---------------------------------------------------------------------------
 
+
 def run_nist_gap_agent(
-    function_name: Literal["Govern", "Identify", "Protect", "Detect", "Respond", "Recover"],
+    function_name: Literal[
+        "Govern", "Identify", "Protect", "Detect", "Respond", "Recover"
+    ],
     policy_content: str,
     model_name: str = "gemma4:e2b",
+    policy_sections: list[dict] | None = None,
 ) -> tuple[str, list[SubcategoryAssessment]]:
     """
     Assess a NIST function's subcategories against the customer policy.
 
-    1. Scope classifier (1 LLM call) — determines which subcategories are
-       relevant to this policy's subject matter.
-    2. Per-subcategory assessment (N LLM calls) — only for in-scope items.
-    3. Out-of-scope items tagged automatically without LLM calls.
+    Map-Reduce architecture:
+      1. Scope classifier (1 LLM call) — which subcategories are in-scope?
+      2. Map phase — for each in-scope subcategory, scan sections in parallel
+         to collect only the relevant evidence snippets.
+      3. Reduce phase — for each subcategory, assess using only its evidence
+         snippets (not the full policy document).
+      4. Out-of-scope items tagged automatically (no LLM call).
 
     Args:
         function_name: NIST function to analyze.
-        policy_content: Full policy document text.
-        model_name: Ollama model name.
+        policy_content: Full policy document text (used for scope classification
+                        and as fallback if policy_sections is None).
+        model_name: Model name (kept for interface compatibility).
+        policy_sections: Optional list of section dicts for the Map phase.
+                         If None, Map phase sends the full policy_content as a
+                         single section (same as the old behaviour).
 
     Returns:
-        Tuple of (assembled markdown report, list of raw SubcategoryAssessment objects).
+        Tuple of (assembled markdown report, list of SubcategoryAssessment objects).
     """
-    logger.info("Running NIST %s gap analysis agent", function_name)
+    logger.info("Running NIST %s gap analysis agent (Map-Reduce)", function_name)
 
     subcategories = get_function_subcategories(function_name)
     if not subcategories:
@@ -423,7 +660,7 @@ def run_nist_gap_agent(
 
     llm = create_llm()
 
-    # Step 1: Scope classification
+    # Step 1: Scope classification (unchanged)
     logger.info("  Step 1: Classifying scope...")
     in_scope_ids = _classify_scope(policy_content, subcategories, llm)
 
@@ -437,35 +674,70 @@ def run_nist_gap_agent(
         len(out_scope_subs),
     )
 
-    # Step 2: Assess in-scope subcategories
+    # Prepare sections for Map phase.
+    # If the caller passed structured sections, use them.
+    # Otherwise wrap the full content as one pseudo-section.
+    if policy_sections:
+        map_sections = policy_sections
+    else:
+        map_sections = [
+            {"number": "1", "title": "Policy Document", "content": policy_content}
+        ]
+
+    # Step 2 + 3: Map-Reduce per in-scope subcategory
     structured_llm = llm.with_structured_output(SubcategoryAssessment)
     assessments: list[SubcategoryAssessment] = []
 
     for i, sub in enumerate(in_scope_subs, 1):
         sub_id = sub["id"]
-        logger.info("  [%d/%d] Assessing %s", i, len(in_scope_subs), sub_id)
+        logger.info("  [%d/%d] Map-Reduce: %s", i, len(in_scope_subs), sub_id)
 
+        # Map: collect evidence snippets across all sections (parallel)
+        evidence_snippets = _map_sections_for_subcategory(
+            map_sections,
+            sub_id,
+            sub["description"],
+        )
+        logger.info(
+            "    Map: %d evidence snippets found for %s",
+            len(evidence_snippets),
+            sub_id,
+        )
+
+        # Reduce: assess using collected evidence only
         framework_excerpt = get_framework_excerpt(sub.get("policies", []))
-        prompt = _build_subcategory_prompt(policy_content, sub, framework_excerpt)
-
         try:
-            result = structured_llm.invoke(prompt)
-            assessments.append(result)
-            logger.info("    %s → %s", sub_id, result.status)
-        except Exception as exc:
-            logger.warning("    %s assessment failed: %s", sub_id, exc)
-            assessments.append(
-                SubcategoryAssessment(
-                    subcategory_id=sub_id,
-                    title=sub.get("category", sub_id),
-                    status="Not Addressed",
-                    evidence="None found",
-                    gap="Assessment could not be completed — manual review required",
-                    recommendation="Manual review required for this subcategory",
-                )
+            result = _reduce_to_assessment(
+                sub, evidence_snippets, framework_excerpt, structured_llm
             )
+            assessments.append(result)
+            logger.info("    Reduce: %s → %s", sub_id, result.status)
+        except Exception as exc:
+            logger.warning(
+                "    %s reduce assessment failed: %s — using fallback", sub_id, exc
+            )
+            # Fallback: attempt the old full-doc assessment
+            try:
+                prompt = _build_subcategory_prompt(
+                    policy_content, sub, framework_excerpt
+                )
+                result = structured_llm.invoke(prompt)
+                assessments.append(result)
+                logger.info("    %s fallback assessment → %s", sub_id, result.status)
+            except Exception as exc2:
+                logger.warning("    %s fallback also failed: %s", sub_id, exc2)
+                assessments.append(
+                    SubcategoryAssessment(
+                        subcategory_id=sub_id,
+                        title=sub.get("category", sub_id),
+                        status="Not Addressed",
+                        evidence="None found",
+                        gap="Assessment could not be completed — manual review required",
+                        recommendation="Manual review required for this subcategory",
+                    )
+                )
 
-    # Step 3: Tag out-of-scope subcategories (no LLM call)
+    # Step 4: Tag out-of-scope subcategories (no LLM call)
     for sub in out_scope_subs:
         policy_templates = ", ".join(sub.get("policies", [])) or "N/A"
         assessments.append(
@@ -551,7 +823,9 @@ def build_consolidated_report(
 
     # Overall maturity from all in-scope assessments
     flat_in_scope = [a for _, a in all_in_scope]
-    overall_maturity = _compute_maturity(flat_in_scope) if flat_in_scope else "Not Started"
+    overall_maturity = (
+        _compute_maturity(flat_in_scope) if flat_in_scope else "Not Started"
+    )
 
     lines: list[str] = []
 
@@ -560,8 +834,12 @@ def build_consolidated_report(
     lines.append("*(CIS MS-ISAC Policy Template Guide 2024 Alignment)*\n")
     lines.append("## 1. Executive Summary")
     lines.append(f"- **Overall Maturity** (in-scope only): {overall_maturity}")
-    lines.append(f"- **Total Subcategories**: {total_sub} (In Scope: {total_in}, Out of Scope: {total_out})")
-    lines.append(f"- **In-Scope Results**: Addressed: {total_addr} | Partially Addressed: {total_part} | Not Addressed: {total_na}")
+    lines.append(
+        f"- **Total Subcategories**: {total_sub} (In Scope: {total_in}, Out of Scope: {total_out})"
+    )
+    lines.append(
+        f"- **In-Scope Results**: Addressed: {total_addr} | Partially Addressed: {total_part} | Not Addressed: {total_na}"
+    )
 
     if total_na > 0:
         worst_fn = max(func_stats, key=lambda f: func_stats[f]["not_addressed"])
@@ -570,7 +848,9 @@ def build_consolidated_report(
             f"The {worst_fn} function has the most gaps ({func_stats[worst_fn]['not_addressed']} not addressed)."
         )
     else:
-        lines.append("- **Critical Finding**: All in-scope subcategories have at least partial coverage.")
+        lines.append(
+            "- **Critical Finding**: All in-scope subcategories have at least partial coverage."
+        )
     lines.append("")
 
     # ---- Section 1.5: Per-Function Executive Summaries ----
@@ -593,8 +873,12 @@ def build_consolidated_report(
 
     # ---- Section 2: Maturity by Function ----
     lines.append("## 2. Maturity by Function")
-    lines.append("| Function | Rating | In Scope | Addressed | Partial | Not Addressed | Out of Scope |")
-    lines.append("|----------|--------|----------|-----------|---------|---------------|--------------|")
+    lines.append(
+        "| Function | Rating | In Scope | Addressed | Partial | Not Addressed | Out of Scope |"
+    )
+    lines.append(
+        "|----------|--------|----------|-----------|---------|---------------|--------------|"
+    )
     for fn in NIST_FUNCTION_ORDER:
         s = func_stats[fn]
         lines.append(
@@ -604,7 +888,9 @@ def build_consolidated_report(
     lines.append("")
 
     # ---- Section 3: In-Scope Gaps (Not Addressed) ----
-    not_addressed_gaps = [(fn, a) for fn, a in all_in_scope if a.status == "Not Addressed"]
+    not_addressed_gaps = [
+        (fn, a) for fn, a in all_in_scope if a.status == "Not Addressed"
+    ]
     lines.append("## 3. In-Scope Gaps (Not Addressed)")
     lines.append("These are gaps the current policy SHOULD cover but does not:\n")
     if not_addressed_gaps:
@@ -619,7 +905,9 @@ def build_consolidated_report(
     lines.append("")
 
     # ---- Section 4: In-Scope Gaps (Partially Addressed) ----
-    partial_gaps = [(fn, a) for fn, a in all_in_scope if a.status == "Partially Addressed"]
+    partial_gaps = [
+        (fn, a) for fn, a in all_in_scope if a.status == "Partially Addressed"
+    ]
     lines.append("## 4. In-Scope Gaps (Partially Addressed)")
     if partial_gaps:
         lines.append("| Subcategory ID | Function | Gap | Recommended Action |")

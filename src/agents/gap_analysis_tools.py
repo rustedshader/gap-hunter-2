@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field
 
 class ReadFrameworkDocumentTool(BaseModel):
     """Tool to read NIST framework policy/standard documents."""
+
     document_name: str = Field(
         description="Name of the framework document to read (e.g., 'Information Security Policy', 'Access Control Policy')"
     )
@@ -18,6 +19,7 @@ class ReadFrameworkDocumentTool(BaseModel):
 
 class GetNISTFunctionInfoTool(BaseModel):
     """Tool to get information about a specific NIST CSF function."""
+
     function_name: str = Field(
         description="NIST function name: Govern, Identify, Protect, Detect, Respond, or Recover"
     )
@@ -26,50 +28,50 @@ class GetNISTFunctionInfoTool(BaseModel):
 def read_framework_document(document_name: str) -> str:
     """
     Read a NIST framework document from the framework-documents directory.
-    
+
     Args:
         document_name: Name of the document (with or without .md extension)
-    
+
     Returns:
         Content of the document
     """
     # Add .md extension if not present
-    if not document_name.endswith('.md'):
+    if not document_name.endswith(".md"):
         document_name = f"{document_name}.md"
-    
+
     doc_path = Path("src/nist/framework-documents") / document_name
-    
+
     if not doc_path.exists():
         return f"Error: Document '{document_name}' not found in framework-documents directory."
-    
+
     return doc_path.read_text()
 
 
 def get_nist_function_info(function_name: str) -> dict:
     """
     Get information about a specific NIST CSF function from the config.
-    
+
     Args:
         function_name: One of: Govern, Identify, Protect, Detect, Respond, Recover
-    
+
     Returns:
         Dictionary with function description and subcategories
     """
     config_path = Path("src/nist/nist_config.yaml")
-    
-    with open(config_path, 'r') as f:
+
+    with open(config_path, "r") as f:
         config = yaml.safe_load(f)
-    
+
     # Find the function in the framework
-    for func in config['NIST_Cybersecurity_Framework']:
-        if func['NIST_Function'] == function_name:
+    for func in config["NIST_Cybersecurity_Framework"]:
+        if func["NIST_Function"] == function_name:
             return {
-                'function': func['NIST_Function'],
-                'description': func['function_description'],
-                'categories': func.get('Subheadings', [])
+                "function": func["NIST_Function"],
+                "description": func["function_description"],
+                "categories": func.get("Subheadings", []),
             }
-    
-    return {'error': f"Function '{function_name}' not found in NIST config"}
+
+    return {"error": f"Function '{function_name}' not found in NIST config"}
 
 
 def list_framework_documents() -> list[str]:
@@ -168,19 +170,21 @@ def get_function_subcategories(function_name: str) -> list[dict]:
     for category in func_data.get("Subheadings", []):
         cat_title = category.get("Title", "")
         for sub in category.get("Subparts", []):
-            subcategories.append({
-                "id": sub.get("ID", ""),
-                "category": cat_title,
-                "description": (sub.get("Description") or "").strip(),
-                "guidance": (sub.get("Implementation_Guidance") or "").strip(),
-                "questions": sub.get("Key_Questions", []),
-                "policies": sub.get("Policies", []),
-            })
+            subcategories.append(
+                {
+                    "id": sub.get("ID", ""),
+                    "category": cat_title,
+                    "description": (sub.get("Description") or "").strip(),
+                    "guidance": (sub.get("Implementation_Guidance") or "").strip(),
+                    "questions": sub.get("Key_Questions", []),
+                    "policies": sub.get("Policies", []),
+                }
+            )
 
     return subcategories
 
 
-def get_framework_excerpt(policy_names: list[str], max_chars: int = 3000) -> str:
+def get_framework_excerpt(policy_names: list[str], max_chars: int = 600) -> str:
     """
     Load and return truncated excerpts from CIS MS-ISAC framework template docs.
 

@@ -14,7 +14,12 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-from extractor import extract_all_sections, save_sections_json, generate_master_list, save_master_list
+from extractor import (
+    extract_all_sections,
+    save_sections_json,
+    generate_master_list,
+    save_master_list,
+)
 from gap_analyzer import run_gap_analysis, save_gap_analysis_summary, NIST_FUNCTIONS
 
 logging.basicConfig(
@@ -30,10 +35,12 @@ def _setup_debug_file_log(run_dir: Path) -> None:
     debug_path = run_dir / "debug.log"
     fh = logging.FileHandler(debug_path, mode="a", encoding="utf-8")
     fh.setLevel(logging.DEBUG)
-    fh.setFormatter(logging.Formatter(
-        "%(asctime)s  %(levelname)-8s  %(name)-40s  %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-    ))
+    fh.setFormatter(
+        logging.Formatter(
+            "%(asctime)s  %(levelname)-8s  %(name)-40s  %(message)s",
+            datefmt="%Y-%m-%d %H:%M:%S",
+        )
+    )
     logging.getLogger().addHandler(fh)
     logging.getLogger().setLevel(logging.DEBUG)
     log.info("Debug log → %s", debug_path)
@@ -47,7 +54,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "pdf",
         type=Path,
-        help="Path to the policy PDF to analyze",
+        nargs="?",
+        default=None,
+        help="Path to the policy PDF to analyze (not required with --revision-only)",
     )
     parser.add_argument(
         "--model",
@@ -92,6 +101,15 @@ def parse_args() -> argparse.Namespace:
         "--skip-extraction",
         action="store_true",
         help="Skip extraction, reuse existing run directory (requires --run-dir)",
+    )
+    parser.add_argument(
+        "--revision-only",
+        action="store_true",
+        help=(
+            "Skip extraction and gap analysis — run Phase 3 (policy revision + roadmap) "
+            "only. Requires --run-dir pointing to a completed Phase 2 run directory "
+            "that contains assessments.json and sections_output.json."
+        ),
     )
     return parser.parse_args()
 
@@ -139,7 +157,9 @@ def run_extraction(args: argparse.Namespace, run_dir: Path) -> None:
 
     for s in sections:
         status = "✓" if s.is_complete else "… (continues)"
-        print(f"  [{s.number}] {s.title}  (lines {s.start_line}–{s.end_line})  {status}")
+        print(
+            f"  [{s.number}] {s.title}  (lines {s.start_line}–{s.end_line})  {status}"
+        )
     print()
 
 
@@ -237,6 +257,23 @@ def run_revision(args: argparse.Namespace, run_dir: Path) -> None:
 
 def main() -> None:
     args = parse_args()
+
+    # --revision-only: skip straight to Phase 3 using an existing run directory
+    if args.revision_only:
+        if not args.run_dir:
+            print("Error: --revision-only requires --run-dir <path>")
+            sys.exit(1)
+        run_dir = args.run_dir
+        if not run_dir.exists():
+            print(f"Error: Run directory not found: {run_dir}")
+            sys.exit(1)
+        _setup_debug_file_log(run_dir)
+        run_revision(args, run_dir)
+        return
+
+    if args.pdf is None:
+        print("Error: pdf argument is required unless using --revision-only")
+        sys.exit(1)
 
     if args.skip_extraction:
         if not args.run_dir:

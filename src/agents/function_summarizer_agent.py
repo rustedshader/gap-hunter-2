@@ -19,6 +19,7 @@ from agents.function_summary_schema import (
     SummaryValidationResult,
 )
 from agents.nist_gap_agents import SubcategoryAssessment
+from agents.text_summarizer import summarize_lossless
 from llm import create_llm
 from prompts.function_summarizer_prompt import (
     FUNCTION_SUMMARIZER_SYSTEM,
@@ -37,6 +38,7 @@ LLM_INVOKE_RETRIES = 3  # retries for transient structured-output parsing failur
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _compute_stats(assessments: list[SubcategoryAssessment]) -> dict:
     """Compute summary statistics from structured assessments."""
     in_scope = [a for a in assessments if a.status != "Out of Scope"]
@@ -44,7 +46,9 @@ def _compute_stats(assessments: list[SubcategoryAssessment]) -> dict:
         "total": len(assessments),
         "in_scope": len(in_scope),
         "addressed": sum(1 for a in in_scope if a.status == "Addressed"),
-        "partially_addressed": sum(1 for a in in_scope if a.status == "Partially Addressed"),
+        "partially_addressed": sum(
+            1 for a in in_scope if a.status == "Partially Addressed"
+        ),
         "not_addressed": sum(1 for a in in_scope if a.status == "Not Addressed"),
         "out_of_scope": sum(1 for a in assessments if a.status == "Out of Scope"),
     }
@@ -78,7 +82,9 @@ def _compute_maturity_rating(stats: dict) -> str:
     return "Not Started"
 
 
-def _invoke_with_retries(structured_llm, messages: list[dict], retries: int = LLM_INVOKE_RETRIES):
+def _invoke_with_retries(
+    structured_llm, messages: list[dict], retries: int = LLM_INVOKE_RETRIES
+):
     """
     Invoke a structured LLM with retries for transient parsing failures.
 
@@ -94,12 +100,15 @@ def _invoke_with_retries(structured_llm, messages: list[dict], retries: int = LL
             if attempt < retries:
                 logger.warning(
                     "    LLM invoke attempt %d/%d failed: %s — retrying",
-                    attempt, retries, exc,
+                    attempt,
+                    retries,
+                    exc,
                 )
             else:
                 logger.error(
                     "    LLM invoke failed after %d attempts: %s",
-                    retries, exc,
+                    retries,
+                    exc,
                 )
     raise last_exc
 
@@ -175,6 +184,7 @@ def _debug_log_master_summary(label: str, summary: MasterGapSummary) -> None:
 # Summarizer
 # ---------------------------------------------------------------------------
 
+
 def run_function_summarizer(
     function_name: str,
     report: str,
@@ -205,6 +215,14 @@ def run_function_summarizer(
     llm = create_llm()
     structured_llm = llm.with_structured_output(FunctionGapSummary)
 
+    # Compress the report before feeding it — large reports cause the model
+    # to lose track of numeric stats and fabricate subcategory IDs.
+    report_input = summarize_lossless(
+        report,
+        context_hint=f"NIST {function_name} function gap analysis report",
+        threshold=800,
+    )
+
     prompt = f"""Summarize the following NIST CSF **{function_name}** function gap analysis
 report into a concise executive summary.
 
@@ -212,9 +230,9 @@ report into a concise executive summary.
 
 {stats_block}
 
-## Full Gap Analysis Report
+## Gap Analysis Report
 
-{report}
+{report_input}
 """
 
     if prior_issues:
@@ -227,19 +245,35 @@ The previous summary was rejected for these reasons. You MUST fix all of them:
 {issues_text}
 """
 
-    logger.info("  Summarizer: Generating summary for %s (%d char report)", function_name, len(report))
-    logger.debug("  Summarizer prompt for %s (%d chars):\n%s", function_name, len(prompt), prompt)
+    logger.info(
+        "  Summarizer: Generating summary for %s (%d char report)",
+        function_name,
+        len(report),
+    )
+    logger.debug(
+        "  Summarizer prompt for %s (%d chars):\n%s", function_name, len(prompt), prompt
+    )
 
     try:
-        result = _invoke_with_retries(structured_llm, [
-            {"role": "system", "content": FUNCTION_SUMMARIZER_SYSTEM},
-            {"role": "user", "content": prompt},
-        ])
-        logger.info("  Summarizer: Generated summary (%d char executive summary)", len(result.executive_summary))
+        result = _invoke_with_retries(
+            structured_llm,
+            [
+                {"role": "system", "content": FUNCTION_SUMMARIZER_SYSTEM},
+                {"role": "user", "content": prompt},
+            ],
+        )
+        logger.info(
+            "  Summarizer: Generated summary (%d char executive summary)",
+            len(result.executive_summary),
+        )
         _debug_log_function_summary(f"Summarizer output — {function_name}", result)
         return result
     except Exception as exc:
-        logger.warning("  Summarizer failed for %s after all retries: %s — building fallback", function_name, exc)
+        logger.warning(
+            "  Summarizer failed for %s after all retries: %s — building fallback",
+            function_name,
+            exc,
+        )
         return _build_fallback_summary(function_name, assessments, stats)
 
 
@@ -252,13 +286,9 @@ def _build_fallback_summary(
     not_addressed = [a for a in assessments if a.status == "Not Addressed"]
     partial = [a for a in assessments if a.status == "Partially Addressed"]
 
-    critical = [
-        f"{a.subcategory_id}: {a.gap}"
-        for a in (not_addressed + partial)[:5]
-    ]
+    critical = [f"{a.subcategory_id}: {a.gap}" for a in (not_addressed + partial)[:5]]
     recommendations = [
-        f"{a.subcategory_id}: {a.recommendation}"
-        for a in (not_addressed + partial)[:5]
+        f"{a.subcategory_id}: {a.recommendation}" for a in (not_addressed + partial)[:5]
     ]
     out_scope = [a for a in assessments if a.status == "Out of Scope"]
     templates: set[str] = set()
@@ -311,6 +341,7 @@ def _build_fallback_summary(
 # Validator
 # ---------------------------------------------------------------------------
 
+
 def run_summary_validator(
     function_name: str,
     report: str,
@@ -342,7 +373,11 @@ def run_summary_validator(
         ("total_subcategories", summary.total_subcategories, stats["total"]),
         ("in_scope_count", summary.in_scope_count, stats["in_scope"]),
         ("addressed_count", summary.addressed_count, stats["addressed"]),
-        ("partially_addressed_count", summary.partially_addressed_count, stats["partially_addressed"]),
+        (
+            "partially_addressed_count",
+            summary.partially_addressed_count,
+            stats["partially_addressed"],
+        ),
         ("not_addressed_count", summary.not_addressed_count, stats["not_addressed"]),
         ("out_of_scope_count", summary.out_of_scope_count, stats["out_of_scope"]),
     ]
@@ -351,7 +386,11 @@ def run_summary_validator(
             stat_issues.append(f"Wrong number: {field} is {got}, should be {expected}")
 
     if stat_issues:
-        logger.warning("  Validator: %s REJECTED by code — %d stat mismatches", function_name, len(stat_issues))
+        logger.warning(
+            "  Validator: %s REJECTED by code — %d stat mismatches",
+            function_name,
+            len(stat_issues),
+        )
         for issue in stat_issues:
             logger.warning("    - %s", issue)
         return SummaryValidationResult(is_acceptable=False, issues=stat_issues)
@@ -374,7 +413,7 @@ def run_summary_validator(
 
 ## Valid subcategory IDs from the original report (reference list)
 
-{', '.join(a.subcategory_id for a in assessments)}
+{", ".join(a.subcategory_id for a in assessments)}
 
 ## Executive Summary to Check
 
@@ -387,25 +426,42 @@ def run_summary_validator(
 If no errors found, set is_acceptable=true with empty issues list.
 """
 
-    logger.info("  Validator: LLM checking %s for fabrication/garbled text", function_name)
-    logger.debug("  Validator prompt for %s (%d chars):\n%s", function_name, len(prompt), prompt)
+    logger.info(
+        "  Validator: LLM checking %s for fabrication/garbled text", function_name
+    )
+    logger.debug(
+        "  Validator prompt for %s (%d chars):\n%s", function_name, len(prompt), prompt
+    )
 
     try:
-        result = _invoke_with_retries(structured_llm, [
-            {"role": "system", "content": SUMMARY_VALIDATOR_SYSTEM},
-            {"role": "user", "content": prompt},
-        ])
+        result = _invoke_with_retries(
+            structured_llm,
+            [
+                {"role": "system", "content": SUMMARY_VALIDATOR_SYSTEM},
+                {"role": "user", "content": prompt},
+            ],
+        )
         if result.is_acceptable:
             logger.info("  Validator: Summary ACCEPTED ✓")
         else:
-            logger.warning("  Validator: Summary REJECTED — %d issues", len(result.issues))
+            logger.warning(
+                "  Validator: Summary REJECTED — %d issues", len(result.issues)
+            )
             for issue in result.issues:
                 logger.warning("    - %s", issue)
-        logger.debug("  Validator result for %s: is_acceptable=%s, issues=%s",
-                      function_name, result.is_acceptable, result.issues)
+        logger.debug(
+            "  Validator result for %s: is_acceptable=%s, issues=%s",
+            function_name,
+            result.is_acceptable,
+            result.issues,
+        )
         return result
     except Exception as exc:
-        logger.warning("  Validator failed for %s after all retries: %s — accepting summary", function_name, exc)
+        logger.warning(
+            "  Validator failed for %s after all retries: %s — accepting summary",
+            function_name,
+            exc,
+        )
         return SummaryValidationResult(is_acceptable=True, issues=[])
 
 
@@ -413,8 +469,11 @@ If no errors found, set is_acceptable=true with empty issues list.
 # Orchestrator: Summarize + Validate loop
 # ---------------------------------------------------------------------------
 
+
 def run_summarize_with_validation(
-    function_name: Literal["Govern", "Identify", "Protect", "Detect", "Respond", "Recover"],
+    function_name: Literal[
+        "Govern", "Identify", "Protect", "Detect", "Respond", "Recover"
+    ],
     report: str,
     assessments: list[SubcategoryAssessment],
     model_name: str = "gemma4:e2b",
@@ -443,37 +502,53 @@ def run_summarize_with_validation(
 
     # Initial generation
     summary = run_function_summarizer(
-        function_name, report, assessments, model_name,
+        function_name,
+        report,
+        assessments,
+        model_name,
     )
 
     for attempt in range(1, MAX_RETRIES + 1):
-        logger.debug("  Validation attempt %d/%d for %s", attempt, MAX_RETRIES, function_name)
+        logger.debug(
+            "  Validation attempt %d/%d for %s", attempt, MAX_RETRIES, function_name
+        )
 
         validation = run_summary_validator(
-            function_name, report, assessments, summary, model_name,
+            function_name,
+            report,
+            assessments,
+            summary,
+            model_name,
         )
 
         if validation.is_acceptable:
             logger.info(
                 "  %s summary accepted on attempt %d ✓",
-                function_name, attempt,
+                function_name,
+                attempt,
             )
             return summary
 
         logger.warning(
             "  %s summary rejected (attempt %d/%d) — regenerating",
-            function_name, attempt, MAX_RETRIES,
+            function_name,
+            attempt,
+            MAX_RETRIES,
         )
 
         # Regenerate with feedback
         summary = run_function_summarizer(
-            function_name, report, assessments, model_name,
+            function_name,
+            report,
+            assessments,
+            model_name,
             prior_issues=validation.issues,
         )
 
     logger.warning(
         "  %s: max retries (%d) reached — using last generated summary",
-        function_name, MAX_RETRIES,
+        function_name,
+        MAX_RETRIES,
     )
     _debug_log_function_summary(f"Final (unvalidated) — {function_name}", summary)
     return summary
@@ -482,6 +557,7 @@ def run_summarize_with_validation(
 # ---------------------------------------------------------------------------
 # Build out-of-scope summary (code-based, no LLM)
 # ---------------------------------------------------------------------------
+
 
 def build_out_of_scope_summary(
     function_name: str,
@@ -528,13 +604,16 @@ def build_out_of_scope_summary(
 # Master Summary: Helpers
 # ---------------------------------------------------------------------------
 
+
 def _aggregate_stats(summaries: dict[str, FunctionGapSummary]) -> dict:
     """Compute aggregate statistics across all function summaries."""
     return {
         "total": sum(s.total_subcategories for s in summaries.values()),
         "in_scope": sum(s.in_scope_count for s in summaries.values()),
         "addressed": sum(s.addressed_count for s in summaries.values()),
-        "partially_addressed": sum(s.partially_addressed_count for s in summaries.values()),
+        "partially_addressed": sum(
+            s.partially_addressed_count for s in summaries.values()
+        ),
         "not_addressed": sum(s.not_addressed_count for s in summaries.values()),
         "out_of_scope": sum(s.out_of_scope_count for s in summaries.values()),
     }
@@ -613,9 +692,21 @@ def _format_function_summaries_for_prompt(
     parts: list[str] = []
 
     for name, s in summaries.items():
-        gaps_text = "\n".join(f"    - {g}" for g in s.critical_gaps) if s.critical_gaps else "    (none)"
-        recs_text = "\n".join(f"    - {r}" for r in s.key_recommendations) if s.key_recommendations else "    (none)"
-        docs_text = "\n".join(f"    - {d}" for d in s.required_policy_documents) if s.required_policy_documents else "    (none)"
+        gaps_text = (
+            "\n".join(f"    - {g}" for g in s.critical_gaps)
+            if s.critical_gaps
+            else "    (none)"
+        )
+        recs_text = (
+            "\n".join(f"    - {r}" for r in s.key_recommendations)
+            if s.key_recommendations
+            else "    (none)"
+        )
+        docs_text = (
+            "\n".join(f"    - {d}" for d in s.required_policy_documents)
+            if s.required_policy_documents
+            else "    (none)"
+        )
 
         parts.append(
             f"### {name}\n"
@@ -745,6 +836,7 @@ def _build_fallback_master_summary(
 # Master Summary: Summarizer
 # ---------------------------------------------------------------------------
 
+
 def run_master_summarizer(
     summaries: dict[str, FunctionGapSummary],
     model_name: str = "gemma4:e2b",
@@ -766,12 +858,20 @@ def run_master_summarizer(
     llm = create_llm()
     structured_llm = llm.with_structured_output(MasterGapSummary)
 
+    # Compress the per-function summaries block before injecting —
+    # it can grow to 4K+ chars across 6 functions, overwhelming a 2B model.
+    formatted_input = summarize_lossless(
+        formatted,
+        context_hint="per-function NIST CSF gap analysis summaries for master report",
+        threshold=1000,
+    )
+
     prompt = f"""Synthesize the following per-function NIST CSF gap analysis summaries into
 a single master executive summary suitable for board-level reporting.
 
 ## Per-Function Summaries
 
-{formatted}
+{formatted_input}
 """
 
     if prior_issues:
@@ -784,25 +884,36 @@ The previous master summary was rejected for these reasons. You MUST fix all of 
 {issues_text}
 """
 
-    logger.info("  Master Summarizer: Generating master summary (%d functions)", len(summaries))
+    logger.info(
+        "  Master Summarizer: Generating master summary (%d functions)", len(summaries)
+    )
     logger.debug("  Master Summarizer prompt (%d chars):\n%s", len(prompt), prompt)
 
     try:
-        result = _invoke_with_retries(structured_llm, [
-            {"role": "system", "content": MASTER_SUMMARIZER_SYSTEM},
-            {"role": "user", "content": prompt},
-        ])
-        logger.info("  Master Summarizer: Generated (%d char executive summary)", len(result.executive_summary))
+        result = _invoke_with_retries(
+            structured_llm,
+            [
+                {"role": "system", "content": MASTER_SUMMARIZER_SYSTEM},
+                {"role": "user", "content": prompt},
+            ],
+        )
+        logger.info(
+            "  Master Summarizer: Generated (%d char executive summary)",
+            len(result.executive_summary),
+        )
         _debug_log_master_summary("Master Summarizer output (raw LLM)", result)
         return result
     except Exception as exc:
-        logger.warning("  Master Summarizer failed after all retries: %s — building fallback", exc)
+        logger.warning(
+            "  Master Summarizer failed after all retries: %s — building fallback", exc
+        )
         return _build_fallback_master_summary(summaries)
 
 
 # ---------------------------------------------------------------------------
 # Master Summary: Validator
 # ---------------------------------------------------------------------------
+
 
 def run_master_validator(
     summaries: dict[str, FunctionGapSummary],
@@ -829,8 +940,16 @@ def run_master_validator(
         ("total_subcategories", master_summary.total_subcategories, agg["total"]),
         ("total_in_scope", master_summary.total_in_scope, agg["in_scope"]),
         ("total_addressed", master_summary.total_addressed, agg["addressed"]),
-        ("total_partially_addressed", master_summary.total_partially_addressed, agg["partially_addressed"]),
-        ("total_not_addressed", master_summary.total_not_addressed, agg["not_addressed"]),
+        (
+            "total_partially_addressed",
+            master_summary.total_partially_addressed,
+            agg["partially_addressed"],
+        ),
+        (
+            "total_not_addressed",
+            master_summary.total_not_addressed,
+            agg["not_addressed"],
+        ),
         ("total_out_of_scope", master_summary.total_out_of_scope, agg["out_of_scope"]),
     ]
     for field, got, expected in checks:
@@ -838,7 +957,9 @@ def run_master_validator(
             stat_issues.append(f"Wrong number: {field} is {got}, should be {expected}")
 
     # For ties, accept any function name that's part of the tie
-    def _check_function_field(generated: str, expected: str, field_name: str) -> str | None:
+    def _check_function_field(
+        generated: str, expected: str, field_name: str
+    ) -> str | None:
         if expected.startswith("Tied ("):
             # Extract tied function names; accept any of them or the full "Tied (...)" string
             tied_names = [n.strip() for n in expected[6:-1].split(",")]
@@ -851,10 +972,14 @@ def run_master_validator(
             return f"Wrong {field_name}: '{generated}', should be '{expected}'"
         return None
 
-    issue = _check_function_field(master_summary.strongest_function, strongest, "strongest_function")
+    issue = _check_function_field(
+        master_summary.strongest_function, strongest, "strongest_function"
+    )
     if issue:
         stat_issues.append(issue)
-    issue = _check_function_field(master_summary.weakest_function, weakest, "weakest_function")
+    issue = _check_function_field(
+        master_summary.weakest_function, weakest, "weakest_function"
+    )
     if issue:
         stat_issues.append(issue)
 
@@ -879,7 +1004,9 @@ def run_master_validator(
         )
 
     if stat_issues:
-        logger.warning("  Master Validator: REJECTED by code — %d issues", len(stat_issues))
+        logger.warning(
+            "  Master Validator: REJECTED by code — %d issues", len(stat_issues)
+        )
         for issue in stat_issues:
             logger.warning("    - %s", issue)
         return SummaryValidationResult(is_acceptable=False, issues=stat_issues)
@@ -890,15 +1017,16 @@ def run_master_validator(
     llm = create_llm()
     structured_llm = llm.with_structured_output(SummaryValidationResult)
 
-    # Collect all valid subcategory IDs from per-function summaries
+    # Collect all valid subcategory IDs directly from the structured assessment
+    # objects — these are clean strings with no punctuation, no word-splitting needed.
     all_valid_ids: list[str] = []
     for s in summaries.values():
         for gap in s.critical_gaps:
-            # Extract IDs like "GV.OC-03" from gap text
-            for word in gap.split():
-                if "." in word and "-" in word:
-                    all_valid_ids.append(word.strip("(),:"))
-
+            # critical_gaps items are formatted as "ID: description" by the summarizer.
+            # The ID is the portion before the first colon (or the whole string if no colon).
+            candidate = gap.split(":")[0].strip()
+            if candidate:
+                all_valid_ids.append(candidate)
     summary_text = (
         f"Executive Summary:\n{master_summary.executive_summary}\n\n"
         f"Top Critical Gaps:\n"
@@ -911,7 +1039,7 @@ def run_master_validator(
 
 ## Valid subcategory IDs (reference list)
 
-{', '.join(all_valid_ids) if all_valid_ids else '(none)'}
+{", ".join(all_valid_ids) if all_valid_ids else "(none)"}
 
 ## Master Summary to Check
 
@@ -928,27 +1056,38 @@ If no errors found, set is_acceptable=true with empty issues list.
     logger.debug("  Master Validator prompt (%d chars):\n%s", len(prompt), prompt)
 
     try:
-        result = _invoke_with_retries(structured_llm, [
-            {"role": "system", "content": MASTER_VALIDATOR_SYSTEM},
-            {"role": "user", "content": prompt},
-        ])
+        result = _invoke_with_retries(
+            structured_llm,
+            [
+                {"role": "system", "content": MASTER_VALIDATOR_SYSTEM},
+                {"role": "user", "content": prompt},
+            ],
+        )
         if result.is_acceptable:
             logger.info("  Master Validator: Summary ACCEPTED ✓")
         else:
-            logger.warning("  Master Validator: Summary REJECTED — %d issues", len(result.issues))
+            logger.warning(
+                "  Master Validator: Summary REJECTED — %d issues", len(result.issues)
+            )
             for issue in result.issues:
                 logger.warning("    - %s", issue)
-        logger.debug("  Master Validator result: is_acceptable=%s, issues=%s",
-                      result.is_acceptable, result.issues)
+        logger.debug(
+            "  Master Validator result: is_acceptable=%s, issues=%s",
+            result.is_acceptable,
+            result.issues,
+        )
         return result
     except Exception as exc:
-        logger.warning("  Master Validator failed after all retries: %s — accepting summary", exc)
+        logger.warning(
+            "  Master Validator failed after all retries: %s — accepting summary", exc
+        )
         return SummaryValidationResult(is_acceptable=True, issues=[])
 
 
 # ---------------------------------------------------------------------------
 # Master Summary: Orchestrator (Summarize + Validate loop)
 # ---------------------------------------------------------------------------
+
 
 def run_master_summarize_with_validation(
     summaries: dict[str, FunctionGapSummary],
@@ -986,18 +1125,22 @@ def run_master_summarize_with_validation(
 
         if validation.is_acceptable:
             logger.info(
-                "  Master summary accepted on attempt %d ✓", attempt,
+                "  Master summary accepted on attempt %d ✓",
+                attempt,
             )
             return master_summary
 
         logger.warning(
             "  Master summary rejected (attempt %d/%d) — regenerating",
-            attempt, MAX_RETRIES,
+            attempt,
+            MAX_RETRIES,
         )
 
         # Regenerate with feedback
         master_summary = run_master_summarizer(
-            summaries, model_name, prior_issues=validation.issues,
+            summaries,
+            model_name,
+            prior_issues=validation.issues,
         )
 
     logger.warning(
@@ -1016,9 +1159,12 @@ def run_master_summarize_with_validation(
 
     # Fix stats if wrong
     stat_fields = [
-        ("total_subcategories", "total"), ("total_in_scope", "in_scope"),
-        ("total_addressed", "addressed"), ("total_partially_addressed", "partially_addressed"),
-        ("total_not_addressed", "not_addressed"), ("total_out_of_scope", "out_of_scope"),
+        ("total_subcategories", "total"),
+        ("total_in_scope", "in_scope"),
+        ("total_addressed", "addressed"),
+        ("total_partially_addressed", "partially_addressed"),
+        ("total_not_addressed", "not_addressed"),
+        ("total_out_of_scope", "out_of_scope"),
     ]
     for attr, key in stat_fields:
         if getattr(master_summary, attr) != agg[key]:
@@ -1033,10 +1179,14 @@ def run_master_summarize_with_validation(
         return generated == expected
 
     if not _is_valid_for_field(master_summary.strongest_function, strongest):
-        corrections.append(f"strongest_function: '{master_summary.strongest_function}' → '{strongest}'")
+        corrections.append(
+            f"strongest_function: '{master_summary.strongest_function}' → '{strongest}'"
+        )
         master_summary.strongest_function = strongest
     if not _is_valid_for_field(master_summary.weakest_function, weakest):
-        corrections.append(f"weakest_function: '{master_summary.weakest_function}' → '{weakest}'")
+        corrections.append(
+            f"weakest_function: '{master_summary.weakest_function}' → '{weakest}'"
+        )
         master_summary.weakest_function = weakest
 
     # Fix missing docs if dropped
@@ -1044,7 +1194,9 @@ def run_master_summarize_with_validation(
     generated_doc_set = set(master_summary.missing_policy_documents)
     if expected_doc_set - generated_doc_set:
         dropped = len(expected_doc_set - generated_doc_set)
-        corrections.append(f"missing_policy_documents: {dropped} docs were dropped, restoring full list")
+        corrections.append(
+            f"missing_policy_documents: {dropped} docs were dropped, restoring full list"
+        )
         master_summary.missing_policy_documents = all_docs
 
     # Fix critical gaps if dropped
@@ -1056,7 +1208,9 @@ def run_master_summarize_with_validation(
         master_summary.top_critical_gaps = all_gaps
 
     if corrections:
-        logger.warning("  Code-corrected %d fields after max retries:", len(corrections))
+        logger.warning(
+            "  Code-corrected %d fields after max retries:", len(corrections)
+        )
         for c in corrections:
             logger.warning("    - %s", c)
     else:
@@ -1069,6 +1223,7 @@ def run_master_summarize_with_validation(
 # ---------------------------------------------------------------------------
 # Master Summary: Markdown renderer
 # ---------------------------------------------------------------------------
+
 
 def render_master_summary(summary: MasterGapSummary) -> str:
     """Render a MasterGapSummary into a clean markdown document."""
@@ -1138,6 +1293,7 @@ def render_master_summary(summary: MasterGapSummary) -> str:
 # ---------------------------------------------------------------------------
 # Per-function Markdown renderer
 # ---------------------------------------------------------------------------
+
 
 def render_function_summary(summary: FunctionGapSummary) -> str:
     """Render a FunctionGapSummary into a clean markdown document."""
