@@ -43,6 +43,7 @@ from agents.policy_revision_agent import (
     run_new_section_with_validation,
 )
 from agents.roadmap_agent import run_roadmap_with_validation, render_improvement_roadmap
+from events import emit_event
 
 logger = logging.getLogger(__name__)
 
@@ -162,6 +163,10 @@ def run_policy_revision(
     """
     logger.info("=" * 60)
     logger.info("Phase 3: Policy Revision (RAPTOR + CoVe)")
+    emit_event(
+        "revision_started",
+        {"run_dir": str(run_output_dir), "model": model_name},
+    )
     logger.info("=" * 60)
 
     sections = load_sections(sections_path)
@@ -368,6 +373,15 @@ def run_policy_revision(
     logger.info("Saved revision report to %s", report_path)
 
     logger.info("Policy revision complete — %d gaps addressed.", len(revision_reports))
+    emit_event(
+        "revision_outputs_ready",
+        {
+            "run_dir": str(run_output_dir),
+            "modified_sections": len(additions_per_section),
+            "new_sections": len(new_sections),
+            "gaps_addressed": len(revision_reports),
+        },
+    )
 
     # -----------------------------------------------------------------------
     # Phase D: Improvement roadmap
@@ -383,6 +397,10 @@ def run_policy_revision(
     roadmap_path = run_output_dir / "improvement_roadmap.md"
     roadmap_path.write_text(roadmap_md)
     logger.info("Saved improvement roadmap to %s", roadmap_path)
+    emit_event(
+        "roadmap_ready",
+        {"run_dir": str(run_output_dir), "tiers": len(roadmap.tiers)},
+    )
 
 
 # ---------------------------------------------------------------------------

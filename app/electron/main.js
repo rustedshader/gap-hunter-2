@@ -1,7 +1,10 @@
 const { app, BrowserWindow, dialog, ipcMain, shell } = require("electron");
 const path = require("path");
 const fs = require("fs");
-const { spawn } = require("child_process");
+const { spawn, execFile } = require("child_process");
+const { promisify } = require("util");
+
+const execFileAsync = promisify(execFile);
 
 const isDev = !app.isPackaged;
 const repoRoot = path.resolve(__dirname, "..", "..");
@@ -12,6 +15,35 @@ let mainWindow = null;
 let backendProcess = null;
 let stdoutBuffer = "";
 let stderrBuffer = "";
+
+function historyPath() {
+  return path.join(app.getPath("userData"), "run_history.json");
+}
+
+async function readHistory() {
+  try {
+    const raw = await fs.promises.readFile(historyPath(), "utf-8");
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      return parsed;
+    }
+    if (parsed && Array.isArray(parsed.entries)) {
+      return parsed.entries;
+    }
+  } catch (err) {
+    return [];
+  }
+  return [];
+}
+
+async function writeHistory(entries) {
+  const payload = {
+    version: 1,
+    entries
+  };
+  await fs.promises.writeFile(historyPath(), JSON.stringify(payload, null, 2));
+  return entries;
+}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -135,6 +167,19 @@ function parseLogLine(line, source) {
   };
 }
 
+function parseEventLine(line) {
+  if (!line.startsWith("EVENT ")) {
+    return null;
+  }
+
+  const payload = line.slice(6).trim();
+  try {
+    return JSON.parse(payload);
+  } catch (error) {
+    return null;
+  }
+}
+
 function sendToRenderer(channel, payload) {
   if (mainWindow && !mainWindow.isDestroyed()) {
     mainWindow.webContents.send(channel, payload);
@@ -148,6 +193,11 @@ function handleStreamData(data, source) {
     const lines = stdoutBuffer.split(/\r?\n/);
     stdoutBuffer = lines.pop() || "";
     lines.filter(Boolean).forEach((line) => {
+      const event = parseEventLine(line.trim());
+      if (event) {
+        sendToRenderer("backend:event", event);
+        return;
+      }
       sendToRenderer("backend:log", parseLogLine(line, "stdout"));
     });
     return;
@@ -157,6 +207,11 @@ function handleStreamData(data, source) {
   const lines = stderrBuffer.split(/\r?\n/);
   stderrBuffer = lines.pop() || "";
   lines.filter(Boolean).forEach((line) => {
+    const event = parseEventLine(line.trim());
+    if (event) {
+      sendToRenderer("backend:event", event);
+      return;
+    }
     sendToRenderer("backend:log", parseLogLine(line, "stderr"));
   });
 }
@@ -243,6 +298,125 @@ function buildBackendArgs(params) {
   }
 
   return args;
+}
+
+async function readJsonFile(filePath) {
+  if (!filePath) {
+    return null;
+  }
+  try {
+    const raw = await fs.promises.readFile(filePath, "utf-8");
+    return JSON.parse(raw);
+  } catch (error) {
+    return null;
+  }
+}
+
+async function readTextFile(filePath, maxBytes = 2_000_000) {
+  if (!filePath) {
+    return null;
+  }
+  try {
+    const stat = await fs.promises.stat(filePath);
+    if (stat.size > maxBytes) {
+      return null;
+    }
+    return await fs.promises.readFile(filePath, "utf-8");
+  } catch (error) {
+    return null;
+  }
+}
+
+async function scanRunDirectories(baseDir) {
+  if (!baseDir) {
+    return [];
+  }
+  try {
+    const entries = await fs.promises.readdir(baseDir, { withFileTypes: true });
+    const results = [];
+    for (const entry of entries) {
+      if (!entry.isDirectory()) {
+        continue;
+      }
+      const runDir = path.join(baseDir, entry.name);
+      const summaryPath = path.join(runDir, "summary.json");
+      if (fs.existsSync(summaryPath)) {
+        results.push(runDir);
+      }
+    }
+    return results.sort().reverse();
+  } catch (error) {
+    return [];
+  }
+}
+
+function normalizeHistoryEntry(entry) {
+  if (!entry || !entry.runDir) {
+    return null;
+  }
+
+  const runDir = entry.runDir;
+  const id = entry.id || path.basename(runDir);
+
+  return {
+    id,
+    runDir,
+    createdAt: entry.createdAt || new Date().toISOString(),
+    policyName: entry.policyName || null,
+    model: entry.model || null,
+    provider: entry.provider || null,
+    status: entry.status || null,
+    tags: Array.isArray(entry.tags) ? entry.tags : [],
+    notes: entry.notes || ""
+  };
+}
+
+async function getBackendStats(pid) {
+  if (!pid) {
+    return null;
+  }
+
+  if (process.platform === "win32") {
+    try {
+      const { stdout } = await execFileAsync("tasklist", [
+        "/FI",
+        `PID eq ${pid}`,
+        "/FO",
+        "CSV",
+        "/NH"
+      ]);
+      const line = stdout.trim();
+      if (!line) {
+        return null;
+      }
+      const cleaned = line.replace(/^"|"$/g, "");
+      const parts = cleaned.split("\",\"");
+      const memRaw = parts[4] || "";
+      const memValue = Number(memRaw.replace(/[^0-9.]/g, ""));
+      const memMb = Number.isFinite(memValue) ? memValue / 1024 : null;
+      return { pid, memoryMb: memMb, cpuPercent: null };
+    } catch (error) {
+      return null;
+    }
+  }
+
+  try {
+    const { stdout } = await execFileAsync("ps", ["-o", "%cpu=,rss=", "-p", String(pid)]);
+    const raw = stdout.trim();
+    if (!raw) {
+      return null;
+    }
+    const parts = raw.split(/\s+/);
+    const cpu = Number.parseFloat(parts[0]);
+    const rssKb = Number.parseInt(parts[1], 10);
+    return {
+      pid,
+      cpuPercent: Number.isFinite(cpu) ? cpu : null,
+      memoryMb: Number.isFinite(rssKb) ? rssKb / 1024 : null
+    };
+  } catch (error) {
+    return null;
+  }
 }
 
 app.whenReady().then(() => {
@@ -398,6 +572,14 @@ app.whenReady().then(() => {
     }
   });
 
+  ipcMain.handle("backend:read-json", async (_event, filePath) => {
+    return readJsonFile(filePath);
+  });
+
+  ipcMain.handle("backend:read-text", async (_event, filePath, maxBytes) => {
+    return readTextFile(filePath, maxBytes);
+  });
+
   ipcMain.handle("backend:read-summary", async (_event, runDir) => {
     if (!runDir) {
       return null;
@@ -412,6 +594,85 @@ app.whenReady().then(() => {
     }
   });
 
+  ipcMain.handle("history:list", async () => {
+    return readHistory();
+  });
+
+  ipcMain.handle("history:add", async (_event, entry) => {
+    const normalized = normalizeHistoryEntry(entry);
+    if (!normalized) {
+      return readHistory();
+    }
+
+    const entries = await readHistory();
+    const existingIndex = entries.findIndex((item) => item.runDir === normalized.runDir);
+    if (existingIndex >= 0) {
+      entries[existingIndex] = { ...entries[existingIndex], ...normalized };
+    } else {
+      entries.unshift(normalized);
+    }
+    return writeHistory(entries);
+  });
+
+  ipcMain.handle("history:update", async (_event, entry) => {
+    const normalized = normalizeHistoryEntry(entry);
+    if (!normalized) {
+      return readHistory();
+    }
+
+    const entries = await readHistory();
+    const existingIndex = entries.findIndex((item) => item.runDir === normalized.runDir);
+    if (existingIndex >= 0) {
+      entries[existingIndex] = { ...entries[existingIndex], ...normalized };
+    } else {
+      entries.unshift(normalized);
+    }
+    return writeHistory(entries);
+  });
+
+  ipcMain.handle("history:remove", async (_event, runDir) => {
+    if (!runDir) {
+      return readHistory();
+    }
+    const entries = await readHistory();
+    const filtered = entries.filter((item) => item.runDir !== runDir);
+    return writeHistory(filtered);
+  });
+
+  ipcMain.handle("history:scan", async (_event, baseDir) => {
+    const runs = await scanRunDirectories(baseDir);
+    return runs
+      .map((runDir) => normalizeHistoryEntry({ runDir }))
+      .filter((entry) => entry !== null);
+  });
+
+  ipcMain.handle("app:info", async () => {
+    return {
+      appVersion: app.getVersion(),
+      electron: process.versions.electron,
+      chrome: process.versions.chrome,
+      node: process.versions.node,
+      platform: process.platform,
+      arch: process.arch
+    };
+  });
+
+  ipcMain.handle("process:stats", async () => {
+    const appMemory = process.memoryUsage();
+    const backendStats = backendProcess
+      ? await getBackendStats(backendProcess.pid)
+      : null;
+    return {
+      timestamp: new Date().toISOString(),
+      app: {
+        rssMb: appMemory.rss / 1024 / 1024,
+        heapUsedMb: appMemory.heapUsed / 1024 / 1024,
+        heapTotalMb: appMemory.heapTotal / 1024 / 1024
+      },
+      backend: backendStats
+    };
+  });
+
   ipcMain.handle("ollama:test", async (_event, url) => {
     if (!url) {
       return { ok: false, error: "Missing Ollama URL" };
@@ -420,6 +681,7 @@ app.whenReady().then(() => {
     const normalized = url.replace(/\/+$/, "");
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 4000);
+    const start = Date.now();
 
     try {
       const response = await fetch(`${normalized}/api/tags`, {
@@ -427,16 +689,23 @@ app.whenReady().then(() => {
       });
       clearTimeout(timeout);
 
+      const durationMs = Date.now() - start;
+
       if (!response.ok) {
-        return { ok: false, status: response.status, error: "Request failed" };
+        return {
+          ok: false,
+          status: response.status,
+          error: "Request failed",
+          durationMs
+        };
       }
 
       const data = await response.json();
       const models = Array.isArray(data.models) ? data.models.map((m) => m.name) : [];
-      return { ok: true, status: response.status, models };
+      return { ok: true, status: response.status, models, durationMs };
     } catch (error) {
       clearTimeout(timeout);
-      return { ok: false, error: error.message || "Connection failed" };
+      return { ok: false, error: error.message || "Connection failed", durationMs: Date.now() - start };
     }
   });
 

@@ -22,6 +22,7 @@ from extractor import (
     save_master_list,
 )
 from gap_analyzer import run_gap_analysis, save_gap_analysis_summary, NIST_FUNCTIONS
+from events import emit_event
 
 logging.basicConfig(
     level=logging.INFO,
@@ -163,11 +164,23 @@ def create_run_dir(output_dir: Path) -> Path:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     run_dir = output_dir / timestamp
     run_dir.mkdir(parents=True, exist_ok=True)
+    emit_event(
+        "run_dir_created",
+        {
+            "run_dir": str(run_dir),
+            "output_dir": str(output_dir),
+            "run_id": timestamp,
+        },
+    )
     return run_dir
 
 
 def run_extraction(args: argparse.Namespace, run_dir: Path) -> None:
     """Phase 1: Extract sections from PDF and generate master list."""
+    emit_event(
+        "phase_started",
+        {"phase": "extraction", "pdf": str(args.pdf) if args.pdf else None},
+    )
     log.info("Phase 1: Extracting sections from %s", args.pdf)
 
     if not args.pdf.exists():
@@ -186,6 +199,11 @@ def run_extraction(args: argparse.Namespace, run_dir: Path) -> None:
 
     save_sections_json(sections, sections_path)
     log.info("Extracted %d sections → %s", len(sections), sections_path)
+
+    emit_event(
+        "extraction_complete",
+        {"sections": len(sections), "sections_path": str(sections_path)},
+    )
 
     log.info("Generating master list with summaries...")
     master_list = generate_master_list(sections, model_name=args.model)
@@ -209,6 +227,10 @@ def run_extraction(args: argparse.Namespace, run_dir: Path) -> None:
 
 def run_analysis(args: argparse.Namespace, run_dir: Path) -> None:
     """Phase 2: Run NIST CSF gap analysis on extracted sections."""
+    emit_event(
+        "phase_started",
+        {"phase": "analysis", "run_dir": str(run_dir), "model": args.model},
+    )
     log.info("Phase 2: Running NIST CSF gap analysis")
 
     master_list_path = run_dir / "master_list.json"
@@ -237,6 +259,11 @@ def run_analysis(args: argparse.Namespace, run_dir: Path) -> None:
         sections_path=sections_path,
     )
 
+    emit_event(
+        "analysis_complete",
+        {"functions": list(reports.keys()), "run_dir": str(run_dir)},
+    )
+
     save_gap_analysis_summary(reports, run_dir / "summary.json")
 
     print(f"\n{'=' * 60}")
@@ -261,6 +288,10 @@ def run_revision(args: argparse.Namespace, run_dir: Path) -> None:
     """Phase 3: Generate revised policy from gap analysis results."""
     from policy_reviser import run_policy_revision
 
+    emit_event(
+        "phase_started",
+        {"phase": "revision", "run_dir": str(run_dir), "model": args.model},
+    )
     log.info("Phase 3: Generating revised policy")
 
     sections_path = run_dir / "sections_output.json"
@@ -276,6 +307,11 @@ def run_revision(args: argparse.Namespace, run_dir: Path) -> None:
         assessments_path=assessments_path,
         run_output_dir=run_dir,
         model_name=args.model,
+    )
+
+    emit_event(
+        "revision_complete",
+        {"run_dir": str(run_dir)},
     )
 
     print(f"\n{'=' * 60}")

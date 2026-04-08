@@ -28,6 +28,7 @@ from agents.function_summarizer_agent import (
     render_master_summary,
     FunctionGapSummary,
 )
+from events import emit_event
 
 _CONTENT_CHAR_LIMIT = 12_000  # per section, avoid overloading context window
 
@@ -36,6 +37,21 @@ logger = logging.getLogger(__name__)
 NIST_FUNCTIONS: list[
     Literal["Govern", "Identify", "Protect", "Detect", "Respond", "Recover"]
 ] = ["Govern", "Identify", "Protect", "Detect", "Respond", "Recover"]
+
+
+def _summarize_assessments(assessments: list[SubcategoryAssessment]) -> dict[str, int]:
+    in_scope = [a for a in assessments if a.status != "Out of Scope"]
+    out_scope = [a for a in assessments if a.status == "Out of Scope"]
+    return {
+        "total": len(assessments),
+        "in_scope": len(in_scope),
+        "out_of_scope": len(out_scope),
+        "addressed": sum(1 for a in in_scope if a.status == "Addressed"),
+        "partially_addressed": sum(
+            1 for a in in_scope if a.status == "Partially Addressed"
+        ),
+        "not_addressed": sum(1 for a in in_scope if a.status == "Not Addressed"),
+    }
 
 
 def load_master_list(master_list_path: Path) -> list[dict]:
@@ -133,6 +149,11 @@ def run_gap_analysis(
     if sections_path is None:
         sections_path = master_list_path.parent / "sections_output.json"
 
+    emit_event(
+        "gap_analysis_started",
+        {"run_dir": str(run_output_dir), "model": model_name},
+    )
+
     # Load master list
     master_list = load_master_list(master_list_path)
     logger.info("Loaded %d sections from master list", len(master_list))
@@ -182,6 +203,12 @@ def run_gap_analysis(
                     )
                 )
             all_assessments[function] = out_assessments
+
+            counts = _summarize_assessments(out_assessments)
+            emit_event(
+                "function_analysis_complete",
+                {"function": function, **counts},
+            )
 
             # Build a minimal report for this skipped function
             from agents.nist_gap_agents import _assemble_function_report
@@ -244,6 +271,12 @@ def run_gap_analysis(
             summary_path.write_text(summary_md)
             logger.info("Saved %s validated summary to %s", function, summary_path)
 
+            counts = _summarize_assessments(assessments)
+            emit_event(
+                "function_analysis_complete",
+                {"function": function, **counts},
+            )
+
         except Exception as e:
             logger.exception("Failed to analyze %s function", function)
             reports[function] = f"Error: {str(e)}"
@@ -290,6 +323,10 @@ def run_gap_analysis(
     logger.info("Saved assessments to %s", assessments_path)
 
     logger.info("Gap analysis complete!")
+    emit_event(
+        "gap_analysis_complete",
+        {"run_dir": str(run_output_dir), "functions": list(reports.keys())},
+    )
     return reports
 
 
