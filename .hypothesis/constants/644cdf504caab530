@@ -1,0 +1,4 @@
+# file: /Users/rohan/Documents/gap-hunter-2/src/agents/text_summarizer.py
+# hypothesis_version: 6.151.11
+
+[100, 800, 1500, 2000, 2200, '    - %s', ', ', '.', 'content', 'role', 'system', 'user']

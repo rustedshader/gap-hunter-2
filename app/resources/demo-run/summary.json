@@ -1,0 +1,38 @@
+{
+  "timestamp": "2026-04-09T00:10:31.344382",
+  "functions_analyzed": [
+    "Govern",
+    "Identify",
+    "Protect",
+    "Detect",
+    "Respond",
+    "Recover"
+  ],
+  "consolidated_report_generated": true,
+  "reports": {
+    "Govern": {
+      "length": 16999,
+      "preview": "# Govern Function \u2014 Gap Analysis Report\n*(CIS MS-ISAC NIST CSF Policy Template Guide 2024)*\n\n**Total Subcategories**: 31\n**In Scope**: 19 | **Out of Scope**: 12\n**Addressed**: 0 | **Partially Addresse..."
+    },
+    "Identify": {
+      "length": 6161,
+      "preview": "# Identify Function \u2014 Gap Analysis Report\n*(CIS MS-ISAC NIST CSF Policy Template Guide 2024)*\n\n**Total Subcategories**: 21\n**In Scope**: 4 | **Out of Scope**: 17\n**Addressed**: 0 | **Partially Address..."
+    },
+    "Protect": {
+      "length": 5858,
+      "preview": "# Protect Function \u2014 Gap Analysis Report\n*(CIS MS-ISAC NIST CSF Policy Template Guide 2024)*\n\n**Total Subcategories**: 22\n**In Scope**: 2 | **Out of Scope**: 20\n**Addressed**: 0 | **Partially Addresse..."
+    },
+    "Detect": {
+      "length": 2514,
+      "preview": "# Detect Function \u2014 Gap Analysis Report\n*(CIS MS-ISAC NIST CSF Policy Template Guide 2024)*\n\n**Total Subcategories**: 11\n**In Scope**: 0 | **Out of Scope**: 11\n**Addressed**: 0 | **Partially Addressed..."
+    },
+    "Respond": {
+      "length": 2564,
+      "preview": "# Respond Function \u2014 Gap Analysis Report\n*(CIS MS-ISAC NIST CSF Policy Template Guide 2024)*\n\n**Total Subcategories**: 13\n**In Scope**: 0 | **Out of Scope**: 13\n**Addressed**: 0 | **Partially Addresse..."
+    },
+    "Recover": {
+      "length": 1981,
+      "preview": "# Recover Function \u2014 Gap Analysis Report\n*(CIS MS-ISAC NIST CSF Policy Template Guide 2024)*\n\n**Total Subcategories**: 8\n**In Scope**: 0 | **Out of Scope**: 8\n**Addressed**: 0 | **Partially Addressed*..."
+    }
+  }
+}

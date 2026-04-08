@@ -106,6 +106,44 @@ python src/main.py <policy.pdf> --llm-provider llamacpp --gguf-model-path /path/
 - LLM provider factory: [src/llm.py](src/llm.py)
 - PyInstaller spec: [packaging/backend.spec](packaging/backend.spec)
 
+## Testing
+
+Gap-Hunter-2 includes a comprehensive research-based testing framework with 4 test phases:
+
+- **Unit Tests**: Fast deterministic tests (<5s) for core logic validation
+- **Integration Tests**: Multi-agent architecture tests with mocked LLMs (<30s)
+- **E2E Tests**: Golden dataset tests with real LLM calls and LLM-as-a-judge evaluation
+- **Adversarial Tests**: Robustness tests against corrupted/malicious inputs
+
+### Running Tests
+
+```bash
+# Run fast tests (unit + integration)
+PYTHONPATH=. uv run pytest -m "unit or integration" tests/
+
+# Run all tests
+PYTHONPATH=. uv run pytest tests/
+
+# Run with coverage
+PYTHONPATH=. uv run pytest tests/ --cov=src --cov-report=html:tests/reports/coverage/full
+```
+
+### CI/CD Pipelines
+
+- **Fast CI**: Runs on every push/PR (unit + integration tests, <2 min)
+- **Nightly E2E**: Scheduled at 2 AM UTC (golden dataset + adversarial tests, 30-60 min)
+- **Full Test Suite**: Manual trigger (all test phases, 45-75 min)
+
+### Test Reports
+
+After running tests, view the dashboard:
+
+```bash
+open tests/reports/index.html
+```
+
+For detailed testing documentation, see [tests/README.md](tests/README.md).
+
 ## Notes
 
 - Output reports are written under the default reports folder unless overridden.

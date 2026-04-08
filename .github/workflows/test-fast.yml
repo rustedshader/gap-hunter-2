@@ -1,0 +1,67 @@
+name: Fast CI Tests
+
+on:
+  push:
+    branches: [ beta ]
+  pull_request:
+    branches: [ beta ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+    
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+    
+    - name: Install dependencies
+      run: |
+        uv pip install --system -e ".[test]"
+    
+    - name: Run unit and integration tests
+      run: |
+        PYTHONPATH=. uv run pytest -m "unit or integration" tests/ \
+          --cov=src \
+          --cov-report=html:tests/reports/coverage/fast-ci \
+          --cov-report=xml:tests/reports/coverage/coverage.xml \
+          --cov-report=term \
+          --html=tests/reports/pytest/fast-ci.html \
+          --self-contained-html \
+          -v
+    
+    - name: Check coverage threshold
+      run: |
+        COVERAGE=$(uv run coverage report | grep TOTAL | awk '{print $4}' | sed 's/%//')
+        echo "Coverage: ${COVERAGE}%"
+        if (( $(echo "$COVERAGE < 70" | bc -l) )); then
+          echo "❌ Coverage ${COVERAGE}% is below threshold (70%)"
+          exit 1
+        fi
+        echo "✅ Coverage ${COVERAGE}% meets threshold (70%)"
+    
+    - name: Upload test reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-reports-fast-ci
+        path: tests/reports/
+        retention-days: 30
+    
+    - name: Upload coverage to Codecov
+      if: always()
+      uses: codecov/codecov-action@v4
+      with:
+        file: tests/reports/coverage/coverage.xml
+        flags: unittests,integration
+        name: fast-ci-coverage

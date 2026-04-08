@@ -4,6 +4,9 @@ const fs = require("fs");
 const { spawn, execFile } = require("child_process");
 const { promisify } = require("util");
 
+const { RunStore } = require("./services/run_store");
+const { JobManager } = require("./services/job_manager");
+
 const execFileAsync = promisify(execFile);
 
 const isDev = !app.isPackaged;
@@ -12,38 +15,9 @@ const rendererDist = path.join(__dirname, "..", "dist", "renderer");
 const preloadPath = path.join(__dirname, "preload.js");
 
 let mainWindow = null;
-let backendProcess = null;
-let stdoutBuffer = "";
-let stderrBuffer = "";
-
-function historyPath() {
-  return path.join(app.getPath("userData"), "run_history.json");
-}
-
-async function readHistory() {
-  try {
-    const raw = await fs.promises.readFile(historyPath(), "utf-8");
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) {
-      return parsed;
-    }
-    if (parsed && Array.isArray(parsed.entries)) {
-      return parsed.entries;
-    }
-  } catch (err) {
-    return [];
-  }
-  return [];
-}
-
-async function writeHistory(entries) {
-  const payload = {
-    version: 1,
-    entries
-  };
-  await fs.promises.writeFile(historyPath(), JSON.stringify(payload, null, 2));
-  return entries;
-}
+let jobManager = null;
+let runStore = null;
+let isQuitting = false;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -145,103 +119,6 @@ function resolveBackendCommand() {
   };
 }
 
-function parseLogLine(line, source) {
-  const regex = /^(\d{2}:\d{2}:\d{2})\s+([A-Z]+)\s+(.+?)\s{2,}(.*)$/;
-  const match = line.match(regex);
-  if (match) {
-    return {
-      time: match[1],
-      level: match[2],
-      logger: match[3].trim(),
-      message: match[4].trim(),
-      source
-    };
-  }
-
-  return {
-    time: new Date().toISOString(),
-    level: source === "stderr" ? "ERROR" : "INFO",
-    logger: "backend",
-    message: line.trim(),
-    source
-  };
-}
-
-function parseEventLine(line) {
-  if (!line.startsWith("EVENT ")) {
-    return null;
-  }
-
-  const payload = line.slice(6).trim();
-  try {
-    return JSON.parse(payload);
-  } catch (error) {
-    return null;
-  }
-}
-
-function sendToRenderer(channel, payload) {
-  if (mainWindow && !mainWindow.isDestroyed()) {
-    mainWindow.webContents.send(channel, payload);
-  }
-}
-
-function handleStreamData(data, source) {
-  const text = data.toString();
-  if (source === "stdout") {
-    stdoutBuffer += text;
-    const lines = stdoutBuffer.split(/\r?\n/);
-    stdoutBuffer = lines.pop() || "";
-    lines.filter(Boolean).forEach((line) => {
-      const event = parseEventLine(line.trim());
-      if (event) {
-        sendToRenderer("backend:event", event);
-        return;
-      }
-      sendToRenderer("backend:log", parseLogLine(line, "stdout"));
-    });
-    return;
-  }
-
-  stderrBuffer += text;
-  const lines = stderrBuffer.split(/\r?\n/);
-  stderrBuffer = lines.pop() || "";
-  lines.filter(Boolean).forEach((line) => {
-    const event = parseEventLine(line.trim());
-    if (event) {
-      sendToRenderer("backend:event", event);
-      return;
-    }
-    sendToRenderer("backend:log", parseLogLine(line, "stderr"));
-  });
-}
-
-function killProcessTree(pid, force) {
-  if (!pid) {
-    return;
-  }
-
-  if (process.platform === "win32") {
-    const args = ["/PID", String(pid), "/T"];
-    if (force) {
-      args.push("/F");
-    }
-    spawn("taskkill", args, { windowsHide: true });
-    return;
-  }
-
-  try {
-    process.kill(-pid, force ? "SIGKILL" : "SIGTERM");
-    return;
-  } catch (error) {
-    try {
-      process.kill(pid, force ? "SIGKILL" : "SIGTERM");
-    } catch (innerError) {
-      // Ignore if already exited.
-    }
-  }
-}
-
 function buildBackendArgs(params) {
   const args = [];
 
@@ -300,75 +177,36 @@ function buildBackendArgs(params) {
   return args;
 }
 
-async function readJsonFile(filePath) {
-  if (!filePath) {
-    return null;
-  }
-  try {
-    const raw = await fs.promises.readFile(filePath, "utf-8");
-    return JSON.parse(raw);
-  } catch (error) {
-    return null;
+function sendToRenderer(channel, payload) {
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    mainWindow.webContents.send(channel, payload);
   }
 }
 
-async function readTextFile(filePath, maxBytes = 2_000_000) {
-  if (!filePath) {
-    return null;
+function killProcessTree(pid, force) {
+  if (!pid) {
+    return;
   }
-  try {
-    const stat = await fs.promises.stat(filePath);
-    if (stat.size > maxBytes) {
-      return null;
+
+  if (process.platform === "win32") {
+    const args = ["/PID", String(pid), "/T"];
+    if (force) {
+      args.push("/F");
     }
-    return await fs.promises.readFile(filePath, "utf-8");
-  } catch (error) {
-    return null;
+    spawn("taskkill", args, { windowsHide: true });
+    return;
   }
-}
 
-async function scanRunDirectories(baseDir) {
-  if (!baseDir) {
-    return [];
-  }
   try {
-    const entries = await fs.promises.readdir(baseDir, { withFileTypes: true });
-    const results = [];
-    for (const entry of entries) {
-      if (!entry.isDirectory()) {
-        continue;
-      }
-      const runDir = path.join(baseDir, entry.name);
-      const summaryPath = path.join(runDir, "summary.json");
-      if (fs.existsSync(summaryPath)) {
-        results.push(runDir);
-      }
-    }
-    return results.sort().reverse();
+    process.kill(-pid, force ? "SIGKILL" : "SIGTERM");
+    return;
   } catch (error) {
-    return [];
+    try {
+      process.kill(pid, force ? "SIGKILL" : "SIGTERM");
+    } catch (innerError) {
+      // Ignore if already exited.
+    }
   }
-}
-
-function normalizeHistoryEntry(entry) {
-  if (!entry || !entry.runDir) {
-    return null;
-  }
-
-  const runDir = entry.runDir;
-  const id = entry.id || path.basename(runDir);
-
-  return {
-    id,
-    runDir,
-    createdAt: entry.createdAt || new Date().toISOString(),
-    policyName: entry.policyName || null,
-    model: entry.model || null,
-    provider: entry.provider || null,
-    status: entry.status || null,
-    tags: Array.isArray(entry.tags) ? entry.tags : [],
-    notes: entry.notes || ""
-  };
 }
 
 async function getBackendStats(pid) {
@@ -419,8 +257,69 @@ async function getBackendStats(pid) {
   }
 }
 
-app.whenReady().then(() => {
+function filterRunUpdates(updates) {
+  const safe = {};
+  if (Array.isArray(updates.tags)) {
+    safe.tags = updates.tags.map((tag) => String(tag).trim()).filter(Boolean);
+  }
+  if (typeof updates.notes === "string") {
+    safe.notes = updates.notes;
+  }
+  if (typeof updates.policyName === "string") {
+    safe.policyName = updates.policyName;
+  }
+  if (typeof updates.runName === "string") {
+    safe.runName = updates.runName;
+  }
+  if (typeof updates.pinned === "boolean") {
+    safe.pinned = updates.pinned;
+  }
+  return safe;
+}
+
+function resolveDemoRunDir() {
+  const candidates = [
+    path.join(repoRoot, "app", "resources", "demo-run"),
+    path.join(repoRoot, "gap_analysis_reports", "20260408_030937"),
+    path.join(process.resourcesPath || "", "demo-run")
+  ];
+  for (const candidate of candidates) {
+    if (!candidate || !fs.existsSync(candidate)) {
+      continue;
+    }
+    const summaryPath = path.join(candidate, "summary.json");
+    if (fs.existsSync(summaryPath)) {
+      return candidate;
+    }
+  }
+  return null;
+}
+
+app.whenReady().then(async () => {
   createWindow();
+
+  runStore = new RunStore(app.getPath("userData"));
+  jobManager = new JobManager({
+    store: runStore,
+    resolveBackendCommand,
+    buildBackendArgs,
+    killProcessTree,
+    baseCwd: isDev ? repoRoot : process.resourcesPath
+  });
+  await jobManager.initialize();
+
+  const demoRunDir = resolveDemoRunDir();
+  if (demoRunDir) {
+    await jobManager.ensureDemoRun(demoRunDir);
+  }
+
+  jobManager.on("run-event", (event) => sendToRenderer("runs:event", event));
+  jobManager.on("run-log", (payload) =>
+    sendToRenderer("runs:event", { type: "run-log", ...payload })
+  );
+  jobManager.on("backend-event", (payload) =>
+    sendToRenderer("runs:event", { type: "backend-event", ...payload })
+  );
 
   ipcMain.handle("config:get", async () => readConfig());
   ipcMain.handle("config:set", async (_event, config) => writeConfig(config));
@@ -453,197 +352,65 @@ app.whenReady().then(() => {
     await shell.openPath(targetPath);
   });
 
-  ipcMain.handle("backend:start", async (_event, params) => {
-    if (backendProcess) {
-      return { ok: false, error: "A run is already in progress." };
-    }
+  ipcMain.handle("runs:snapshot", async () => jobManager.getSnapshot());
 
-    try {
-      const { command, baseArgs, cwd } = resolveBackendCommand();
-      const args = [...baseArgs, ...buildBackendArgs(params)];
-
-      sendToRenderer("backend:log", {
-        time: new Date().toISOString(),
-        level: "INFO",
-        logger: "app",
-        message: `Launching backend: ${[command, ...args].join(" ")}`,
-        source: "app"
-      });
-
-      backendProcess = spawn(command, args, {
-        cwd,
-        env: {
-          ...process.env,
-          PYTHONUNBUFFERED: "1",
-          PYTHONUTF8: "1"
-        },
-        detached: process.platform !== "win32"
-      });
-
-      stdoutBuffer = "";
-      stderrBuffer = "";
-
-      backendProcess.stdout.on("data", (data) => handleStreamData(data, "stdout"));
-      backendProcess.stderr.on("data", (data) => handleStreamData(data, "stderr"));
-
-      backendProcess.on("exit", (code, signal) => {
-        sendToRenderer("backend:exit", { code, signal });
-        sendToRenderer("backend:status", { state: "stopped" });
-        backendProcess = null;
-      });
-
-      backendProcess.on("error", (error) => {
-        sendToRenderer("backend:log", {
-          time: new Date().toISOString(),
-          level: "ERROR",
-          logger: "backend",
-          message: error.message,
-          source: "stderr"
-        });
-        sendToRenderer("backend:exit", { code: 1, signal: "error" });
-        sendToRenderer("backend:status", { state: "error" });
-        backendProcess = null;
-      });
-
-      sendToRenderer("backend:status", { state: "running", pid: backendProcess.pid });
-      return { ok: true };
-    } catch (error) {
-      return { ok: false, error: error.message || "Failed to start backend" };
-    }
+  ipcMain.handle("runs:start", async (_event, params) => {
+    const policyName = params && params.pdfPath ? path.basename(params.pdfPath) : "";
+    return jobManager.startRun(params, { policyName });
   });
 
-  ipcMain.handle("backend:stop", async (_event, options) => {
-    if (!backendProcess) {
-      return { ok: true };
+  ipcMain.handle("runs:stop", async (_event, payload) => {
+    const runId = payload && payload.runId ? payload.runId : jobManager.getSnapshot().selectedRunId;
+    if (!runId) {
+      return { ok: false, error: "No run selected." };
     }
+    return jobManager.stopRun(runId, payload && payload.force);
+  });
 
-    const force = Boolean(options && options.force);
-    const pid = backendProcess.pid;
+  ipcMain.handle("runs:select", async (_event, runId) => {
+    await jobManager.selectRun(runId);
+    return jobManager.getSnapshot();
+  });
 
-    sendToRenderer("backend:log", {
-      time: new Date().toISOString(),
-      level: force ? "WARNING" : "INFO",
-      logger: "app",
-      message: force
-        ? `Force stopping backend (pid ${pid})`
-        : `Stopping backend (pid ${pid})`,
-      source: "app"
+  ipcMain.handle("runs:update", async (_event, payload) => {
+    if (!payload || !payload.runId) {
+      return null;
+    }
+    const safeUpdates = filterRunUpdates(payload.updates || {});
+    return jobManager.updateRun(payload.runId, safeUpdates);
+  });
+
+  ipcMain.handle("runs:remove", async (_event, payload) => {
+    if (!payload || !payload.runId) {
+      return { ok: false, error: "Run id is required." };
+    }
+    return jobManager.removeRun(payload.runId, {
+      deleteFiles: Boolean(payload.deleteFiles)
     });
-
-    killProcessTree(pid, force);
-
-    if (!force) {
-      setTimeout(() => {
-        if (backendProcess) {
-          killProcessTree(pid, true);
-        }
-      }, 4000);
-    }
-
-    return { ok: true };
   });
 
-  ipcMain.handle("backend:list-artifacts", async (_event, runDir) => {
-    if (!runDir) {
-      return [];
-    }
+  ipcMain.handle("runs:refresh", async (_event, runId) => jobManager.refreshRun(runId));
+  ipcMain.handle("runs:scan", async (_event, baseDir) => jobManager.scanRuns(baseDir));
 
-    try {
-      const entries = await fs.promises.readdir(runDir, { withFileTypes: true });
-      const results = [];
-
-      for (const entry of entries) {
-        if (!entry.isFile()) {
-          continue;
-        }
-        const filePath = path.join(runDir, entry.name);
-        const stat = await fs.promises.stat(filePath);
-        results.push({
-          name: entry.name,
-          path: filePath,
-          size: stat.size
-        });
-      }
-
-      results.sort((a, b) => a.name.localeCompare(b.name));
-      return results;
-    } catch (error) {
-      return [];
-    }
-  });
-
-  ipcMain.handle("backend:read-json", async (_event, filePath) => {
-    return readJsonFile(filePath);
-  });
-
-  ipcMain.handle("backend:read-text", async (_event, filePath, maxBytes) => {
-    return readTextFile(filePath, maxBytes);
-  });
-
-  ipcMain.handle("backend:read-summary", async (_event, runDir) => {
-    if (!runDir) {
+  ipcMain.handle("runs:read-json", async (_event, payload) => {
+    if (!payload || !payload.runId || !payload.fileName) {
       return null;
     }
+    return jobManager.readRunJson(payload.runId, payload.fileName);
+  });
 
-    const summaryPath = path.join(runDir, "summary.json");
-    try {
-      const raw = await fs.promises.readFile(summaryPath, "utf-8");
-      return JSON.parse(raw);
-    } catch (error) {
+  ipcMain.handle("runs:read-text", async (_event, payload) => {
+    if (!payload || !payload.runId || !payload.fileName) {
       return null;
     }
+    return jobManager.readRunText(payload.runId, payload.fileName, payload.maxBytes);
   });
 
-  ipcMain.handle("history:list", async () => {
-    return readHistory();
-  });
-
-  ipcMain.handle("history:add", async (_event, entry) => {
-    const normalized = normalizeHistoryEntry(entry);
-    if (!normalized) {
-      return readHistory();
+  ipcMain.handle("runs:clear-log", async (_event, runId) => {
+    if (!runId) {
+      return { ok: false, error: "Run id is required." };
     }
-
-    const entries = await readHistory();
-    const existingIndex = entries.findIndex((item) => item.runDir === normalized.runDir);
-    if (existingIndex >= 0) {
-      entries[existingIndex] = { ...entries[existingIndex], ...normalized };
-    } else {
-      entries.unshift(normalized);
-    }
-    return writeHistory(entries);
-  });
-
-  ipcMain.handle("history:update", async (_event, entry) => {
-    const normalized = normalizeHistoryEntry(entry);
-    if (!normalized) {
-      return readHistory();
-    }
-
-    const entries = await readHistory();
-    const existingIndex = entries.findIndex((item) => item.runDir === normalized.runDir);
-    if (existingIndex >= 0) {
-      entries[existingIndex] = { ...entries[existingIndex], ...normalized };
-    } else {
-      entries.unshift(normalized);
-    }
-    return writeHistory(entries);
-  });
-
-  ipcMain.handle("history:remove", async (_event, runDir) => {
-    if (!runDir) {
-      return readHistory();
-    }
-    const entries = await readHistory();
-    const filtered = entries.filter((item) => item.runDir !== runDir);
-    return writeHistory(filtered);
-  });
-
-  ipcMain.handle("history:scan", async (_event, baseDir) => {
-    const runs = await scanRunDirectories(baseDir);
-    return runs
-      .map((runDir) => normalizeHistoryEntry({ runDir }))
-      .filter((entry) => entry !== null);
+    return jobManager.clearRunLog(runId);
   });
 
   ipcMain.handle("app:info", async () => {
@@ -657,11 +424,10 @@ app.whenReady().then(() => {
     };
   });
 
-  ipcMain.handle("process:stats", async () => {
+  ipcMain.handle("process:stats", async (_event, runId) => {
+    const targetRun = runId ? jobManager.getRun(runId) : jobManager.getActiveRun();
     const appMemory = process.memoryUsage();
-    const backendStats = backendProcess
-      ? await getBackendStats(backendProcess.pid)
-      : null;
+    const backendStats = targetRun?.pid ? await getBackendStats(targetRun.pid) : null;
     return {
       timestamp: new Date().toISOString(),
       app: {
@@ -714,6 +480,30 @@ app.whenReady().then(() => {
       createWindow();
     }
   });
+});
+
+app.on("before-quit", (event) => {
+  if (isQuitting) {
+    return;
+  }
+  const activeRun = jobManager ? jobManager.getActiveRun() : null;
+  if (activeRun && activeRun.id) {
+    event.preventDefault();
+    isQuitting = true;
+    void jobManager.stopRun(activeRun.id, false);
+    setTimeout(() => {
+      void jobManager.stopRun(activeRun.id, true);
+      if (runStore) {
+        void runStore.markShutdown();
+      }
+      app.quit();
+    }, 5000);
+    return;
+  }
+
+  if (runStore) {
+    void runStore.markShutdown();
+  }
 });
 
 app.on("window-all-closed", () => {

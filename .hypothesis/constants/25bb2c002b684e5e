@@ -1,0 +1,4 @@
+# file: /Users/rohan/Documents/gap-hunter-2/src/agents/policy_revision_agent.py
+# hypothesis_version: 6.151.11
+
+[0.8, 400, 600, 1000, 1500, '    - %s', '(none available)', ', ', '.', '=', 'DE', 'Detect', 'GV', 'Govern', 'ID', 'Identify', 'Not Addressed', 'PR', 'Partially Addressed', 'Protect', 'RC', 'RS', 'Recover', 'Respond', 'content', 'guidance', 'id', 'modify', 'new_section', 'none', 'number', 'policies', 'role', 'system', 'user']

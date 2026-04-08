@@ -1,0 +1,30 @@
+# Exclude all generated test reports from version control
+# These are generated during test runs and should not be committed
+
+# Coverage reports
+coverage/
+*.coverage
+.coverage.*
+htmlcov/
+
+# E2E test reports
+e2e/
+
+# Metrics reports
+metrics/
+*.json
+
+# Pytest HTML reports
+pytest/
+*.html
+
+# Summary dashboard
+index.html
+
+# Temporary files
+*.tmp
+*.log
+
+# Keep the directory structure
+!.gitignore
+!README.md

@@ -1,0 +1,4 @@
+# file: /Users/rohan/Documents/gap-hunter-2/src/tools/pdf.py
+# hypothesis_version: 6.151.11
+
+[126, ' {2,}', '.pdf', '/MT', '/MT(\\d+)', 'File must be a PDF.', '\\1', '\\b(\\w) (?=\\w\\b)']

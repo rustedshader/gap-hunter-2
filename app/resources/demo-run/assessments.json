@@ -1,0 +1,862 @@
+{
+  "Govern": [
+    {
+      "subcategory_id": "GV.OC-01",
+      "title": "Govern: Organizational Context",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The provided evidence snippets do not contain any information regarding the customer's security policy, making it impossible to assess whether it addresses the requirements of GV.OC-01.",
+      "recommendation": "Request the customer's Information Security Policy to perform the assessment."
+    },
+    {
+      "subcategory_id": "GV.OC-02",
+      "title": "Identification and Authentication Policy",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The policy does not address the requirement for understanding and considering the needs and expectations of internal and external stakeholders regarding cybersecurity risk management, as no relevant policy passages were found.",
+      "recommendation": "The customer must develop or update their policy to include provisions for stakeholder analysis, documenting stakeholder cybersecurity expectations, and tracking changing expectations, as suggested by the Implementation Guidance for GV.OC-02."
+    },
+    {
+      "subcategory_id": "GV.OC-03",
+      "title": "Legal, regulatory, and contractual requirements regarding cybersecurity \u2014 including privacy and civil liberties obligations \u2014 are understood and managed. Organizations must comply with applicable laws (e.g., HIPAA, FERPA, GDPR, state data breach laws) and contractual cybersecurity clauses. Non-compliance creates legal liability and reputational damage.",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The provided evidence explicitly states that no relevant passages were found in any policy section, meaning the policy does not currently address the requirements of GV.OC-03.",
+      "recommendation": "The customer must develop or update their security policy to include provisions for understanding, managing, and complying with applicable legal, regulatory, and contractual cybersecurity requirements, including maintaining a legal and regulatory requirements register and assigning ownership for compliance tracking."
+    },
+    {
+      "subcategory_id": "GV.OC-04",
+      "title": "Computer Security Threat Response Policy",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The policy does not address the requirement for formally documenting critical business services, prioritizing recovery of critical services in incident response plans, or regularly briefing stakeholders on what is considered critical.",
+      "recommendation": "The organization should develop or update the Computer Security Threat Response Policy to formally document critical business services, ensure the Incident Response Policy prioritizes the recovery of these services, and establish a process for regularly communicating critical service information to stakeholders."
+    },
+    {
+      "subcategory_id": "GV.RM-01",
+      "title": "Risk management objectives are established and agreed to by organizational stakeholders. These objectives define what the organization is trying to achieve with its risk management program \u2014 e.g., reducing likelihood of breaches, maintaining regulatory compliance, ensuring service availability. Stakeholder agreement ensures buy-in and consistent prioritization.",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The provided evidence snippets do not contain any relevant passages from the customer's security policy to assess compliance with the GV.RM-01 requirement.",
+      "recommendation": "The customer must provide relevant policy sections to allow for an assessment against the GV.RM-01 requirement."
+    },
+    {
+      "subcategory_id": "GV.RM-02",
+      "title": "Risk appetite and risk tolerance statements are established, communicated, and maintained. Risk appetite defines the amount of risk the organization is willing to accept in pursuit of its objectives. Risk tolerance defines the acceptable variation around that appetite. These statements guide all risk response decisions.",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The provided evidence snippets do not contain any information regarding the establishment, communication, or maintenance of risk appetite and risk tolerance statements, nor do they address the key questions related to risk appetite and tolerance.",
+      "recommendation": "The customer must develop and incorporate formal risk appetite and tolerance statements into their security policy, aligning with the required policy templates and implementation guidance."
+    },
+    {
+      "subcategory_id": "GV.RM-03",
+      "title": "Govern: Risk Management Strategy",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The provided evidence snippets do not contain any information regarding the customer's security policy, making it impossible to assess whether it addresses the requirements of GV.RM-03.",
+      "recommendation": "The customer must provide relevant policy documentation (e.g., Information Security Policy, Risk Assessment Policy) to allow for an assessment against this subcategory."
+    },
+    {
+      "subcategory_id": "GV.RM-04",
+      "title": "Govern: Risk Management Strategy",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The provided evidence snippets do not contain any information regarding the organization's risk response strategies, decision criteria, or communication of preferred approaches to handling identified risks, which are required by the GV.RM-04 subcategory.",
+      "recommendation": "The customer must develop and document preferred risk response strategies (accept, avoid, transfer, or mitigate) and establish criteria for choosing these strategies, as outlined in the Implementation Guidance for GV.RM-04."
+    },
+    {
+      "subcategory_id": "GV.RM-05",
+      "title": "Govern: Risk Management Strategy",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The provided evidence snippets do not contain any information regarding documented processes for reporting cybersecurity risks, vendor risk communication channels, or escalation paths, which are required by GV.RM-05.",
+      "recommendation": "The customer must develop and document communication channels for risk reporting, establish escalation paths, and include third-party/vendor risk communication protocols in vendor management agreements to comply with GV.RM-05."
+    },
+    {
+      "subcategory_id": "GV.SC-01",
+      "title": "Identification and Authentication Policy",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The policy does not address the requirements for a formal cybersecurity supply chain risk management (C-SCRM) program, strategy, objectives, policies, and processes, nor does it address the specific key questions regarding the existence of a formal C-SCRM program, leadership support, and integration with procurement and vendor management.",
+      "recommendation": "The customer needs to develop and implement a C-SCRM policy and program charter, define objectives aligned with risk appetite, gain executive sponsorship, and integrate C-SCRM into the broader risk management program, as outlined in the Implementation Guidance for GV.SC-01."
+    },
+    {
+      "subcategory_id": "GV.SC-02",
+      "title": "Cybersecurity roles and responsibilities for suppliers, customers, and partners are established, communicated, and coordinated internally and externally. All parties in the supply chain must understand their cybersecurity obligations. Ambiguity in third-party responsibilities is a common source of security gaps.",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The customer policy does not contain any relevant passages to assess against the requirement for establishing and communicating cybersecurity roles and responsibilities for suppliers, customers, and partners.",
+      "recommendation": "The customer must develop or update their policy to explicitly define cybersecurity responsibilities in vendor and partner contracts, assign internal owners for third-party relationships, and include third-party cybersecurity requirements in onboarding materials."
+    },
+    {
+      "subcategory_id": "GV.SC-03",
+      "title": "Cybersecurity supply chain risk management is integrated into cybersecurity and enterprise risk management, risk assessment, and improvement processes. Third-party risks must appear in the enterprise risk register and be assessed using the same standards as internal risks. Integration prevents blind spots.",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The customer policy does not address the requirement for integrating cybersecurity supply chain risk management into enterprise risk management, tracking third-party risks in the enterprise risk register, or applying the same risk methodology to supply chain risks as internal risks.",
+      "recommendation": "The customer must update their policy to explicitly address the integration of supply chain risk management into enterprise risk management, ensure third-party risks are tracked in the enterprise risk register, and mandate the use of the organization's standard risk methodology for assessing supply chain risks."
+    },
+    {
+      "subcategory_id": "GV.SC-04",
+      "title": "Identification and Authentication Policy",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The provided evidence does not contain any policy text to assess against the GV.SC-04 requirement.",
+      "recommendation": "The customer policy must be reviewed to determine if it addresses the requirements of GV.SC-04, specifically regarding supplier identification, prioritization, and tiered oversight."
+    },
+    {
+      "subcategory_id": "GV.SC-05",
+      "title": "Govern: Cybersecurity Supply Chain Risk Management",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The customer policy does not contain any relevant passages addressing the requirements for establishing, prioritizing, and integrating cybersecurity risk requirements into contracts with suppliers and third parties, nor does it detail the implementation guidance for developing standard contract clauses or conducting security reviews.",
+      "recommendation": "The customer must develop or update their policy to include specific requirements for managing cybersecurity risks in the supply chain, including contractual requirements for breach notification, audit rights, and minimum security standards for vendors."
+    },
+    {
+      "subcategory_id": "GV.SC-06",
+      "title": "Govern: Cybersecurity Supply Chain Risk Management",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The customer policy does not address the requirement for performing planning and due diligence to reduce risks before entering into formal supplier or other third-party relationships, nor does it define a process for pre-engagement due diligence, use of security questionnaires, review of certifications, or documentation of due diligence findings.",
+      "recommendation": "The customer should develop or update their policy to include a formal pre-engagement security assessment process for new vendors, requiring security certifications or questionnaires, and mandating the documentation and retention of due diligence findings, aligning with the Implementation Guidance for GV.SC-06."
+    },
+    {
+      "subcategory_id": "GV.SC-07",
+      "title": "Identification and Authentication Policy",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The customer policy does not address the requirements of GV.SC-07.",
+      "recommendation": "The customer must develop or update its policy to address the requirements of GV.SC-07, including establishing periodic reassessment cycles for suppliers, monitoring for changes in supplier posture, and tracking and remediating risk findings throughout the vendor relationship lifecycle."
+    },
+    {
+      "subcategory_id": "GV.SC-08",
+      "title": "Govern: Cybersecurity Supply Chain Risk Management",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The customer policy does not address the requirement that relevant suppliers and other third parties are included in incident planning, response, and recovery activities, nor does it address the guidance to identify relevant suppliers, include contact information in response plans, conduct joint exercises, or define notification and coordination procedures for supplier-involved incidents.",
+      "recommendation": "The customer needs to update their policy to explicitly address supply chain risk management related to incident response, ensuring that relevant suppliers are integrated into incident plans, exercises, and coordination procedures."
+    },
+    {
+      "subcategory_id": "GV.SC-09",
+      "title": "Identification and Authentication Policy",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The provided evidence does not contain any policy text to assess against the requirements of GV.SC-09.",
+      "recommendation": "The customer must provide relevant policy sections to allow for an assessment against the GV.SC-09 requirements."
+    },
+    {
+      "subcategory_id": "GV.SC-10",
+      "title": "Cybersecurity supply chain risk management plans include provisions for activities that occur after the conclusion of a partnership or service agreement. Offboarding a supplier carries real risk \u2014 data may remain in their systems, access may not be revoked, and institutional knowledge may be lost. Exit procedures must address these risks systematically.",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The customer policy does not address the requirement for cybersecurity supply chain risk management plans that include provisions for activities that occur after the conclusion of a partnership or service agreement, nor does it detail systematic exit procedures to address risks associated with supplier offboarding (data remaining, access not revoked, institutional knowledge loss).",
+      "recommendation": "The customer must develop and implement a formal supplier offboarding process, including requirements for data return/destruction, access revocation, key rotation, contract archive, and knowledge transfer, and ensure these exit provisions are included in all supplier contracts."
+    },
+    {
+      "subcategory_id": "GV.OC-05",
+      "title": "Govern: Organizational Context (GV.OC)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: System and Communications Protection Policy, Information Classification Standard, Information Security Policy",
+      "recommendation": "System and Communications Protection Policy, Information Classification Standard, Information Security Policy"
+    },
+    {
+      "subcategory_id": "GV.OV-01",
+      "title": "Govern: Oversight (GV.OV)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.OV-02",
+      "title": "Govern: Oversight (GV.OV)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.OV-03",
+      "title": "Govern: Oversight (GV.OV)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.PO-01",
+      "title": "Govern: Policy (GV.PO)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Personnel Security Policy, Physical and Environmental Protection Policy, Security Awareness and Training Policy",
+      "recommendation": "Personnel Security Policy, Physical and Environmental Protection Policy, Security Awareness and Training Policy"
+    },
+    {
+      "subcategory_id": "GV.PO-02",
+      "title": "Govern: Policy (GV.PO)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Personnel Security Policy, Physical and Environmental Protection Policy, Security Awareness and Training Policy",
+      "recommendation": "Personnel Security Policy, Physical and Environmental Protection Policy, Security Awareness and Training Policy"
+    },
+    {
+      "subcategory_id": "GV.RM-06",
+      "title": "Govern: Risk Management Strategy (GV.RM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.RM-07",
+      "title": "Govern: Risk Management Strategy (GV.RM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.RR-01",
+      "title": "Govern: Roles, Responsibilities, and Authorities (GV.RR)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Acceptable Use of Information Technology Resource Policy, Information Security Policy, Security Awareness and Training Policy",
+      "recommendation": "Acceptable Use of Information Technology Resource Policy, Information Security Policy, Security Awareness and Training Policy"
+    },
+    {
+      "subcategory_id": "GV.RR-02",
+      "title": "Govern: Roles, Responsibilities, and Authorities (GV.RR)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Acceptable Use of Information Technology Resource Policy, Information Security Policy, Security Awareness and Training Policy",
+      "recommendation": "Acceptable Use of Information Technology Resource Policy, Information Security Policy, Security Awareness and Training Policy"
+    },
+    {
+      "subcategory_id": "GV.RR-03",
+      "title": "Govern: Roles, Responsibilities, and Authorities (GV.RR)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.RR-04",
+      "title": "Govern: Roles, Responsibilities, and Authorities (GV.RR)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Personnel Security Policy, Physical and Environmental Protection Policy, Security Awareness and Training Policy",
+      "recommendation": "Information Security Policy, Personnel Security Policy, Physical and Environmental Protection Policy, Security Awareness and Training Policy"
+    }
+  ],
+  "Identify": [
+    {
+      "subcategory_id": "ID.AM-7",
+      "title": "Identify: Asset Management",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 1: 2. Data Classification All company data is classified into two categories: 3. Public: Information freely available to anyone (e.g., marketing materials). 4. Confidential: Customer data, employee records, and financial data.",
+      "gap": "The policy defines data classification (Public and Confidential), which addresses the need to classify data. However, it does not explicitly detail the maintenance of inventories of data and corresponding metadata (owner, location, retention schedule, access controls) as required by the Implementation Guidance and Key Questions for ID.AM-7. The evidence does not confirm if a data discovery exercise has been conducted, if locations are documented, or if retention schedules are enforced.",
+      "recommendation": "The policy needs to be expanded to include procedures for conducting data discovery exercises, documenting metadata (owner, location, retention schedule, access controls), and integrating with DLP/privacy management tools to fully meet the requirements of ID.AM-7."
+    },
+    {
+      "subcategory_id": "ID.AM-8",
+      "title": "Access Control Policy",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The provided evidence snippets do not contain any relevant policy text to assess compliance with the ID.AM-8 requirement.",
+      "recommendation": "The customer must provide relevant policy sections to allow for an assessment."
+    },
+    {
+      "subcategory_id": "ID.RA-07",
+      "title": "Assessment of Policy Compliance",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The provided evidence snippets do not contain any relevant policy text to assess compliance with the ID.RA-07 requirement.",
+      "recommendation": "The customer must provide relevant policy sections to allow for an assessment of compliance with ID.RA-07."
+    },
+    {
+      "subcategory_id": "ID.RA-10",
+      "title": "Identification and Authentication Policy",
+      "status": "Not Addressed",
+      "evidence": "No relevant passages were found in any policy section.",
+      "gap": "The provided evidence snippets do not contain any relevant policy text to assess compliance with the ID.RA-10 requirement.",
+      "recommendation": "Review the customer's 'Identification and Authentication Policy' and related policies to determine if they address the requirements of ID.RA-10, specifically regarding the assessment of critical suppliers prior to acquisition."
+    },
+    {
+      "subcategory_id": "ID.AM-1",
+      "title": "Identify: Asset Management (ID.AM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Acceptable Use of Information Technology Resource Policy, Access Control Policy, Account Management/Access Control Standard, Identification and Authentication Policy, Information Security Policy, Security Assessment and Authorization Policy",
+      "recommendation": "Acceptable Use of Information Technology Resource Policy, Access Control Policy, Account Management/Access Control Standard, Identification and Authentication Policy, Information Security Policy, Security Assessment and Authorization Policy"
+    },
+    {
+      "subcategory_id": "ID.AM-2",
+      "title": "Identify: Asset Management (ID.AM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Acceptable Use of Information Technology Resource Policy, Access Control Policy, Account Management/Access Control Standard, Identification and Authentication Policy, Information Security Policy, Security Assessment and Authorization Policy",
+      "recommendation": "Acceptable Use of Information Technology Resource Policy, Access Control Policy, Account Management/Access Control Standard, Identification and Authentication Policy, Information Security Policy, Security Assessment and Authorization Policy"
+    },
+    {
+      "subcategory_id": "ID.AM-3",
+      "title": "Identify: Asset Management (ID.AM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: System and Communications Protection Policy",
+      "recommendation": "System and Communications Protection Policy"
+    },
+    {
+      "subcategory_id": "ID.AM-4",
+      "title": "Identify: Asset Management (ID.AM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: System and Communications Protection Policy",
+      "recommendation": "System and Communications Protection Policy"
+    },
+    {
+      "subcategory_id": "ID.AM-5",
+      "title": "Identify: Asset Management (ID.AM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Classification Standard, Information Security Policy",
+      "recommendation": "Information Classification Standard, Information Security Policy"
+    },
+    {
+      "subcategory_id": "ID.IM-01",
+      "title": "Identify: Improvement (ID.IM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy"
+    },
+    {
+      "subcategory_id": "ID.IM-02",
+      "title": "Identify: Improvement (ID.IM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "ID.IM-03",
+      "title": "Identify: Improvement (ID.IM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "ID.IM-04",
+      "title": "Identify: Improvement (ID.IM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Systems and Services Acquisition Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Systems and Services Acquisition Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "ID.RA-01",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "ID.RA-02",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "ID.RA-03",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Encryption Standard, Information Security Policy, Maintenance Policy, Media Protection Policy, Mobile Device Security, Security Assessment and Authorization Policy, Vulnerability Scanning Standard, Patch Management Standard",
+      "recommendation": "Encryption Standard, Information Security Policy, Maintenance Policy, Media Protection Policy, Mobile Device Security, Security Assessment and Authorization Policy, Vulnerability Scanning Standard, Patch Management Standard"
+    },
+    {
+      "subcategory_id": "ID.RA-04",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "ID.RA-05",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy"
+    },
+    {
+      "subcategory_id": "ID.RA-06",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy"
+    },
+    {
+      "subcategory_id": "ID.RA-08",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy"
+    },
+    {
+      "subcategory_id": "ID.RA-09",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: System and Information Integrity Policy",
+      "recommendation": "System and Information Integrity Policy"
+    }
+  ],
+  "Protect": [
+    {
+      "subcategory_id": "PR.DS-01",
+      "title": "Protect: Data Security",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 1: Data at rest \u2014 stored on disks, databases, backups, and removable media \u2014 must be protected against unauthorized access, tampering, and loss. Encryption is the primary control for protecting data at rest.\nSnippet 2: Databases containing customer information should be encrypted.",
+      "gap": "The policy establishes the need for data at rest protection and identifies encryption as the primary control (Snippet 1), and specifically mandates encryption for databases containing customer information (Snippet 2). However, the evidence does not confirm that *all* storage locations (disks, backups, removable media, cloud storage, etc.) are encrypted, nor does it address the management and security of encryption keys, which are key questions for this subcategory.",
+      "recommendation": "The policy needs to be expanded to explicitly mandate encryption for all specified data-at-rest locations and establish controls for the secure management of encryption keys."
+    },
+    {
+      "subcategory_id": "PR.DS-02",
+      "title": "Protect: Data Security",
+      "status": "Not Addressed",
+      "evidence": "Snippet 2: Databases containing customer information should be encrypted.",
+      "gap": "The policy does not explicitly mandate the use of encryption for data in transit, which is the core focus of PR.DS-02 (protecting data-in-transit). While Snippet 2 addresses encryption, it does not specify *where* or *how* this encryption must be applied (i.e., in transit) or what protocols must be used, which is required by the Implementation Guidance for PR.DS-02.",
+      "recommendation": "The policy needs to be updated to explicitly address the protection of data in transit, including requirements for encryption protocols (e.g., TLS 1.2 or higher) and the disabling of legacy protocols, as outlined in the Implementation Guidance for PR.DS-02."
+    },
+    {
+      "subcategory_id": "PR.AA-01",
+      "title": "Protect: Identity Management and Access Control (PR.AA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Access Control Policy, Account Management/Access Control Standard, Configuration Management Policy, Identification and Authentication Policy, Sanitization Secure Disposal Standard, Secure Configuration Standard, Secure System Development Life Cycle Standard",
+      "recommendation": "Access Control Policy, Account Management/Access Control Standard, Configuration Management Policy, Identification and Authentication Policy, Sanitization Secure Disposal Standard, Secure Configuration Standard, Secure System Development Life Cycle Standard"
+    },
+    {
+      "subcategory_id": "PR.AA-02",
+      "title": "Protect: Identity Management and Access Control (PR.AA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Access Control Policy, Account Management/Access Control Standard, Authentication Tokens Standard, Configuration Management Policy, Identification and Authentication Policy",
+      "recommendation": "Access Control Policy, Account Management/Access Control Standard, Authentication Tokens Standard, Configuration Management Policy, Identification and Authentication Policy"
+    },
+    {
+      "subcategory_id": "PR.AA-03",
+      "title": "Protect: Identity Management and Access Control (PR.AA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Remote Access Standard",
+      "recommendation": "Remote Access Standard"
+    },
+    {
+      "subcategory_id": "PR.AA-04",
+      "title": "Protect: Identity Management and Access Control (PR.AA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Access Control Policy, Account Management/Access Control Standard, Authentication Tokens Standard, Configuration Management Policy, Identification and Authentication Policy",
+      "recommendation": "Access Control Policy, Account Management/Access Control Standard, Authentication Tokens Standard, Configuration Management Policy, Identification and Authentication Policy"
+    },
+    {
+      "subcategory_id": "PR.AA-05",
+      "title": "Protect: Identity Management and Access Control (PR.AA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Access Control Policy, Account Management/Access Control Standard, Configuration Management Policy, Identification and Authentication Policy, Sanitization Secure Disposal Standard, Secure Configuration Standard, Secure System Development Life Cycle Standard, Remote Access Standard",
+      "recommendation": "Access Control Policy, Account Management/Access Control Standard, Configuration Management Policy, Identification and Authentication Policy, Sanitization Secure Disposal Standard, Secure Configuration Standard, Secure System Development Life Cycle Standard, Remote Access Standard"
+    },
+    {
+      "subcategory_id": "PR.AA-06",
+      "title": "Protect: Identity Management and Access Control (PR.AA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Encryption Standard, Information Security Policy, Maintenance Policy, Media Protection Policy, Mobile Device Security, System and Communications Protection Policy",
+      "recommendation": "Encryption Standard, Information Security Policy, Maintenance Policy, Media Protection Policy, Mobile Device Security, System and Communications Protection Policy"
+    },
+    {
+      "subcategory_id": "PR.AT-01",
+      "title": "Protect: Awareness and Training (PR.AT)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Personnel Security Policy, Physical and Environmental Protection Policy, Security Awareness and Training Policy, Acceptable Use of Information Technology Resource Policy",
+      "recommendation": "Information Security Policy, Personnel Security Policy, Physical and Environmental Protection Policy, Security Awareness and Training Policy, Acceptable Use of Information Technology Resource Policy"
+    },
+    {
+      "subcategory_id": "PR.AT-02",
+      "title": "Protect: Awareness and Training (PR.AT)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Personnel Security Policy, Physical and Environmental Protection Policy, Security Awareness and Training Policy, Access Control Policy, Account Management/Access Control Standard, Authentication Tokens Standard, Configuration Management Policy, Identification and Authentication Policy, Acceptable Use of Information Technology Resource Policy",
+      "recommendation": "Information Security Policy, Personnel Security Policy, Physical and Environmental Protection Policy, Security Awareness and Training Policy, Access Control Policy, Account Management/Access Control Standard, Authentication Tokens Standard, Configuration Management Policy, Identification and Authentication Policy, Acceptable Use of Information Technology Resource Policy"
+    },
+    {
+      "subcategory_id": "PR.DS-10",
+      "title": "Protect: Data Security (PR.DS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Sanitization Secure Disposal Standard, Secure Configuration Standard, Secure System Development Life Cycle Standard, Maintenance Policy, Media Protection Policy, Mobile Device Security",
+      "recommendation": "Sanitization Secure Disposal Standard, Secure Configuration Standard, Secure System Development Life Cycle Standard, Maintenance Policy, Media Protection Policy, Mobile Device Security"
+    },
+    {
+      "subcategory_id": "PR.DS-11",
+      "title": "Protect: Data Security (PR.DS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Maintenance Policy, Media Protection Policy",
+      "recommendation": "Maintenance Policy, Media Protection Policy"
+    },
+    {
+      "subcategory_id": "PR.IR-01",
+      "title": "Protect: Technology Infrastructure Resilience (PR.IR)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Remote Access Standard, Mobile Device Security, Encryption Standard, Media Protection Policy, System and Communications Protection Policy",
+      "recommendation": "Remote Access Standard, Mobile Device Security, Encryption Standard, Media Protection Policy, System and Communications Protection Policy"
+    },
+    {
+      "subcategory_id": "PR.IR-02",
+      "title": "Protect: Technology Infrastructure Resilience (PR.IR)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Secure Configuration Standard, Secure System Development Life Cycle Standard, Sanitization Secure Disposal Standard, Maintenance Policy",
+      "recommendation": "Secure Configuration Standard, Secure System Development Life Cycle Standard, Sanitization Secure Disposal Standard, Maintenance Policy"
+    },
+    {
+      "subcategory_id": "PR.IR-03",
+      "title": "Protect: Technology Infrastructure Resilience (PR.IR)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Secure System Development Life Cycle Standard, System and Information Integrity Policy, 802.11 Wireless Network Security Standard",
+      "recommendation": "Secure System Development Life Cycle Standard, System and Information Integrity Policy, 802.11 Wireless Network Security Standard"
+    },
+    {
+      "subcategory_id": "PR.IR-04",
+      "title": "Protect: Technology Infrastructure Resilience (PR.IR)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: System and Information Integrity Policy",
+      "recommendation": "System and Information Integrity Policy"
+    },
+    {
+      "subcategory_id": "PR.PS-01",
+      "title": "Protect: Platform Security (PR.PS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Configuration Management Policy",
+      "recommendation": "Configuration Management Policy"
+    },
+    {
+      "subcategory_id": "PR.PS-02",
+      "title": "Protect: Platform Security (PR.PS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Maintenance Policy",
+      "recommendation": "Maintenance Policy"
+    },
+    {
+      "subcategory_id": "PR.PS-03",
+      "title": "Protect: Platform Security (PR.PS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Sanitization Secure Disposal Standard, Access Control Policy",
+      "recommendation": "Sanitization Secure Disposal Standard, Access Control Policy"
+    },
+    {
+      "subcategory_id": "PR.PS-04",
+      "title": "Protect: Platform Security (PR.PS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Identification and Authentication Policy",
+      "recommendation": "Identification and Authentication Policy"
+    },
+    {
+      "subcategory_id": "PR.PS-05",
+      "title": "Protect: Platform Security (PR.PS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Configuration Management Policy, Secure Configuration Standard",
+      "recommendation": "Configuration Management Policy, Secure Configuration Standard"
+    },
+    {
+      "subcategory_id": "PR.PS-06",
+      "title": "Protect: Platform Security (PR.PS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Sanitization Secure Disposal Standard",
+      "recommendation": "Sanitization Secure Disposal Standard"
+    }
+  ],
+  "Detect": [
+    {
+      "subcategory_id": "DE.AE-02",
+      "title": "Detect: Adverse Event Analysis (DE.AE)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Secure Coding Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Auditing and Accountability Standard, Secure Coding Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "DE.AE-03",
+      "title": "Detect: Adverse Event Analysis (DE.AE)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "DE.AE-04",
+      "title": "Detect: Adverse Event Analysis (DE.AE)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, System and Information Integrity Policy",
+      "recommendation": "Auditing and Accountability Standard, System and Information Integrity Policy"
+    },
+    {
+      "subcategory_id": "DE.AE-06",
+      "title": "Detect: Adverse Event Analysis (DE.AE)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy"
+    },
+    {
+      "subcategory_id": "DE.AE-07",
+      "title": "Detect: Adverse Event Analysis (DE.AE)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "DE.AE-08",
+      "title": "Detect: Adverse Event Analysis (DE.AE)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "DE.CM-01",
+      "title": "Detect: Continuous Monitoring (DE.CM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Maintenance Policy, Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Maintenance Policy, Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "DE.CM-02",
+      "title": "Detect: Continuous Monitoring (DE.CM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "DE.CM-03",
+      "title": "Detect: Continuous Monitoring (DE.CM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "DE.CM-06",
+      "title": "Detect: Continuous Monitoring (DE.CM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "DE.CM-09",
+      "title": "Detect: Continuous Monitoring (DE.CM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy"
+    }
+  ],
+  "Respond": [
+    {
+      "subcategory_id": "RS.MA-01",
+      "title": "Respond: Incident Management (RS.MA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy"
+    },
+    {
+      "subcategory_id": "RS.MA-02",
+      "title": "Respond: Incident Management (RS.MA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy"
+    },
+    {
+      "subcategory_id": "RS.MA-03",
+      "title": "Respond: Incident Management (RS.MA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy"
+    },
+    {
+      "subcategory_id": "RS.MA-04",
+      "title": "Respond: Incident Management (RS.MA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy"
+    },
+    {
+      "subcategory_id": "RS.MA-05",
+      "title": "Respond: Incident Management (RS.MA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy"
+    },
+    {
+      "subcategory_id": "RS.CO-02",
+      "title": "Respond: Incident Response Reporting and Communication (RS.CO)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RS.CO-03",
+      "title": "Respond: Incident Response Reporting and Communication (RS.CO)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RS.AN-03",
+      "title": "Respond: Incident Analysis (RS.AN)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RS.AN-06",
+      "title": "Respond: Incident Analysis (RS.AN)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RS.AN-07",
+      "title": "Respond: Incident Analysis (RS.AN)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RS.AN-08",
+      "title": "Respond: Incident Analysis (RS.AN)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RS.MI-01",
+      "title": "Respond: Incident Mitigation (RS.MI)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RS.MI-02",
+      "title": "Respond: Incident Mitigation (RS.MI)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    }
+  ],
+  "Recover": [
+    {
+      "subcategory_id": "RC.RP-01",
+      "title": "Recover: Incident Recovery Plan Execution (RC.RP)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RC.RP-02",
+      "title": "Recover: Incident Recovery Plan Execution (RC.RP)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RC.RP-03",
+      "title": "Recover: Incident Recovery Plan Execution (RC.RP)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RC.RP-04",
+      "title": "Recover: Incident Recovery Plan Execution (RC.RP)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RC.RP-05",
+      "title": "Recover: Incident Recovery Plan Execution (RC.RP)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RC.RP-06",
+      "title": "Recover: Incident Recovery Plan Execution (RC.RP)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RC.CO-03",
+      "title": "Recover: Incident Recovery Communication (RC.CO)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Contingency Planning Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Contingency Planning Policy, Cyber Incident Response Standard, Incident Response Policy"
+    },
+    {
+      "subcategory_id": "RC.CO-04",
+      "title": "Recover: Incident Recovery Communication (RC.CO)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Contingency Planning Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Contingency Planning Policy, Cyber Incident Response Standard, Incident Response Policy"
+    }
+  ]
+}

@@ -13,3 +13,31 @@ dependencies = [
     "pydantic>=2.0",
     "pyinstaller>=6.19.0",
 ]
+
+[project.optional-dependencies]
+test = [
+    "deepeval>=3.9.6",
+    "hypothesis>=6.151.11",
+    "pytest>=9.0.3",
+    "pytest-cov>=7.1.0",
+    "pytest-html>=4.2.0",
+    "pytest-mock>=3.15.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--tb=short",
+]
+markers = [
+    "unit: Fast deterministic unit tests without external dependencies",
+    "integration: Integration tests with mocked LLM responses",
+    "llm: Tests that make real LLM calls (expensive)",
+    "golden: Golden dataset E2E tests",
+    "adversarial: Adversarial and resilience tests",
+]

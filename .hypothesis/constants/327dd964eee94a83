@@ -1,0 +1,4 @@
+# file: /Users/rohan/Documents/gap-hunter-2/src/heading_detector.py
+# hypothesis_version: 6.151.11
+
+[100, '.', '^-\\s+l\\s*(.+)$', 'allcaps', 'bold', 'bullet', 'markdown', 'numbered']

@@ -42,6 +42,13 @@
         "filter": [
           "**/*"
         ]
+      },
+      {
+        "from": "resources/demo-run",
+        "to": "demo-run",
+        "filter": [
+          "**/*"
+        ]
       }
     ],
     "mac": {

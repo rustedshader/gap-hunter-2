@@ -5,39 +5,26 @@ contextBridge.exposeInMainWorld("api", {
   saveConfig: (config) => ipcRenderer.invoke("config:set", config),
   selectPdf: () => ipcRenderer.invoke("dialog:select-pdf"),
   selectDirectory: () => ipcRenderer.invoke("dialog:select-directory"),
-  startRun: (params) => ipcRenderer.invoke("backend:start", params),
-  stopRun: (options) => ipcRenderer.invoke("backend:stop", options),
-  listArtifacts: (runDir) => ipcRenderer.invoke("backend:list-artifacts", runDir),
-  readSummary: (runDir) => ipcRenderer.invoke("backend:read-summary", runDir),
-  readJson: (filePath) => ipcRenderer.invoke("backend:read-json", filePath),
-  readText: (filePath, maxBytes) => ipcRenderer.invoke("backend:read-text", filePath, maxBytes),
-  historyList: () => ipcRenderer.invoke("history:list"),
-  historyAdd: (entry) => ipcRenderer.invoke("history:add", entry),
-  historyUpdate: (entry) => ipcRenderer.invoke("history:update", entry),
-  historyRemove: (runDir) => ipcRenderer.invoke("history:remove", runDir),
-  historyScan: (baseDir) => ipcRenderer.invoke("history:scan", baseDir),
+  startRun: (params) => ipcRenderer.invoke("runs:start", params),
+  stopRun: (payload) => ipcRenderer.invoke("runs:stop", payload),
+  getRunsSnapshot: () => ipcRenderer.invoke("runs:snapshot"),
+  selectRun: (runId) => ipcRenderer.invoke("runs:select", runId),
+  updateRun: (runId, updates) => ipcRenderer.invoke("runs:update", { runId, updates }),
+  refreshRun: (runId) => ipcRenderer.invoke("runs:refresh", runId),
+  scanRuns: (baseDir) => ipcRenderer.invoke("runs:scan", baseDir),
+  removeRun: (runId, options) => ipcRenderer.invoke("runs:remove", { runId, ...options }),
+  readRunJson: (runId, fileName) =>
+    ipcRenderer.invoke("runs:read-json", { runId, fileName }),
+  readRunText: (runId, fileName, maxBytes) =>
+    ipcRenderer.invoke("runs:read-text", { runId, fileName, maxBytes }),
+  clearRunLog: (runId) => ipcRenderer.invoke("runs:clear-log", runId),
   getAppInfo: () => ipcRenderer.invoke("app:info"),
-  getProcessStats: () => ipcRenderer.invoke("process:stats"),
+  getProcessStats: (runId) => ipcRenderer.invoke("process:stats", runId),
   openPath: (targetPath) => ipcRenderer.invoke("shell:open-path", targetPath),
   testOllama: (url) => ipcRenderer.invoke("ollama:test", url),
-  onEvent: (callback) => {
+  onRunEvent: (callback) => {
     const listener = (_, data) => callback(data);
-    ipcRenderer.on("backend:event", listener);
-    return () => ipcRenderer.removeListener("backend:event", listener);
-  },
-  onLog: (callback) => {
-    const listener = (_, data) => callback(data);
-    ipcRenderer.on("backend:log", listener);
-    return () => ipcRenderer.removeListener("backend:log", listener);
-  },
-  onStatus: (callback) => {
-    const listener = (_, data) => callback(data);
-    ipcRenderer.on("backend:status", listener);
-    return () => ipcRenderer.removeListener("backend:status", listener);
-  },
-  onExit: (callback) => {
-    const listener = (_, data) => callback(data);
-    ipcRenderer.on("backend:exit", listener);
-    return () => ipcRenderer.removeListener("backend:exit", listener);
+    ipcRenderer.on("runs:event", listener);
+    return () => ipcRenderer.removeListener("runs:event", listener);
   }
 });

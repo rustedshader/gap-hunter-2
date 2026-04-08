@@ -1,0 +1,16 @@
+[
+  {
+    "number": "1",
+    "title": "Data Privacy and Security Policy",
+    "summary": "This section establishes the objective of ensuring the safe and legal handling of all customer and company data. It mandates a formal classification system for all data to determine appropriate handling and security measures.\n\nKey requirements or obligations:\n*   All company data must be classified into two categories: Public and Confidential.\n*   Public data is information freely available to anyone (e.g., marketing materials).\n*   Confidential data includes customer data, employee records, and financial data.\n\nCritical compliance points:\n*   Organizations must apply the defined classification scheme consistently across all data assets to ensure proper security controls are applied based on sensitivity.",
+    "start_line": 1,
+    "end_line": 15
+  },
+  {
+    "number": "2",
+    "title": "Data Protection Rules",
+    "summary": "This section establishes mandatory rules for protecting confidential data by controlling its transmission, storage, and access methods. The policy mandates specific security measures for handling sensitive information both internally and when employees are working remotely.",
+    "start_line": 16,
+    "end_line": 20
+  }
+]

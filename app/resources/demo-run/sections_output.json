@@ -1,0 +1,18 @@
+[
+  {
+    "number": "1",
+    "title": "Data Privacy and Security Policy",
+    "content": "Document ID:\n\nPOL-DATA-002\n\nEffective Date:\n\nMarch 15, 2025\n\n1. Objective To ensure customer and company data is handled safely and legally.\n2. Data Classification All company data is classified into two categories:\n3. Public: Information freely available to anyone (e.g., marketing materials).\n4. Confidential: Customer data, employee records, and financial data.",
+    "start_line": 1,
+    "end_line": 15,
+    "is_complete": true
+  },
+  {
+    "number": "2",
+    "title": "Data Protection Rules",
+    "content": "- Confidential data must not be sent to personal email addresses.\n- Databases containing customer information should be encrypted.\n- Employees working remotely must use the company VPN to access confidential files.",
+    "start_line": 16,
+    "end_line": 20,
+    "is_complete": true
+  }
+]

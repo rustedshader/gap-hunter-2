@@ -1,0 +1,55 @@
+[01:34:25] INFO __main__ Debug log → /Users/rohan/Documents/gap-hunter-2/gap_analysis_reports/20260408_030937/debug.log
+[01:34:25] INFO __main__ Phase 1: Extracting sections from /Users/rohan/Downloads/Data Privacy and Security Policy.pdf
+[01:34:25] INFO extractor Converting PDF to markdown: /Users/rohan/Downloads/Data Privacy and Security Policy.pdf
+[01:34:25] INFO docling.datamodel.document detected formats: [<InputFormat.PDF: 'pdf'>]
+[01:34:26] INFO docling.document_converter Going to convert document batch...
+[01:34:26] INFO docling.document_converter Initializing pipeline for StandardPdfPipeline with options hash a6a2eef09bfdbd6bdaeaf15fcaebde59
+[01:34:26] INFO docling.models.factories.base_factory Loading plugin 'docling_defaults'
+[01:34:26] INFO docling.models.factories Registered picture descriptions: ['picture_description_vlm_engine', 'vlm', 'api']
+[01:34:26] INFO docling.models.factories.base_factory Loading plugin 'docling_defaults'
+[01:34:26] INFO docling.models.factories Registered ocr engines: ['auto', 'easyocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+[01:34:31] INFO docling.models.stages.ocr.auto_ocr_model Auto OCR model selected ocrmac.
+[01:34:31] INFO docling.models.factories.base_factory Loading plugin 'docling_defaults'
+[01:34:31] INFO docling.models.factories Registered layout engines: ['layout_object_detection', 'docling_layout_default', 'docling_experimental_table_crops_layout']
+[01:34:31] INFO docling.utils.accelerator_utils Accelerator device: 'mps'
+[01:34:31] DEBUG urllib3.connectionpool Starting new HTTPS connection (1): huggingface.co:443
+[01:34:32] DEBUG urllib3.connectionpool https://huggingface.co:443 "GET /api/models/docling-project/docling-layout-heron/revision/main HTTP/1.1" 200 983
+[01:34:37] DEBUG docling_ibm_models.layoutmodel.layout_predictor LayoutPredictor settings: {'model_name': 'RTDetrV2ForObjectDetection', 'safe_tensors_file': '/Users/rohan/.cache/huggingface/hub/models--docling-project--docling-layout-heron/snapshots/8f39ad3c0b4c58e9c2d2c84a38465abf757272d8/model.safetensors', 'device': 'mps', 'num_threads': 4, 'image_size': {'height': 640, 'width': 640}, 'threshold': 0.3}
+[01:34:38] INFO docling.models.factories.base_factory Loading plugin 'docling_defaults'
+[01:34:38] INFO docling.models.factories Registered table structure engines: ['docling_tableformer', 'docling_tableformer_v2']
+[01:34:38] DEBUG urllib3.connectionpool https://huggingface.co:443 "GET /api/models/docling-project/docling-models/revision/v2.3.0 HTTP/1.1" 200 None
+[01:34:40] INFO docling.utils.accelerator_utils Accelerator device: 'mps'
+[01:34:42] INFO docling.pipeline.base_pipeline Processing document Data Privacy and Security Policy.pdf
+[01:34:42] DEBUG pypdfium2._lazy Evaluating lazy import 'PIL.Image' ...
+[01:34:42] DEBUG docling.pipeline.standard_pdf_pipeline PIPELINE_PROFILING Stage preprocess: run_id=1 pages=[1] start=1775678682.122 end=1775678682.404 duration=0.282s
+[01:34:42] DEBUG docling.pipeline.standard_pdf_pipeline PIPELINE_PROFILING Stage ocr: run_id=1 pages=[1] start=1775678682.405 end=1775678682.859 duration=0.454s
+[01:35:26] DEBUG docling.pipeline.standard_pdf_pipeline PIPELINE_PROFILING Stage layout: run_id=1 pages=[1] start=1775678682.860 end=1775678726.443 duration=43.583s
+[01:35:26] DEBUG docling.pipeline.standard_pdf_pipeline PIPELINE_PROFILING Stage table: run_id=1 pages=[1] start=1775678726.514 end=1775678726.539 duration=0.025s
+[01:35:26] DEBUG docling.pipeline.standard_pdf_pipeline PIPELINE_PROFILING Stage assemble: run_id=1 pages=[1] start=1775678726.539 end=1775678726.709 duration=0.170s
+[01:35:27] INFO docling.document_converter Finished converting document Data Privacy and Security Policy.pdf in 61.76 sec.
+[01:35:29] INFO extractor Document has 20 lines
+[01:35:29] DEBUG heading_detector Pattern markdown   : 2 candidates
+[01:35:29] DEBUG heading_detector Pattern numbered   : 0 candidates
+[01:35:30] DEBUG heading_detector Pattern allcaps    : 1 candidates
+[01:35:30] DEBUG heading_detector Pattern bold       : 0 candidates
+[01:35:30] DEBUG heading_detector Pattern bullet     : 0 candidates
+[01:35:30] DEBUG heading_detector Bullet detection check: bullets=0, markdown=2, ratio=0.0
+[01:35:30] INFO heading_detector Heading detection: pattern='markdown', 2 headings found
+[01:35:30] INFO extractor Rule-based detection: 2 sections
+[01:35:30] INFO extractor Using rule-based sections (2 found) — skipping LLM pipeline
+[01:35:30] INFO extractor Saved 2 sections to /Users/rohan/Documents/gap-hunter-2/gap_analysis_reports/20260408_030937/sections_output.json
+[01:35:30] INFO __main__ Extracted 2 sections → /Users/rohan/Documents/gap-hunter-2/gap_analysis_reports/20260408_030937/sections_output.json
+[01:35:30] INFO __main__ Generating master list with summaries...
+[01:35:30] INFO llm Using Ollama at http://localhost:11434 (model=gemma4:e2b)
+[01:35:30] INFO extractor Generating master list for 2 sections
+[01:35:31] INFO agents.summarizer_agent Summarizing section 1: Data Privacy and Security Policy
+[01:35:31] DEBUG httpcore.connection connect_tcp.started host='localhost' port=11434 local_address=None timeout=None socket_options=None
+[01:35:31] DEBUG httpcore.connection connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x134ab4050>
+[01:35:31] DEBUG httpcore.http11 send_request_headers.started request=<Request [b'POST']>
+[01:35:31] DEBUG httpcore.http11 send_request_headers.complete
+[01:35:31] DEBUG httpcore.http11 send_request_body.started request=<Request [b'POST']>
+[01:35:31] DEBUG httpcore.http11 send_request_body.complete
+[01:35:31] DEBUG httpcore.http11 receive_response_headers.started request=<Request [b'POST']>
+[01:36:49] DEBUG httpcore.http11 receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/x-ndjson'), (b'Date', b'Wed, 08 Apr 2026 20:06:49 GMT'), (b'Transfer-Encoding', b'chunked')])
+[01:36:49] INFO httpx HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+[01:36:49] DEBUG httpcore.http11 receive_response_body.started request=<Request [b'POST']>

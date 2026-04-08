@@ -1,0 +1,117 @@
+{
+  "data_protection_and_security_bandweaver.pdf": {
+    "type": "Data Protection and Security Policy",
+    "expected_functions": ["Govern", "Protect"],
+    "ground_truth_gaps": {
+      "GV.OC-01": "Addressed",
+      "GV.OC-02": "Partially Addressed",
+      "GV.RM-01": "Partially Addressed",
+      "GV.RM-02": "Not Addressed",
+      "PR.AA-01": "Addressed",
+      "PR.AA-02": "Addressed",
+      "PR.DS-01": "Addressed",
+      "PR.DS-02": "Addressed",
+      "PR.DS-11": "Partially Addressed",
+      "ID.RA-01": "Out of Scope",
+      "DE.CM-01": "Out of Scope",
+      "RS.AN-01": "Out of Scope",
+      "RC.RP-01": "Out of Scope"
+    }
+  },
+  "information_security_iwu.pdf": {
+    "type": "Information Security Policy",
+    "expected_functions": ["Govern", "Identify", "Protect"],
+    "ground_truth_gaps": {
+      "GV.OC-01": "Addressed",
+      "GV.OC-02": "Addressed",
+      "GV.RM-01": "Addressed",
+      "GV.RM-02": "Partially Addressed",
+      "GV.RR-01": "Addressed",
+      "ID.AM-01": "Addressed",
+      "ID.AM-02": "Partially Addressed",
+      "ID.RA-01": "Addressed",
+      "ID.RA-02": "Partially Addressed",
+      "PR.AA-01": "Addressed",
+      "PR.AA-02": "Addressed",
+      "PR.DS-01": "Addressed",
+      "PR.DS-02": "Addressed",
+      "PR.AT-01": "Partially Addressed",
+      "DE.CM-01": "Out of Scope",
+      "RS.AN-01": "Out of Scope",
+      "RC.RP-01": "Out of Scope"
+    }
+  },
+  "information_security_tatasteel.pdf": {
+    "type": "Information Security Policy",
+    "expected_functions": ["Govern", "Identify", "Protect"],
+    "ground_truth_gaps": {
+      "GV.OC-01": "Addressed",
+      "GV.OC-02": "Addressed",
+      "GV.RM-01": "Addressed",
+      "GV.RM-02": "Addressed",
+      "GV.RR-01": "Addressed",
+      "GV.RR-02": "Partially Addressed",
+      "ID.AM-01": "Addressed",
+      "ID.AM-02": "Addressed",
+      "ID.RA-01": "Addressed",
+      "ID.RA-02": "Addressed",
+      "PR.AA-01": "Addressed",
+      "PR.AA-02": "Addressed",
+      "PR.AA-03": "Addressed",
+      "PR.DS-01": "Addressed",
+      "PR.DS-02": "Addressed",
+      "PR.AT-01": "Addressed",
+      "DE.CM-01": "Out of Scope",
+      "RS.AN-01": "Out of Scope",
+      "RC.RP-01": "Out of Scope"
+    }
+  },
+  "isms_lupin.pdf": {
+    "type": "Information Security Management System (ISMS) Policy",
+    "expected_functions": ["Govern", "Identify", "Protect", "Detect"],
+    "ground_truth_gaps": {
+      "GV.OC-01": "Addressed",
+      "GV.OC-02": "Addressed",
+      "GV.OC-03": "Addressed",
+      "GV.RM-01": "Addressed",
+      "GV.RM-02": "Addressed",
+      "GV.RR-01": "Addressed",
+      "GV.RR-02": "Addressed",
+      "GV.SC-01": "Addressed",
+      "ID.AM-01": "Addressed",
+      "ID.AM-02": "Addressed",
+      "ID.RA-01": "Addressed",
+      "ID.RA-02": "Addressed",
+      "ID.IM-01": "Addressed",
+      "PR.AA-01": "Addressed",
+      "PR.AA-02": "Addressed",
+      "PR.AA-03": "Addressed",
+      "PR.DS-01": "Addressed",
+      "PR.DS-02": "Addressed",
+      "PR.AT-01": "Addressed",
+      "PR.PS-01": "Addressed",
+      "DE.CM-01": "Partially Addressed",
+      "DE.AE-01": "Partially Addressed",
+      "RS.AN-01": "Out of Scope",
+      "RC.RP-01": "Out of Scope"
+    }
+  },
+  "patch_management_cse.pdf": {
+    "type": "Patch Management Policy",
+    "expected_functions": ["Protect", "Detect"],
+    "ground_truth_gaps": {
+      "PR.PS-01": "Addressed",
+      "PR.PS-02": "Addressed",
+      "PR.MA-01": "Addressed",
+      "PR.MA-02": "Addressed",
+      "DE.CM-01": "Addressed",
+      "DE.CM-08": "Addressed",
+      "ID.RA-01": "Partially Addressed",
+      "ID.RA-02": "Not Addressed",
+      "GV.OC-01": "Out of Scope",
+      "GV.RM-01": "Out of Scope",
+      "RS.AN-01": "Out of Scope",
+      "RC.RP-01": "Out of Scope"
+    }
+  }
+}
