@@ -1,0 +1,65 @@
+2026-04-09 05:07:38  INFO      benchmark                                 Per-policy debug log → /Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_050738/01_isms_strong/debug.log
+2026-04-09 05:07:38  DEBUG     heading_detector                          Pattern markdown   : 17 candidates
+2026-04-09 05:07:38  DEBUG     heading_detector                          Pattern numbered   : 2 candidates
+2026-04-09 05:07:38  DEBUG     heading_detector                          Pattern allcaps    : 0 candidates
+2026-04-09 05:07:38  DEBUG     heading_detector                          Pattern bold       : 41 candidates
+2026-04-09 05:07:38  DEBUG     heading_detector                          Pattern bullet     : 0 candidates
+2026-04-09 05:07:38  DEBUG     heading_detector                          Bullet detection check: bullets=0, markdown=17, ratio=0.0
+2026-04-09 05:07:38  INFO      heading_detector                          Heading detection: pattern='markdown', 17 headings found
+2026-04-09 05:07:38  INFO      extractor                                 Rule-based detection: 17 sections
+2026-04-09 05:07:38  INFO      extractor                                 Saved 17 sections to /Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_050738/01_isms_strong/sections_output.json
+2026-04-09 05:07:38  INFO      benchmark                                 Generating master list (17 sections)…
+2026-04-09 05:07:38  INFO      llm                                       Loading LLM from /Users/shubhang/.cache/huggingface/hub/models--unsloth--gemma-4-E2B-it-GGUF/snapshots/e18a8a48038a5da3e89c1152441ab57546a70873/gemma-4-E2B-it-Q8_0.gguf (n_ctx=65536)
+2026-04-09 05:07:42  INFO      extractor                                 Generating master list for 17 sections
+2026-04-09 05:07:42  INFO      agents.summarizer_agent                   Summarizing section 1: Information Security Management System (ISMS) Policy
+2026-04-09 05:07:44  INFO      agents.summarizer_agent                     -> summary generated (4 chars)
+2026-04-09 05:07:44  INFO      agents.summarizer_agent                   Summarizing section 2: Version: 3.2 | Effective Date: January 1, 2025 | Classification: Internal
+2026-04-09 05:07:45  INFO      agents.summarizer_agent                     -> summary generated (4 chars)
+2026-04-09 05:07:45  INFO      agents.summarizer_agent                   Summarizing section 3: Purpose and Scope
+2026-04-09 05:07:57  INFO      agents.summarizer_agent                     -> summary generated (836 chars)
+2026-04-09 05:07:57  INFO      agents.summarizer_agent                   Summarizing section 4: Organizational Context and Mission Alignment
+2026-04-09 05:08:05  INFO      agents.summarizer_agent                     -> summary generated (308 chars)
+2026-04-09 05:08:05  INFO      agents.summarizer_agent                   Summarizing section 5: Risk Management Strategy
+2026-04-09 05:08:26  INFO      agents.summarizer_agent                     -> summary generated (1275 chars)
+2026-04-09 05:08:26  INFO      agents.summarizer_agent                   Summarizing section 6: Roles, Responsibilities, and Authorities
+2026-04-09 05:08:52  INFO      agents.summarizer_agent                     -> summary generated (1524 chars)
+2026-04-09 05:08:52  INFO      agents.summarizer_agent                   Summarizing section 7: Information Security Policy Management
+2026-04-09 05:09:11  INFO      agents.summarizer_agent                     -> summary generated (1347 chars)
+2026-04-09 05:09:11  INFO      agents.summarizer_agent                   Summarizing section 8: Oversight and Monitoring
+2026-04-09 05:09:16  INFO      agents.summarizer_agent                     -> summary generated (273 chars)
+2026-04-09 05:09:16  INFO      agents.summarizer_agent                   Summarizing section 9: Asset Management
+2026-04-09 05:09:36  INFO      agents.summarizer_agent                     -> summary generated (1089 chars)
+2026-04-09 05:09:36  INFO      agents.summarizer_agent                   Summarizing section 10: Risk Assessment
+2026-04-09 05:09:58  INFO      agents.summarizer_agent                     -> summary generated (1590 chars)
+2026-04-09 05:09:58  INFO      agents.summarizer_agent                   Summarizing section 11: Security Awareness and Training
+2026-04-09 05:10:03  INFO      agents.summarizer_agent                     -> summary generated (347 chars)
+2026-04-09 05:10:03  INFO      agents.summarizer_agent                   Summarizing section 12: Data Security
+2026-04-09 05:10:17  INFO      agents.summarizer_agent                     -> summary generated (989 chars)
+2026-04-09 05:10:17  INFO      agents.summarizer_agent                   Summarizing section 13: Monitoring and Detection
+2026-04-09 05:10:29  INFO      agents.summarizer_agent                     -> summary generated (834 chars)
+2026-04-09 05:10:29  INFO      agents.summarizer_agent                   Summarizing section 14: Incident Response
+2026-04-09 05:10:52  INFO      agents.summarizer_agent                     -> summary generated (919 chars)
+2026-04-09 05:10:52  INFO      agents.summarizer_agent                   Summarizing section 15: Business Continuity and Disaster Recovery
+2026-04-09 05:11:01  INFO      agents.summarizer_agent                     -> summary generated (226 chars)
+2026-04-09 05:11:01  INFO      agents.summarizer_agent                   Summarizing section 16: Policy Compliance and Enforcement
+2026-04-09 05:11:20  INFO      agents.summarizer_agent                     -> summary generated (675 chars)
+2026-04-09 05:11:20  INFO      agents.summarizer_agent                   Summarizing section 17: Document Control
+2026-04-09 05:11:40  INFO      agents.summarizer_agent                     -> summary generated (663 chars)
+2026-04-09 05:11:40  INFO      extractor                                 Master list generated with 17 entries
+2026-04-09 05:11:40  INFO      extractor                                 Saved master list to /Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_050738/01_isms_strong/master_list.json
+2026-04-09 05:11:40  INFO      benchmark                                 Running gap analysis…
+2026-04-09 05:11:40  INFO      gap_analyzer                              Starting NIST CSF gap analysis
+2026-04-09 05:11:40  INFO      gap_analyzer                              Loaded 17 sections from master list
+2026-04-09 05:11:40  INFO      gap_analyzer                              Built policy content (19619 chars)
+2026-04-09 05:11:40  INFO      gap_analyzer                              ============================================================
+2026-04-09 05:11:40  INFO      gap_analyzer                              Step 1: Classifying policy scope
+2026-04-09 05:11:40  INFO      gap_analyzer                              ============================================================
+2026-04-09 05:11:40  INFO      agents.nist_gap_agents                    Classifying policy scope across NIST CSF functions...
+2026-04-09 05:12:13  INFO      agents.nist_gap_agents                      Policy scope: 6/6 functions relevant — Govern, Identify, Protect, Detect, Respond, Recover
+2026-04-09 05:12:13  INFO      gap_analyzer                              ============================================================
+2026-04-09 05:12:13  INFO      gap_analyzer                              Analyzing NIST Function: Govern
+2026-04-09 05:12:13  INFO      gap_analyzer                              ============================================================
+2026-04-09 05:12:13  INFO      agents.nist_gap_agents                    Running NIST Govern gap analysis agent (Map-Reduce)
+2026-04-09 05:12:13  INFO      agents.nist_gap_agents                      31 total subcategories for Govern
+2026-04-09 05:12:13  INFO      agents.nist_gap_agents                      Step 1: Classifying scope...
+2026-04-09 05:12:13  DEBUG     agents.text_summarizer                      [Summarizer] Text (19619 chars) below threshold (32000) — skipping

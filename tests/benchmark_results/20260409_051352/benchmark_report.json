@@ -1,0 +1,760 @@
+[
+  {
+    "policy": "06_access_control_short.md",
+    "run_dir": "/Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_051352/06_access_control_short",
+    "metrics": {
+      "TP": 0,
+      "TN": 94,
+      "FP": 0,
+      "FN": 12,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "accuracy": 0.887
+    },
+    "details": [
+      {
+        "subcategory": "GV.OC-01",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.OC-02",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.OC-03",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.OC-04",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.OC-05",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.RM-01",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.RM-02",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.RM-03",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.RM-04",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.RM-05",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.RM-06",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.RM-07",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.RR-01",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.RR-02",
+        "function": "GV",
+        "expected": "PARTIAL",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "FN"
+      },
+      {
+        "subcategory": "GV.RR-03",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.RR-04",
+        "function": "GV",
+        "expected": "COVERED",
+        "predicted": "ADDRESSED",
+        "score": "FN"
+      },
+      {
+        "subcategory": "GV.PO-01",
+        "function": "GV",
+        "expected": "PARTIAL",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "FN"
+      },
+      {
+        "subcategory": "GV.PO-02",
+        "function": "GV",
+        "expected": "PARTIAL",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "FN"
+      },
+      {
+        "subcategory": "GV.OV-01",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.OV-02",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.OV-03",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.SC-01",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.SC-02",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.SC-03",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.SC-04",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.SC-05",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.SC-06",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.SC-07",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.SC-08",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.SC-09",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "GV.SC-10",
+        "function": "GV",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.AM-1",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.AM-2",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.AM-3",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.AM-4",
+        "function": "ID",
+        "expected": "COVERED",
+        "predicted": "OUT OF SCOPE",
+        "score": "FN"
+      },
+      {
+        "subcategory": "ID.AM-5",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.AM-7",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.AM-8",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.RA-01",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.RA-02",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.RA-03",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.RA-04",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.RA-05",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.RA-06",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.RA-07",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.RA-08",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.RA-09",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.RA-10",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.IM-01",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.IM-02",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.IM-03",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "ID.IM-04",
+        "function": "ID",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.AA-01",
+        "function": "PR",
+        "expected": "COVERED",
+        "predicted": "ADDRESSED",
+        "score": "FN"
+      },
+      {
+        "subcategory": "PR.AA-02",
+        "function": "PR",
+        "expected": "COVERED",
+        "predicted": "OUT OF SCOPE",
+        "score": "FN"
+      },
+      {
+        "subcategory": "PR.AA-03",
+        "function": "PR",
+        "expected": "COVERED",
+        "predicted": "ADDRESSED",
+        "score": "FN"
+      },
+      {
+        "subcategory": "PR.AA-04",
+        "function": "PR",
+        "expected": "COVERED",
+        "predicted": "OUT OF SCOPE",
+        "score": "FN"
+      },
+      {
+        "subcategory": "PR.AA-05",
+        "function": "PR",
+        "expected": "COVERED",
+        "predicted": "ADDRESSED",
+        "score": "FN"
+      },
+      {
+        "subcategory": "PR.AA-06",
+        "function": "PR",
+        "expected": "COVERED",
+        "predicted": "OUT OF SCOPE",
+        "score": "FN"
+      },
+      {
+        "subcategory": "PR.AT-01",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.AT-02",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.DS-01",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.DS-02",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.DS-10",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.DS-11",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.PS-01",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.PS-02",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.PS-03",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.PS-04",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.PS-05",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.PS-06",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.IR-01",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.IR-02",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.IR-03",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "PR.IR-04",
+        "function": "PR",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "DE.AE-02",
+        "function": "DE",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "DE.AE-03",
+        "function": "DE",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "DE.AE-04",
+        "function": "DE",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "DE.AE-06",
+        "function": "DE",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "DE.AE-07",
+        "function": "DE",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "DE.AE-08",
+        "function": "DE",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "DE.CM-01",
+        "function": "DE",
+        "expected": "GAP",
+        "predicted": "ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "DE.CM-02",
+        "function": "DE",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "DE.CM-03",
+        "function": "DE",
+        "expected": "COVERED",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "FN"
+      },
+      {
+        "subcategory": "DE.CM-06",
+        "function": "DE",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "DE.CM-09",
+        "function": "DE",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RS.MA-01",
+        "function": "RS",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RS.MA-02",
+        "function": "RS",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RS.MA-03",
+        "function": "RS",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RS.MA-04",
+        "function": "RS",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RS.MA-05",
+        "function": "RS",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RS.CO-02",
+        "function": "RS",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RS.CO-03",
+        "function": "RS",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RS.AN-03",
+        "function": "RS",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RS.AN-06",
+        "function": "RS",
+        "expected": "GAP",
+        "predicted": "ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RS.AN-07",
+        "function": "RS",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RS.AN-08",
+        "function": "RS",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RS.MI-01",
+        "function": "RS",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RS.MI-02",
+        "function": "RS",
+        "expected": "GAP",
+        "predicted": "PARTIALLY ADDRESSED",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RC.RP-01",
+        "function": "RC",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RC.RP-02",
+        "function": "RC",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RC.RP-03",
+        "function": "RC",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RC.RP-04",
+        "function": "RC",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RC.RP-05",
+        "function": "RC",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RC.RP-06",
+        "function": "RC",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RC.CO-03",
+        "function": "RC",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      },
+      {
+        "subcategory": "RC.CO-04",
+        "function": "RC",
+        "expected": "GAP",
+        "predicted": "OUT OF SCOPE",
+        "score": "TN"
+      }
+    ]
+  }
+]

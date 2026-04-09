@@ -1,0 +1,862 @@
+{
+  "Govern": [
+    {
+      "subcategory_id": "GV.OC-02",
+      "title": "Internal and external stakeholders are understood, and their needs and expectations regarding cybersecurity risk management are understood and considered. Stakeholders include employees, executives, regulators, customers, vendors, and auditors.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 4: Internal and external stakeholders are understood, and their needs and expectations regarding cybersecurity risk management are understood and considered. Stakeholders include employees, executives, regulators, customers, vendors, and auditors.",
+      "gap": "The evidence confirms that stakeholders are understood, but it does not explicitly detail the process for conducting a formal stakeholder analysis, mapping specific cybersecurity expectations to policies, or tracking changes in those expectations as suggested by the Implementation Guidance.",
+      "recommendation": "Conduct a formal stakeholder analysis to identify all internal and external stakeholders (e.g., IT, legal, HR, board) and map their specific cybersecurity requirements to existing policies. Ensure that the 'Identification and Authentication Policy' and 'Security Assessment and Authorization Policy' explicitly address these documented stakeholder requirements."
+    },
+    {
+      "subcategory_id": "GV.PO-01",
+      "title": "Policy for managing cybersecurity risks is established based on organizational context, cybersecurity strategy, and priorities, and is communicated and enforced",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 6: Compliance with this policy is mandatory. Violations including sharing credentials, accessing unauthorized systems, or circumventing access controls will result in disciplinary action up to and including termination.",
+      "gap": "The evidence shows enforcement mechanisms (disciplinary action) are defined, but it does not explicitly demonstrate that the policy is 'established based on organizational context, cybersecurity strategy, and priorities,' nor does it confirm that policies are 'communicated' or 'assigned policy owners who are accountable for enforcement.'",
+      "recommendation": "Update the policy documentation to explicitly reference the organization's risk assessment findings and strategic objectives. Clearly define which roles or individuals are accountable for enforcing the policy, as suggested by the Implementation Guidance."
+    },
+    {
+      "subcategory_id": "GV.PO-02",
+      "title": "Policy for managing cybersecurity risks is reviewed, updated, communicated, and enforced to reflect changes in requirements, threats, technology, and organizational mission.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 3: Policy for managing cybersecurity risks is reviewed, updated, communicated, and enforced to reflect changes in requirements, threats, technology, and organizational mission. Outdated policies create false confidence and compliance gaps. Snippet 5: Annual policy review is conducted by the IT Security Manager. The policy is updated when significant changes occur in technology, organizational structure, or threat landscape.",
+      "gap": "The evidence indicates an annual review and updates based on significant changes (Snippet 5). However, the guidance suggests triggering ad-hoc reviews after significant incidents or regulatory changes, and requires a version control system. There is no explicit mention of reviewing policies after significant incidents or regulatory changes, nor is there any mention of a version control system.",
+      "recommendation": "Implement a formal policy review cycle that includes scheduled annual reviews (as mentioned in Snippet 5) and trigger ad-hoc reviews following significant incidents or regulatory changes. Establish and maintain a version control system for all policy documents to ensure traceability and manage updates effectively."
+    },
+    {
+      "subcategory_id": "GV.RR-01",
+      "title": "Organizational leadership is responsible and accountable for cybersecurity risk and fosters a culture that is risk-aware, ethical, and continually improving. Leadership must model good cybersecurity behavior and set expectations from the top.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 2: Organizational leadership is responsible and accountable for cybersecurity risk and fosters a culture that is risk-aware, ethical, and continually improving. Leadership must model good cybersecurity behavior and set expectations from the top.",
+      "gap": "The evidence confirms leadership responsibility but lacks specific implementation guidance mentioned in the Implementation Guidance section of the NIST CSF (e.g., documentation of executive responsibilities or inclusion in performance reviews).",
+      "recommendation": "Document executive-level cybersecurity responsibilities formally and include cybersecurity culture expectations in leadership performance reviews to fully meet the implementation guidance for GV.RR-01."
+    },
+    {
+      "subcategory_id": "GV.RR-02",
+      "title": "Roles, responsibilities, and authorities related to cybersecurity risk management are established, communicated, understood, and enforced.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 1: This policy establishes requirements for managing user identities, controlling access to information systems, and protecting organizational resources from unauthorized access.\nSnippet 2: User accounts are created through a formal provisioning process requiring manager approval and documented business justification.\nSnippet 4: Access rights are assigned based on role-based access control (RBAC). Access roles are defined for each system and mapped to job functions.\nSnippet 5: All user access rights are reviewed quarterly by system owners. Accounts with no activity in the past 60 days are flagged for validation or removal.\nSnippet 6: Compliance with this policy is mandatory. Violations including sharing credentials, accessing unauthorized systems, or circumventing access controls will result in disciplinary action up to and including termination.",
+      "gap": "The evidence shows *what* controls are in place (provisioning, RBAC, access reviews) but does not explicitly demonstrate the establishment of a formal RACI matrix, explicit inclusion of cybersecurity roles in job descriptions/onboarding, or communication/reinforcement through annual training as suggested by the Implementation Guidance.",
+      "recommendation": "Develop and formally document a cybersecurity RACI matrix. Integrate specific cybersecurity responsibilities into all relevant job descriptions and onboarding documentation. Establish an annual training program to communicate roles, responsibilities, and accountability mechanisms."
+    },
+    {
+      "subcategory_id": "GV.RR-04",
+      "title": "Cybersecurity in Human Resources Practices",
+      "status": "Addressed",
+      "evidence": "Snippet 1: Cybersecurity is included in human resources practices. This includes background checks, security training at onboarding, role-based access provisioning, and offboarding procedures that revoke access.",
+      "gap": "None - fully addressed",
+      "recommendation": "Ensure documented handoff procedures are established between HR and IT/security teams for managing the employee lifecycle, as suggested by the Implementation Guidance. Also, confirm that employment contracts explicitly include cybersecurity obligations to fully satisfy the Key Questions regarding contractual obligations and process integration across all lifecycle stages (hiring, onboarding, role change, termination)."
+    },
+    {
+      "subcategory_id": "GV.OC-01",
+      "title": "Govern: Organizational Context (GV.OC)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy",
+      "recommendation": "Information Security Policy"
+    },
+    {
+      "subcategory_id": "GV.OC-03",
+      "title": "Govern: Organizational Context (GV.OC)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy",
+      "recommendation": "Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy"
+    },
+    {
+      "subcategory_id": "GV.OC-04",
+      "title": "Govern: Organizational Context (GV.OC)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy"
+    },
+    {
+      "subcategory_id": "GV.OC-05",
+      "title": "Govern: Organizational Context (GV.OC)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: System and Communications Protection Policy, Information Classification Standard, Information Security Policy",
+      "recommendation": "System and Communications Protection Policy, Information Classification Standard, Information Security Policy"
+    },
+    {
+      "subcategory_id": "GV.OV-01",
+      "title": "Govern: Oversight (GV.OV)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.OV-02",
+      "title": "Govern: Oversight (GV.OV)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.OV-03",
+      "title": "Govern: Oversight (GV.OV)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.RM-01",
+      "title": "Govern: Risk Management Strategy (GV.RM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.RM-02",
+      "title": "Govern: Risk Management Strategy (GV.RM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.RM-03",
+      "title": "Govern: Risk Management Strategy (GV.RM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.RM-04",
+      "title": "Govern: Risk Management Strategy (GV.RM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.RM-05",
+      "title": "Govern: Risk Management Strategy (GV.RM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy",
+      "recommendation": "Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy"
+    },
+    {
+      "subcategory_id": "GV.RM-06",
+      "title": "Govern: Risk Management Strategy (GV.RM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.RM-07",
+      "title": "Govern: Risk Management Strategy (GV.RM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.RR-03",
+      "title": "Govern: Roles, Responsibilities, and Authorities (GV.RR)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy",
+      "recommendation": "Information Security Policy, Information Security Risk Management Standard, Risk Assessment Policy"
+    },
+    {
+      "subcategory_id": "GV.SC-01",
+      "title": "Govern: Cybersecurity Supply Chain Risk Management (GV.SC)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy",
+      "recommendation": "Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy"
+    },
+    {
+      "subcategory_id": "GV.SC-02",
+      "title": "Govern: Cybersecurity Supply Chain Risk Management (GV.SC)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Acceptable Use of Information Technology Resource Policy, Information Security Policy, Security Awareness and Training Policy",
+      "recommendation": "Acceptable Use of Information Technology Resource Policy, Information Security Policy, Security Awareness and Training Policy"
+    },
+    {
+      "subcategory_id": "GV.SC-03",
+      "title": "Govern: Cybersecurity Supply Chain Risk Management (GV.SC)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy",
+      "recommendation": "Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy"
+    },
+    {
+      "subcategory_id": "GV.SC-04",
+      "title": "Govern: Cybersecurity Supply Chain Risk Management (GV.SC)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy",
+      "recommendation": "Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy"
+    },
+    {
+      "subcategory_id": "GV.SC-05",
+      "title": "Govern: Cybersecurity Supply Chain Risk Management (GV.SC)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy",
+      "recommendation": "Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy"
+    },
+    {
+      "subcategory_id": "GV.SC-06",
+      "title": "Govern: Cybersecurity Supply Chain Risk Management (GV.SC)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy",
+      "recommendation": "Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy"
+    },
+    {
+      "subcategory_id": "GV.SC-07",
+      "title": "Govern: Cybersecurity Supply Chain Risk Management (GV.SC)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy",
+      "recommendation": "Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy"
+    },
+    {
+      "subcategory_id": "GV.SC-08",
+      "title": "Govern: Cybersecurity Supply Chain Risk Management (GV.SC)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Systems and Services Acquisition Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Systems and Services Acquisition Policy"
+    },
+    {
+      "subcategory_id": "GV.SC-09",
+      "title": "Govern: Cybersecurity Supply Chain Risk Management (GV.SC)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy",
+      "recommendation": "Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy"
+    },
+    {
+      "subcategory_id": "GV.SC-10",
+      "title": "Govern: Cybersecurity Supply Chain Risk Management (GV.SC)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy",
+      "recommendation": "Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy"
+    }
+  ],
+  "Identify": [
+    {
+      "subcategory_id": "ID.AM-1",
+      "title": "Inventories of hardware managed by the organization are maintained.",
+      "status": "Partially Addressed",
+      "evidence": "Inventories of hardware managed by the organization are maintained. This includes all physical devices: servers, workstations, laptops, network devices, printers, IoT devices, and mobile devices.",
+      "gap": "The evidence confirms that inventories are maintained, but it does not explicitly confirm the implementation guidance requirements such as using automated discovery tools, integrating with CMDB or ITSM platforms, including asset owner, location, classification, and lifecycle status, nor does it specify the frequency of review and reconciliation.",
+      "recommendation": "Update the policy to include specific requirements for automated hardware discovery, integration with asset management systems (CMDB/ITSM), and a defined schedule for quarterly inventory review and reconciliation, as suggested by the implementation guidance."
+    },
+    {
+      "subcategory_id": "ID.AM-2",
+      "title": "Inventories of software, services, and systems managed by the organization are maintained.",
+      "status": "Partially Addressed",
+      "evidence": "Inventories of software, services, and systems managed by the organization are maintained. This includes operating systems, applications, SaaS tools, APIs, and cloud services. Software inventory is essential for patch management, license compliance, and identifying unauthorized or vulnerable software.",
+      "gap": "The evidence confirms that inventories are maintained and mentions their use for patch management and identifying vulnerable software. However, the provided policy snippet does not explicitly detail *how* these inventories are managed (e.g., the required tagging of business owners, versions, and patch status, nor does it explicitly confirm integration with vulnerability management workflows as suggested in the Implementation Guidance.",
+      "recommendation": "Update the relevant policy section to explicitly include requirements for tagging software inventory entries with business owner, version, and patch status. Furthermore, document the process by which the software inventory is integrated with vulnerability management workflows to fully meet the implementation guidance for this subcategory."
+    },
+    {
+      "subcategory_id": "ID.AM-3",
+      "title": "Representations of authorized network communication and data flows are maintained",
+      "status": "Partially Addressed",
+      "evidence": "Firewall rules restricting traffic to authorized services and ports\nNetwork segmentation separating sensitive systems from general corporate networks",
+      "gap": "The evidence shows controls (firewall rules, segmentation) but does not explicitly confirm the maintenance of network flow documentation or diagrams as suggested by the implementation guidance.",
+      "recommendation": "Update the System and Communications Protection Policy to include a requirement for creating and maintaining network diagrams showing all authorized communication paths, and a process for reviewing and updating these documents after significant network changes, referencing CIS MS-ISAC template guidance."
+    },
+    {
+      "subcategory_id": "ID.AM-5",
+      "title": "Assets are prioritized based on classification, criticality, resources, and impact on the mission. Not all assets require the same level of protection. Prioritization ensures that the most critical and sensitive assets receive the strongest controls and the most attention during incidents.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 2: Assets are prioritized based on classification, criticality, resources, and impact on the mission. Not all assets require the same level of protection. Prioritization ensures that the most critical and sensitive assets receive the strongest controls and the most attention during incidents.",
+      "gap": "The evidence confirms prioritization based on classification, criticality, resources, and impact. However, the provided snippets do not explicitly confirm the existence or consistent application of a documented asset classification scheme or how this classification directly drives control selection as suggested by the Implementation Guidance.",
+      "recommendation": "Develop and document an Information Classification Standard (as referenced in the Required Policy Templates) that defines the classification levels (e.g., Critical, High, Medium, Low) based on data sensitivity, operational dependency, and regulatory requirements. Ensure this standard is used to drive the selection of appropriate security controls for each asset class."
+    },
+    {
+      "subcategory_id": "ID.AM-8",
+      "title": "Systems, hardware, software, services, and data are managed throughout their life cycles.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 6: Systems, hardware, software, services, and data are managed throughout their life cycles. Assets introduce risk at every stage \u2014 acquisition, deployment, operation, change, and disposal. Lifecycle management ensures security controls are maintained at every stage and that outdated or decommissioned assets don't become liabilities.",
+      "gap": "The evidence confirms lifecycle management is addressed, but it does not explicitly detail the integration of security requirements into asset procurement criteria, a secure disposal process for retired hardware and data, or the removal of decommissioned assets from inventories and access control lists.",
+      "recommendation": "Update the policy to explicitly include requirements for integrating security controls into the asset acquisition (procurement) process. Furthermore, establish a formal, documented process for the sanitization and secure disposal of all retired hardware and data, referencing the Sanitization/Secure Disposal Standard. Finally, document the procedure for removing decommissioned assets from all relevant inventories and access control lists."
+    },
+    {
+      "subcategory_id": "ID.IM-01",
+      "title": "Improvements are identified from evaluations.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 3: Evaluations \u2014 including audits, assessments, penetration tests, and compliance reviews \u2014 generate findings that should directly feed into improvement plans.",
+      "gap": "The evidence shows that findings are generated, but it does not explicitly confirm the existence of a formal process to convert these findings into tracked improvement actions with owners and deadlines, nor does it mention tracking these actions to closure or reporting progress in governance meetings as suggested by the Implementation Guidance.",
+      "recommendation": "Develop a formal process that mandates the creation of a findings report and a corresponding improvement plan with assigned owners and deadlines for every evaluation. Implement a system to track these improvement actions to closure and establish a mechanism to report on improvement progress in governance meetings."
+    },
+    {
+      "subcategory_id": "ID.IM-03",
+      "title": "Improvements are identified from execution of operational processes, procedures, and activities. Day-to-day operations surface inefficiencies, gaps, and risks that formal assessments may miss. Operational staff should have a channel to report process improvement opportunities.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 1: Operational staff should have a channel to report process improvement opportunities.\nSnippet 4: Day-to-day operations surface inefficiencies, gaps, and risks that formal assessments may miss. Operational staff should have a channel to report process improvement opportunities.",
+      "gap": "The evidence confirms the existence of a channel for reporting improvements (Snippet 1 & 4). However, the evidence does not explicitly confirm if these reported issues are tracked systematically or incorporated into the annual security program review, which is part of the implementation guidance.",
+      "recommendation": "Develop and document a formal process that captures, tracks, prioritizes, and incorporates operational feedback into the annual security program review, as suggested by the Implementation Guidance for ID.IM-03."
+    },
+    {
+      "subcategory_id": "ID.IM-04",
+      "title": "Incident response plans and other cybersecurity plans are established, communicated, maintained, and improved.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 4: Incident response plans and other cybersecurity plans that affect operations are established, communicated, maintained, and improved.",
+      "gap": "The evidence confirms that plans are 'established, communicated, maintained, and improved,' but it does not explicitly confirm the required frequency of review (e.g., annually) or the existence of a version control system, which are key aspects of the implementation guidance.",
+      "recommendation": "Update the policy to explicitly state the frequency for reviewing and updating operational cybersecurity plans (e.g., 'All operational cybersecurity plans shall be reviewed and updated at least annually or after any significant incident or organizational change'). Additionally, document a formal version control system for all relevant plans."
+    },
+    {
+      "subcategory_id": "ID.RA-07",
+      "title": "Changes and exceptions are managed, assessed for risk impact, recorded, and tracked.",
+      "status": "Addressed",
+      "evidence": "Changes and exceptions are managed, assessed for risk impact, recorded, and tracked. Every change to the environment \u2014 new systems, configuration changes, software updates, exceptions to policy \u2014 carries potential risk. Change management processes ensure risks are assessed before changes are implemented. Exceptions require written approval from the IT Security Manager and must be reviewed every 90 days. All exceptions are logged in the exception register.",
+      "gap": "None - fully addressed",
+      "recommendation": "None - fully addressed"
+    },
+    {
+      "subcategory_id": "ID.AM-4",
+      "title": "Identify: Asset Management (ID.AM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: System and Communications Protection Policy",
+      "recommendation": "System and Communications Protection Policy"
+    },
+    {
+      "subcategory_id": "ID.AM-7",
+      "title": "Identify: Asset Management (ID.AM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Classification Standard, Information Security Policy",
+      "recommendation": "Information Classification Standard, Information Security Policy"
+    },
+    {
+      "subcategory_id": "ID.IM-02",
+      "title": "Identify: Improvement (ID.IM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "ID.RA-01",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "ID.RA-02",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "ID.RA-03",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Encryption Standard, Information Security Policy, Maintenance Policy, Media Protection Policy, Mobile Device Security, Security Assessment and Authorization Policy, Vulnerability Scanning Standard, Patch Management Standard",
+      "recommendation": "Encryption Standard, Information Security Policy, Maintenance Policy, Media Protection Policy, Mobile Device Security, Security Assessment and Authorization Policy, Vulnerability Scanning Standard, Patch Management Standard"
+    },
+    {
+      "subcategory_id": "ID.RA-04",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "ID.RA-05",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy"
+    },
+    {
+      "subcategory_id": "ID.RA-06",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy"
+    },
+    {
+      "subcategory_id": "ID.RA-08",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy"
+    },
+    {
+      "subcategory_id": "ID.RA-09",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: System and Information Integrity Policy",
+      "recommendation": "System and Information Integrity Policy"
+    },
+    {
+      "subcategory_id": "ID.RA-10",
+      "title": "Identify: Risk Assessment (ID.RA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy",
+      "recommendation": "Identification and Authentication Policy, Security Assessment and Authorization Policy, Systems and Services Acquisition Policy"
+    }
+  ],
+  "Protect": [
+    {
+      "subcategory_id": "PR.AA-01",
+      "title": "Identities and credentials for authorized users, services, and hardware are managed by the organization. This includes the full lifecycle of identities: creation, modification, review, and deletion. Unmanaged credentials \u2014 stale accounts, shared passwords, default credentials \u2014 are among the most exploited vulnerabilities.",
+      "status": "Addressed",
+      "evidence": "Snippet 2: All users must have a unique individual account. Shared accounts are prohibited. User accounts are created through a formal provisioning process requiring manager approval and documented business justification.\nSnippet 5: All user access rights are reviewed quarterly by system owners. Accounts with no activity in the past 60 days are flagged for validation or removal.",
+      "gap": "None - fully addressed",
+      "recommendation": "Implement an Identity Governance and Administration (IGA) tool or process to automate account deprovisioning upon employee departure, as suggested by the implementation guidance."
+    },
+    {
+      "subcategory_id": "PR.AA-03",
+      "title": "Users, services, and hardware are authenticated. Authentication verifies that the entity requesting access is who or what it claims to be. Strong authentication \u2014 particularly multi-factor authentication (MFA) \u2014 dramatically reduces the risk of unauthorized access through compromised credentials.",
+      "status": "Addressed",
+      "evidence": "Snippet 2: Multi-factor authentication (MFA) is mandatory for: All remote access to organizational systems Access to systems containing sensitive or confidential data All administrative and privileged accounts Cloud platform consoles and management interfaces\nSnippet 5: Users, services, and hardware are authenticated. Authentication verifies that the entity requesting access is who or what it claims to be. Strong authentication \u2014 particularly multi-factor authentication (MFA) \u2014 dramatically reduces the risk of unauthorized access through compromised credentials",
+      "gap": "None - fully addressed",
+      "recommendation": "The policy explicitly mandates MFA for remote access, administrative/privileged accounts, and access to sensitive data systems. This aligns with the implementation guidance to require MFA for these high-risk paths."
+    },
+    {
+      "subcategory_id": "PR.AA-05",
+      "title": "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties",
+      "status": "Addressed",
+      "evidence": "Snippet 1: Access to systems is granted based on the principle of least privilege. Users receive only the minimum access required to perform their job duties.\nSnippet 4: Access rights are assigned based on role-based access control (RBAC). Users are assigned to roles, not granted individual permissions where avoidable.\nSnippet 5: Quarterly access reviews: All user access rights are reviewed quarterly by system owners. Accounts with no activity in the past 60 days are flagged for validation or removal.",
+      "gap": "None - fully addressed",
+      "recommendation": "The policy effectively addresses least privilege (Snippet 1) and role-based access control (RBAC) (Snippet 4). Quarterly reviews are also in place (Snippet 5). To fully address the 'separation of duties' aspect mentioned in the requirement, the policy should explicitly define and enforce separation of duties controls for critical functions, as suggested by the Implementation Guidance."
+    },
+    {
+      "subcategory_id": "PR.IR-01",
+      "title": "Networks and environments are protected from unauthorized logical access and usage. Network segmentation, remote access controls, and wireless security prevent attackers from moving laterally through the environment or accessing sensitive systems from unauthorized locations.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 3: Network segmentation separating sensitive systems from general corporate networks\nSnippet 2: Multi-factor authentication (MFA) is mandatory for: All remote access to organizational systems\nSnippet 4: User activity on systems containing sensitive data is logged and monitored for: Unauthorized access attempts and repeated authentication failures",
+      "gap": "The evidence confirms segmentation, MFA for remote access, and monitoring for unauthorized access attempts. However, the evidence does not explicitly confirm the implementation of Network Access Control (NAC) to prevent unauthorized device connections, which is mentioned in the Implementation Guidance.",
+      "recommendation": "Update the policy or related standards to explicitly include a requirement for implementing Network Access Control (NAC) to prevent unauthorized device connections, as suggested by the Implementation Guidance."
+    },
+    {
+      "subcategory_id": "PR.PS-01",
+      "title": "Configuration management practices are established and applied. Secure baseline configurations reduce the attack surface of every system. Unmanaged configurations drift over time, introducing vulnerabilities. A robust configuration management program ensures systems are deployed securely and remain secure over time.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 3: Configuration management practices are established and applied. Secure baseline configurations reduce the attack surface of every system. Unmanaged configurations drift over time, introducing vulnerabilities. A robust configuration management program ensures systems are deployed securely and remain secure over time. Snippet 5: Configuration management practices are established and applied. Secure baseline configurations reduce the attack surface of every system. Unmanaged configurations drift over time, introducing vulnerabilities. A robust configuration management program ensures systems are deployed securely and remain secure over time.",
+      "gap": "The evidence confirms that configuration management practices are established and that secure baseline configurations are used, which addresses parts of the requirement. However, the evidence does not explicitly confirm the use of industry benchmarks (like CIS Benchmarks) or the enforcement/monitoring mechanisms mentioned in the Implementation Guidance (e.g., Group Policy, MDM, or infrastructure-as-code).",
+      "recommendation": "Update the Configuration Management Policy to explicitly state that secure baseline configurations are developed using industry benchmarks (e.g., CIS Benchmarks) and detail the specific tools and processes used for enforcement and monitoring of configuration drift."
+    },
+    {
+      "subcategory_id": "PR.PS-04",
+      "title": "Log records are generated and made available for continuous monitoring.",
+      "status": "Addressed",
+      "evidence": "Snippet 1: Authentication events are logged centrally for audit purposes.\nSnippet 2: Audit logging: All authentication events, access grants and revocations, and privileged actions are logged with sufficient detail to support forensic investigation. Logs are retained for 12 months minimum and protected from modification.",
+      "gap": "None - fully addressed",
+      "recommendation": "The policy adequately addresses the requirements by stating that authentication events are logged centrally and that logs include sufficient detail for forensic investigation, along with a defined retention period (12 months). No further action is immediately required based on this evidence. (Referencing CIS MS-ISAC template guidance: Ensure log sources are comprehensive and centralized.)"
+    },
+    {
+      "subcategory_id": "PR.AA-02",
+      "title": "Protect: Identity Management and Access Control (PR.AA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Access Control Policy, Account Management/Access Control Standard, Authentication Tokens Standard, Configuration Management Policy, Identification and Authentication Policy",
+      "recommendation": "Access Control Policy, Account Management/Access Control Standard, Authentication Tokens Standard, Configuration Management Policy, Identification and Authentication Policy"
+    },
+    {
+      "subcategory_id": "PR.AA-04",
+      "title": "Protect: Identity Management and Access Control (PR.AA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Access Control Policy, Account Management/Access Control Standard, Authentication Tokens Standard, Configuration Management Policy, Identification and Authentication Policy",
+      "recommendation": "Access Control Policy, Account Management/Access Control Standard, Authentication Tokens Standard, Configuration Management Policy, Identification and Authentication Policy"
+    },
+    {
+      "subcategory_id": "PR.AA-06",
+      "title": "Protect: Identity Management and Access Control (PR.AA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Encryption Standard, Information Security Policy, Maintenance Policy, Media Protection Policy, Mobile Device Security, System and Communications Protection Policy",
+      "recommendation": "Encryption Standard, Information Security Policy, Maintenance Policy, Media Protection Policy, Mobile Device Security, System and Communications Protection Policy"
+    },
+    {
+      "subcategory_id": "PR.AT-01",
+      "title": "Protect: Awareness and Training (PR.AT)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Personnel Security Policy, Physical and Environmental Protection Policy, Security Awareness and Training Policy, Acceptable Use of Information Technology Resource Policy",
+      "recommendation": "Information Security Policy, Personnel Security Policy, Physical and Environmental Protection Policy, Security Awareness and Training Policy, Acceptable Use of Information Technology Resource Policy"
+    },
+    {
+      "subcategory_id": "PR.AT-02",
+      "title": "Protect: Awareness and Training (PR.AT)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Information Security Policy, Personnel Security Policy, Physical and Environmental Protection Policy, Security Awareness and Training Policy, Access Control Policy, Account Management/Access Control Standard, Authentication Tokens Standard, Configuration Management Policy, Identification and Authentication Policy, Acceptable Use of Information Technology Resource Policy",
+      "recommendation": "Information Security Policy, Personnel Security Policy, Physical and Environmental Protection Policy, Security Awareness and Training Policy, Access Control Policy, Account Management/Access Control Standard, Authentication Tokens Standard, Configuration Management Policy, Identification and Authentication Policy, Acceptable Use of Information Technology Resource Policy"
+    },
+    {
+      "subcategory_id": "PR.DS-01",
+      "title": "Protect: Data Security (PR.DS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Encryption Standard, Incident Response Policy, Information Security Policy, Maintenance Policy, Media Protection Policy, Mobile Device Security, Patch Management Standard",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Encryption Standard, Incident Response Policy, Information Security Policy, Maintenance Policy, Media Protection Policy, Mobile Device Security, Patch Management Standard"
+    },
+    {
+      "subcategory_id": "PR.DS-02",
+      "title": "Protect: Data Security (PR.DS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Encryption Standard, Incident Response Policy, Information Security Policy, Maintenance Policy, Media Protection Policy, Mobile Device Security, Patch Management Standard",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Encryption Standard, Incident Response Policy, Information Security Policy, Maintenance Policy, Media Protection Policy, Mobile Device Security, Patch Management Standard"
+    },
+    {
+      "subcategory_id": "PR.DS-10",
+      "title": "Protect: Data Security (PR.DS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Sanitization Secure Disposal Standard, Secure Configuration Standard, Secure System Development Life Cycle Standard, Maintenance Policy, Media Protection Policy, Mobile Device Security",
+      "recommendation": "Sanitization Secure Disposal Standard, Secure Configuration Standard, Secure System Development Life Cycle Standard, Maintenance Policy, Media Protection Policy, Mobile Device Security"
+    },
+    {
+      "subcategory_id": "PR.DS-11",
+      "title": "Protect: Data Security (PR.DS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Maintenance Policy, Media Protection Policy",
+      "recommendation": "Maintenance Policy, Media Protection Policy"
+    },
+    {
+      "subcategory_id": "PR.IR-02",
+      "title": "Protect: Technology Infrastructure Resilience (PR.IR)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Secure Configuration Standard, Secure System Development Life Cycle Standard, Sanitization Secure Disposal Standard, Maintenance Policy",
+      "recommendation": "Secure Configuration Standard, Secure System Development Life Cycle Standard, Sanitization Secure Disposal Standard, Maintenance Policy"
+    },
+    {
+      "subcategory_id": "PR.IR-03",
+      "title": "Protect: Technology Infrastructure Resilience (PR.IR)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Secure System Development Life Cycle Standard, System and Information Integrity Policy, 802.11 Wireless Network Security Standard",
+      "recommendation": "Secure System Development Life Cycle Standard, System and Information Integrity Policy, 802.11 Wireless Network Security Standard"
+    },
+    {
+      "subcategory_id": "PR.IR-04",
+      "title": "Protect: Technology Infrastructure Resilience (PR.IR)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: System and Information Integrity Policy",
+      "recommendation": "System and Information Integrity Policy"
+    },
+    {
+      "subcategory_id": "PR.PS-02",
+      "title": "Protect: Platform Security (PR.PS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Maintenance Policy",
+      "recommendation": "Maintenance Policy"
+    },
+    {
+      "subcategory_id": "PR.PS-03",
+      "title": "Protect: Platform Security (PR.PS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Sanitization Secure Disposal Standard, Access Control Policy",
+      "recommendation": "Sanitization Secure Disposal Standard, Access Control Policy"
+    },
+    {
+      "subcategory_id": "PR.PS-05",
+      "title": "Protect: Platform Security (PR.PS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Configuration Management Policy, Secure Configuration Standard",
+      "recommendation": "Configuration Management Policy, Secure Configuration Standard"
+    },
+    {
+      "subcategory_id": "PR.PS-06",
+      "title": "Protect: Platform Security (PR.PS)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Sanitization Secure Disposal Standard",
+      "recommendation": "Sanitization Secure Disposal Standard"
+    }
+  ],
+  "Detect": [
+    {
+      "subcategory_id": "DE.AE-02",
+      "title": "Potentially adverse events are analyzed to better understand associated activities.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 3: Security events \u2014 alerts, log entries, anomalies \u2014 must be investigated to determine what happened, what systems were affected, and whether the event is benign or malicious. Without analysis, organizations cannot distinguish noise from signal.",
+      "gap": "The evidence confirms that security events are investigated, but it does not explicitly confirm the implementation of a SIEM/log analysis platform, the definition of analysis playbooks, or the tracking of Mean Time To Analyze (MTTA).",
+      "recommendation": "Implement a Security Information and Event Management (SIEM) or equivalent log analysis platform to aggregate and correlate events. Define analysis playbooks for common event types. Track mean time to analyze (MTTA) as a performance metric, as suggested by the Implementation Guidance for this subcategory."
+    },
+    {
+      "subcategory_id": "DE.AE-03",
+      "title": "Information is correlated from multiple sources.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 1: Authentication events are logged centrally for audit purposes.\nSnippet 2: User activity on systems containing sensitive data is logged and monitored for: Unauthorized access attempts and repeated authentication failures Access to data outside normal job scope Bulk data downloads or exports Access outside normal business hours",
+      "gap": "The evidence shows logging of authentication events and user activity, but it does not explicitly confirm that these logs are being correlated from *multiple* sources (e.g., network logs, endpoint telemetry, threat intelligence) as required by the guidance.",
+      "recommendation": "Define specific correlation rules within the SIEM that combine authentication logs with other relevant data sources (such as network flow data or endpoint telemetry) to detect complex attack patterns. Regularly tune these correlation rules to minimize false positives and ensure they effectively identify sophisticated threats."
+    },
+    {
+      "subcategory_id": "DE.AE-04",
+      "title": "Estimated impact and scope of adverse events are understood.",
+      "status": "Partially Addressed",
+      "evidence": "Security alerts from access monitoring are reviewed within 4 hours during business hours and escalated on-call after hours.",
+      "gap": "The evidence describes the review and escalation timeline for security alerts, but it does not explicitly state that analysts 'quickly assess how widespread it is and what the potential business impact could be' or that 'impact assessment is a required step in all investigation playbooks'.",
+      "recommendation": "Update the System and Information Integrity Policy to include specific criteria for assessing the scope and impact of adverse events. Develop and document a mandatory impact assessment step within all incident investigation playbooks, linking these assessments to defined escalation thresholds."
+    },
+    {
+      "subcategory_id": "DE.AE-06",
+      "title": "Information on adverse events is provided to authorized staff and tools. Timely distribution of event information to the right people and systems enables faster response. Analysts, incident responders, system owners, and automated response tools must all receive relevant event data when it is needed.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 1: Authentication events are logged centrally for audit purposes.\nSnippet 2: Security alerts from access monitoring are reviewed within 4 hours during business hours and escalated on-call after hours.\nSnippet 3: Information on adverse events is provided to authorized staff and tools. Timely distribution of event information to the right people and systems enables faster response. Analysts, incident responders, system owners, and automated response tools must all receive relevant event data when it is needed.",
+      "gap": "The evidence shows logging and review/escalation processes, but lacks explicit mention of defining roles and notification criteria for adverse event information, integrating SIEM alerts with ticketing/incident management, or implementing automated notifications for high-severity events.",
+      "recommendation": "Integrate the policy to explicitly define roles and notification criteria for adverse event information. Integrate Security Information and Event Management (SIEM) alerts with existing ticketing and incident management tools. Implement automated notifications specifically for high-severity events to ensure timely distribution to all required parties."
+    },
+    {
+      "subcategory_id": "DE.CM-01",
+      "title": "Network monitoring detects unusual traffic patterns, unauthorized connections, data exfiltration, and lateral movement.",
+      "status": "Addressed",
+      "evidence": "Snippet 4: Network monitoring detects unusual traffic patterns, unauthorized connections, data exfiltration, and lateral movement.",
+      "gap": "None - fully addressed",
+      "recommendation": "Review the implementation guidance for DE.CM-01 to ensure that specific tools like IDS/IPS or NDR are deployed across key network segments, and that monitoring covers DNS, NetFlow, and proxy logs, as these are mentioned in the guidance but not explicitly detailed in the provided evidence snippets."
+    },
+    {
+      "subcategory_id": "DE.CM-03",
+      "title": "Personnel activity and technology usage are monitored to find potentially adverse events. Insider threats \u2014 whether malicious or accidental \u2014 can cause significant harm. Monitoring user activity on sensitive systems, detecting unusual access patterns, and flagging policy violations helps identify and respond to insider threats.",
+      "status": "Partially Addressed",
+      "evidence": "Monitoring user activity on sensitive systems, detecting unusual access patterns, and flagging policy violations helps identify and respond to insider threats.",
+      "gap": "The evidence indicates monitoring for insider threats and general user activity. However, the guidance suggests implementing User and Entity Behavior Analytics (UEBA) and defining baselines for normal user behavior, which is not explicitly confirmed in the snippets.",
+      "recommendation": "Implement User and Entity Behavior Analytics (UEBA) tools to detect anomalous activity and define baselines for normal user behavior. Ensure monitoring of privileged user activity includes enhanced logging as suggested by the implementation guidance."
+    },
+    {
+      "subcategory_id": "DE.AE-07",
+      "title": "Detect: Adverse Event Analysis (DE.AE)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "DE.AE-08",
+      "title": "Detect: Adverse Event Analysis (DE.AE)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Information Security Policy, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "DE.CM-02",
+      "title": "Detect: Continuous Monitoring (DE.CM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "DE.CM-06",
+      "title": "Detect: Continuous Monitoring (DE.CM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy, Vulnerability Scanning Standard"
+    },
+    {
+      "subcategory_id": "DE.CM-09",
+      "title": "Detect: Continuous Monitoring (DE.CM)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy",
+      "recommendation": "Auditing and Accountability Standard, Security Logging Standard, System and Information Integrity Policy"
+    }
+  ],
+  "Respond": [
+    {
+      "subcategory_id": "RS.AN-03",
+      "title": "Analysis is performed to establish what has taken place during an incident and the root cause of the incident. Understanding root cause is essential for preventing recurrence.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 1: Audit logging: All authentication events, access grants and revocations, and privileged actions are logged with sufficient detail to support forensic investigation.\nSnippet 2: Analysis is performed to establish what has taken place during an incident and the root cause of the incident. Understanding root cause is essential for preventing recurrence.",
+      "gap": "The evidence confirms that analysis is performed and logging supports forensics. However, the evidence does not explicitly confirm that structured Root Cause Analysis (RCA) techniques are used or that RCA findings are explicitly documented to drive remediation actions, which are key implementation guidance points.",
+      "recommendation": "Implement a formal Root Cause Analysis (RCA) process for all significant incidents. Ensure that the analysis utilizes structured techniques (e.g., 5 Whys, fishbone diagram). Document the findings in a post-incident report and ensure these findings directly drive remediation actions to prevent recurrence."
+    },
+    {
+      "subcategory_id": "RS.AN-06",
+      "title": "Actions performed during an investigation are recorded, and the records' integrity and provenance are preserved.",
+      "status": "Addressed",
+      "evidence": "Snippet 1: Actions performed during an investigation are recorded, and the records' integrity and provenance are preserved.\nSnippet 4: Actions performed during an investigation are recorded, and the records' integrity and provenance are preserved.",
+      "gap": "None - fully addressed",
+      "recommendation": "While the policy addresses recording actions and preserving integrity/provenance, consider explicitly documenting required elements like timesstamps, tools used, and maintaining a formal chain of custody for digital evidence to fully align with implementation guidance."
+    },
+    {
+      "subcategory_id": "RS.AN-07",
+      "title": "Incident data and metadata are collected, and their integrity and provenance are preserved.",
+      "status": "Partially Addressed",
+      "evidence": "Snippet 1: Authentication events are logged centrally for audit purposes.\nSnippet 2: Audit logging: All authentication events, access grants and revocations, and privileged actions are logged with sufficient detail to support forensic investigation. Logs are retained for 12 months minimum and protected from modification.",
+      "gap": "The evidence confirms that logs are collected and retained, which supports the foundation of forensic analysis. However, the evidence does not explicitly confirm adherence to all implementation guidance, such as: \n- Whether forensic data collection procedures (e.g., write blockers, cryptographic hashing) are documented and followed.\n- Whether cryptographic hashing is used to verify the integrity of collected evidence.\n- Whether evidence is stored in a secure, access-controlled location with audit logs.",
+      "recommendation": "Update the Cyber Incident Response Standard or Computer Security Threat Response Policy to explicitly detail the forensic data collection procedures. This should include mandatory steps for using write blockers, applying cryptographic hashing to verify evidence integrity upon collection, and documenting the complete chain of custody for all collected incident data."
+    },
+    {
+      "subcategory_id": "RS.MI-01",
+      "title": "Incident containment strategy and execution",
+      "status": "Partially Addressed",
+      "evidence": "Incidents are contained. Containment stops the spread of the incident and prevents additional damage while analysis and eradication are underway. The appropriate containment strategy depends on the incident type \u2014 from network isolation to account suspension to disabling specific services.",
+      "gap": "The evidence confirms that containment strategies depend on the incident type, but it does not explicitly confirm if 'containment playbooks are defined for common incident types,' or if 'responders have the authority and technical capability to implement containment quickly,' or if 'evidence preservation is considered alongside containment actions.'",
+      "recommendation": "Develop and document specific containment playbooks for common incident types. Establish clear roles and responsibilities defining the authority of responders to execute containment actions rapidly, and integrate evidence preservation steps into the containment procedures."
+    },
+    {
+      "subcategory_id": "RS.MI-02",
+      "title": "Incident eradication procedures and verification",
+      "status": "Partially Addressed",
+      "evidence": "Incidents are eradicated. After containment, the threat must be completely removed from the environment.",
+      "gap": "The evidence confirms that threats must be eradicated after containment, but it does not explicitly demonstrate that eradication procedures are defined for common threat types, that eradication is verified through scanning before recovery begins, or that all affected accounts, credentials, and access paths are reviewed during eradication.",
+      "recommendation": "Define specific, documented eradication procedures for common threat types (e.g., malware removal, account remediation, vulnerability patching, configuration correction). Implement a mandatory verification step, such as post-eradication scanning and monitoring, before proceeding with system recovery. Ensure the process includes a review of all affected accounts, credentials, and access paths during the eradication phase, referencing guidance from the CIS MS-ISAC template for comprehensive incident response planning."
+    },
+    {
+      "subcategory_id": "RS.AN-08",
+      "title": "Respond: Incident Analysis (RS.AN)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RS.CO-02",
+      "title": "Respond: Incident Response Reporting and Communication (RS.CO)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RS.CO-03",
+      "title": "Respond: Incident Response Reporting and Communication (RS.CO)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RS.MA-01",
+      "title": "Respond: Incident Management (RS.MA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy"
+    },
+    {
+      "subcategory_id": "RS.MA-02",
+      "title": "Respond: Incident Management (RS.MA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy"
+    },
+    {
+      "subcategory_id": "RS.MA-03",
+      "title": "Respond: Incident Management (RS.MA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy"
+    },
+    {
+      "subcategory_id": "RS.MA-04",
+      "title": "Respond: Incident Management (RS.MA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy"
+    },
+    {
+      "subcategory_id": "RS.MA-05",
+      "title": "Respond: Incident Management (RS.MA)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 subcategory is outside this policy's scope",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy"
+    }
+  ],
+  "Recover": [
+    {
+      "subcategory_id": "RC.RP-01",
+      "title": "Recover: Incident Recovery Plan Execution (RC.RP)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RC.RP-02",
+      "title": "Recover: Incident Recovery Plan Execution (RC.RP)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RC.RP-03",
+      "title": "Recover: Incident Recovery Plan Execution (RC.RP)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RC.RP-04",
+      "title": "Recover: Incident Recovery Plan Execution (RC.RP)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RC.RP-05",
+      "title": "Recover: Incident Recovery Plan Execution (RC.RP)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RC.RP-06",
+      "title": "Recover: Incident Recovery Plan Execution (RC.RP)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy",
+      "recommendation": "Computer Security Threat Response Policy, Cyber Incident Response Standard, Incident Response Policy, Contingency Planning Policy"
+    },
+    {
+      "subcategory_id": "RC.CO-03",
+      "title": "Recover: Incident Recovery Communication (RC.CO)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Contingency Planning Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Contingency Planning Policy, Cyber Incident Response Standard, Incident Response Policy"
+    },
+    {
+      "subcategory_id": "RC.CO-04",
+      "title": "Recover: Incident Recovery Communication (RC.CO)",
+      "status": "Out of Scope",
+      "evidence": "N/A \u2014 function not relevant to this policy type",
+      "gap": "Requires dedicated policy: Computer Security Threat Response Policy, Contingency Planning Policy, Cyber Incident Response Standard, Incident Response Policy",
+      "recommendation": "Computer Security Threat Response Policy, Contingency Planning Policy, Cyber Incident Response Standard, Incident Response Policy"
+    }
+  ]
+}

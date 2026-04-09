@@ -1,0 +1,3 @@
+2026-04-09 05:13:43  INFO      benchmark                                 Debug log → /Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_051343/debug.log
+2026-04-09 05:13:43  INFO      benchmark                                 Results directory: /Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_051343
+2026-04-09 05:13:43  WARNING   benchmark                                 No ground truth for 06_access_control_short — skipping

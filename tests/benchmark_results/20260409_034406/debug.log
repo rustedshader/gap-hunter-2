@@ -1,0 +1,197 @@
+2026-04-09 03:44:06  INFO      benchmark                                 Debug log → /Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_034406/debug.log
+2026-04-09 03:44:06  INFO      benchmark                                 Results directory: /Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_034406
+2026-04-09 03:44:06  INFO      benchmark                                 ── 01_isms_strong.md ──────────────────────────────────
+2026-04-09 03:44:06  INFO      benchmark                                 Per-policy debug log → /Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_034406/01_isms_strong/debug.log
+2026-04-09 03:44:06  DEBUG     heading_detector                          Pattern markdown   : 17 candidates
+2026-04-09 03:44:06  DEBUG     heading_detector                          Pattern numbered   : 2 candidates
+2026-04-09 03:44:06  DEBUG     heading_detector                          Pattern allcaps    : 0 candidates
+2026-04-09 03:44:06  DEBUG     heading_detector                          Pattern bold       : 41 candidates
+2026-04-09 03:44:06  DEBUG     heading_detector                          Pattern bullet     : 0 candidates
+2026-04-09 03:44:06  DEBUG     heading_detector                          Bullet detection check: bullets=0, markdown=17, ratio=0.0
+2026-04-09 03:44:06  INFO      heading_detector                          Heading detection: pattern='markdown', 17 headings found
+2026-04-09 03:44:06  INFO      extractor                                 Rule-based detection: 17 sections
+2026-04-09 03:44:06  INFO      extractor                                 Saved 17 sections to /Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_034406/01_isms_strong/sections_output.json
+2026-04-09 03:44:06  INFO      benchmark                                 Generating master list (17 sections)…
+2026-04-09 03:44:06  INFO      llm                                       Loading LLM from /Users/shubhang/.cache/huggingface/hub/models--unsloth--gemma-4-E2B-it-GGUF/snapshots/e18a8a48038a5da3e89c1152441ab57546a70873/gemma-4-E2B-it-Q8_0.gguf (n_ctx=32000)
+2026-04-09 03:44:07  INFO      extractor                                 Generating master list for 17 sections
+2026-04-09 03:44:07  INFO      agents.summarizer_agent                   Summarizing section 1: Information Security Management System (ISMS) Policy
+2026-04-09 03:44:09  INFO      agents.summarizer_agent                     -> summary generated (4 chars)
+2026-04-09 03:44:09  INFO      agents.summarizer_agent                   Summarizing section 2: Version: 3.2 | Effective Date: January 1, 2025 | Classification: Internal
+2026-04-09 03:44:10  INFO      agents.summarizer_agent                     -> summary generated (4 chars)
+2026-04-09 03:44:10  INFO      agents.summarizer_agent                   Summarizing section 3: Purpose and Scope
+2026-04-09 03:44:19  INFO      agents.summarizer_agent                     -> summary generated (717 chars)
+2026-04-09 03:44:19  INFO      agents.summarizer_agent                   Summarizing section 4: Organizational Context and Mission Alignment
+2026-04-09 03:44:32  INFO      agents.summarizer_agent                     -> summary generated (977 chars)
+2026-04-09 03:44:32  INFO      agents.summarizer_agent                   Summarizing section 5: Risk Management Strategy
+2026-04-09 03:44:49  INFO      agents.summarizer_agent                     -> summary generated (1273 chars)
+2026-04-09 03:44:49  INFO      agents.summarizer_agent                   Summarizing section 6: Roles, Responsibilities, and Authorities
+2026-04-09 03:45:02  INFO      agents.summarizer_agent                     -> summary generated (1151 chars)
+2026-04-09 03:45:02  INFO      agents.summarizer_agent                   Summarizing section 7: Information Security Policy Management
+2026-04-09 03:45:15  INFO      agents.summarizer_agent                     -> summary generated (912 chars)
+2026-04-09 03:45:15  INFO      agents.summarizer_agent                   Summarizing section 8: Oversight and Monitoring
+2026-04-09 03:45:31  INFO      agents.summarizer_agent                     -> summary generated (1249 chars)
+2026-04-09 03:45:31  INFO      agents.summarizer_agent                   Summarizing section 9: Asset Management
+2026-04-09 03:45:45  INFO      agents.summarizer_agent                     -> summary generated (1016 chars)
+2026-04-09 03:45:45  INFO      agents.summarizer_agent                   Summarizing section 10: Risk Assessment
+2026-04-09 03:46:00  INFO      agents.summarizer_agent                     -> summary generated (1060 chars)
+2026-04-09 03:46:00  INFO      agents.summarizer_agent                   Summarizing section 11: Security Awareness and Training
+2026-04-09 03:46:16  INFO      agents.summarizer_agent                     -> summary generated (1169 chars)
+2026-04-09 03:46:16  INFO      agents.summarizer_agent                   Summarizing section 12: Data Security
+2026-04-09 03:46:33  INFO      agents.summarizer_agent                     -> summary generated (1096 chars)
+2026-04-09 03:46:33  INFO      agents.summarizer_agent                   Summarizing section 13: Monitoring and Detection
+2026-04-09 03:46:44  INFO      agents.summarizer_agent                     -> summary generated (803 chars)
+2026-04-09 03:46:44  INFO      agents.summarizer_agent                   Summarizing section 14: Incident Response
+2026-04-09 03:46:56  INFO      agents.summarizer_agent                     -> summary generated (744 chars)
+2026-04-09 03:46:56  INFO      agents.summarizer_agent                   Summarizing section 15: Business Continuity and Disaster Recovery
+2026-04-09 03:47:11  INFO      agents.summarizer_agent                     -> summary generated (897 chars)
+2026-04-09 03:47:11  INFO      agents.summarizer_agent                   Summarizing section 16: Policy Compliance and Enforcement
+2026-04-09 03:47:21  INFO      agents.summarizer_agent                     -> summary generated (659 chars)
+2026-04-09 03:47:21  INFO      agents.summarizer_agent                   Summarizing section 17: Document Control
+2026-04-09 03:47:29  INFO      agents.summarizer_agent                     -> summary generated (612 chars)
+2026-04-09 03:47:29  INFO      extractor                                 Master list generated with 17 entries
+2026-04-09 03:47:29  INFO      extractor                                 Saved master list to /Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_034406/01_isms_strong/master_list.json
+2026-04-09 03:47:29  INFO      benchmark                                 Running gap analysis…
+2026-04-09 03:47:29  INFO      gap_analyzer                              Starting NIST CSF gap analysis
+2026-04-09 03:47:29  INFO      gap_analyzer                              Loaded 17 sections from master list
+2026-04-09 03:47:29  INFO      gap_analyzer                              Built policy content (19619 chars)
+2026-04-09 03:47:29  INFO      gap_analyzer                              ============================================================
+2026-04-09 03:47:29  INFO      gap_analyzer                              Step 1: Classifying policy scope
+2026-04-09 03:47:29  INFO      gap_analyzer                              ============================================================
+2026-04-09 03:47:29  INFO      agents.nist_gap_agents                    Classifying policy scope across NIST CSF functions...
+2026-04-09 03:48:00  INFO      agents.nist_gap_agents                      Policy scope: 6/6 functions relevant — Govern, Identify, Protect, Detect, Respond, Recover
+2026-04-09 03:48:00  INFO      gap_analyzer                              ============================================================
+2026-04-09 03:48:00  INFO      gap_analyzer                              Analyzing NIST Function: Govern
+2026-04-09 03:48:00  INFO      gap_analyzer                              ============================================================
+2026-04-09 03:48:00  INFO      agents.nist_gap_agents                    Running NIST Govern gap analysis agent (Map-Reduce)
+2026-04-09 03:48:00  INFO      agents.nist_gap_agents                      31 total subcategories for Govern
+2026-04-09 03:48:00  INFO      agents.nist_gap_agents                      Step 1: Classifying scope...
+2026-04-09 03:48:00  INFO      agents.text_summarizer                      [Summarizer] Text (19619 chars) exceeds threshold (600) — summarizing
+2026-04-09 03:48:00  INFO      agents.text_summarizer                      [Summarizer] Compressing 19619 chars (customer policy document being classified for NIST CSF scope)
+2026-04-09 03:49:28  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 2088 chars, 9 key points
+2026-04-09 03:49:28  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 9 key points against summary
+2026-04-09 03:49:36  WARNING   agents.text_summarizer                      [Summarizer Validator] LOSSY — 1 key points missing:
+2026-04-09 03:49:36  WARNING   agents.text_summarizer                        - Vulnerability assessments are quarterly; Critical vulnerabilities must be remediated within 48 hours.
+2026-04-09 03:49:36  WARNING   agents.text_summarizer                      [Summarizer] Attempt 1/3 lossy — retrying with 1 missing points
+2026-04-09 03:49:36  INFO      agents.text_summarizer                      [Summarizer] Compressing 19619 chars (customer policy document being classified for NIST CSF scope)
+2026-04-09 03:51:17  WARNING   agents.text_summarizer                      [Summarizer] Summary exceeded 2200 chars (2922) — truncating at sentence boundary
+2026-04-09 03:51:17  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 1967 chars, 14 key points
+2026-04-09 03:51:17  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 14 key points against summary
+2026-04-09 03:51:39  WARNING   agents.text_summarizer                      [Summarizer Validator] LOSSY — 12 key points missing:
+2026-04-09 03:51:39  WARNING   agents.text_summarizer                        - Risk objectives include 30% breach reduction YoY & maintaining Tier 1 service availability at $99.9\%$
+2026-04-09 03:51:39  WARNING   agents.text_summarizer                        - Organizational risk appetite is Low for Operational/Compliance risks (zero tolerance).
+2026-04-09 03:51:39  WARNING   agents.text_summarizer                        - Four response strategies: Mitigate, Transfer, Accept ($CISO$ approval), Avoid.
+2026-04-09 03:51:39  WARNING   agents.text_summarizer                        - Risk assessment uses semi-quantitative scoring; High/Critical risks require immediate remediation plans.
+2026-04-09 03:51:39  WARNING   agents.text_summarizer                        - Roles defined via RACI matrix; CISO accountable for ISMMS and reports to CEO.
+2026-04-09 03:51:39  WARNING   agents.text_summarizer                        - HR integrates security through mandatory onboarding training (within $30 days$) and access controls.
+2026-04-09 03:51:39  WARNING   agents.text_summarizer                        - Data classification: Restricted ($PII$), Confidential, Internal, Public. Encryption required at rest ($AES-256$) and TLS 1.2+ in transit.
+2026-04-09 03:51:39  WARNING   agents.text_summarizer                        - Monitoring via SIEM/IDS; logs retained for a minimum of $12$ months.
+2026-04-09 03:51:39  WARNING   agents.text_summarizer                        - Incident Response Team (IRT) activates for P1 ($Critical$) or P2 incidents.
+2026-04-09 03:51:39  WARNING   agents.text_summarizer                        - BCDR defined with RTOs: Client data platform at $4\text{h}$ recovery time objective.
+2026-04-09 03:51:39  WARNING   agents.text_summarizer                        - Vulnerability assessments are quarterly; Critical vulnerabilities must be remediated within $48$ hours.
+2026-04-09 03:51:39  WARNING   agents.text_summarizer                        - Policy review is annual, triggered by threat changes/incidents.
+2026-04-09 03:51:39  WARNING   agents.text_summarizer                      [Summarizer] Attempt 2/3 lossy — retrying with 12 missing points
+2026-04-09 03:51:39  INFO      agents.text_summarizer                      [Summarizer] Compressing 19619 chars (customer policy document being classified for NIST CSF scope)
+2026-04-09 03:53:16  WARNING   agents.text_summarizer                      [Summarizer] Summary exceeded 2200 chars (2402) — truncating at sentence boundary
+2026-04-09 03:53:16  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 1929 chars, 12 key points
+2026-04-09 03:53:16  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 12 key points against summary
+2026-04-09 03:53:26  WARNING   agents.text_summarizer                      [Summarizer Validator] LOSSY — 1 key points missing:
+2026-04-09 03:53:26  WARNING   agents.text_summarizer                        - ISMMS Policy Version 3.2 effective Jan 1, 2025; scope covers all assets and personnel.
+2026-04-09 03:53:26  WARNING   agents.text_summarizer                      [Summarizer] Attempt 3/3 lossy — retrying with 1 missing points
+2026-04-09 03:53:26  WARNING   agents.text_summarizer                      [Summarizer] Max retries (3) reached — summary still lossy. Returning original text to prevent data loss downstream.
+2026-04-09 03:54:19  INFO      agents.nist_gap_agents                        Scope classification: 12/31 in-scope
+2026-04-09 03:54:19  INFO      agents.nist_gap_agents                      12 in-scope, 19 out-of-scope → 19 LLM calls saved
+2026-04-09 03:54:19  INFO      agents.nist_gap_agents                      [1/12] Map-Reduce: GV.OC-01
+2026-04-09 03:54:19  INFO      agents.text_summarizer                      [Summarizer] Text (1078 chars) exceeds threshold (600) — summarizing
+2026-04-09 03:54:19  INFO      agents.text_summarizer                      [Summarizer] Compressing 1078 chars (policy section 3 'Purpose and Scope' being scanned for GV.OC-01 evidence)
+2026-04-09 03:54:37  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 671 chars, 4 key points
+2026-04-09 03:54:37  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 4 key points against summary
+2026-04-09 03:54:40  INFO      agents.text_summarizer                      [Summarizer Validator] LOSSLESS ✓
+2026-04-09 03:54:40  INFO      agents.text_summarizer                      [Summarizer] Lossless summary accepted on attempt 1 ✓ (1078 → 671 chars, 38% reduction)
+2026-04-09 03:54:44  INFO      agents.text_summarizer                      [Summarizer] Text (2246 chars) exceeds threshold (600) — summarizing
+2026-04-09 03:54:44  INFO      agents.text_summarizer                      [Summarizer] Compressing 2246 chars (policy section 4 'Organizational Context and Mission Alignment' being scanned for GV.OC-01 evidence)
+2026-04-09 03:55:15  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 1730 chars, 1 key points
+2026-04-09 03:55:15  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 1 key points against summary
+2026-04-09 03:55:19  INFO      agents.text_summarizer                      [Summarizer Validator] LOSSLESS ✓
+2026-04-09 03:55:19  INFO      agents.text_summarizer                      [Summarizer] Lossless summary accepted on attempt 1 ✓ (2246 → 1730 chars, 23% reduction)
+2026-04-09 03:55:26  INFO      agents.text_summarizer                      [Summarizer] Text (2877 chars) exceeds threshold (600) — summarizing
+2026-04-09 03:55:26  INFO      agents.text_summarizer                      [Summarizer] Compressing 2877 chars (policy section 5 'Risk Management Strategy' being scanned for GV.OC-01 evidence)
+2026-04-09 03:55:55  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 1498 chars, 1 key points
+2026-04-09 03:55:55  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 1 key points against summary
+2026-04-09 03:55:59  INFO      agents.text_summarizer                      [Summarizer Validator] LOSSLESS ✓
+2026-04-09 03:55:59  INFO      agents.text_summarizer                      [Summarizer] Lossless summary accepted on attempt 1 ✓ (2877 → 1498 chars, 48% reduction)
+2026-04-09 03:56:04  INFO      agents.text_summarizer                      [Summarizer] Text (2091 chars) exceeds threshold (600) — summarizing
+2026-04-09 03:56:04  INFO      agents.text_summarizer                      [Summarizer] Compressing 2091 chars (policy section 6 'Roles, Responsibilities, and Authorities' being scanned for GV.OC-01 evidence)
+2026-04-09 03:56:42  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 1635 chars, 15 key points
+2026-04-09 03:56:42  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 15 key points against summary
+2026-04-09 03:56:46  INFO      agents.text_summarizer                      [Summarizer Validator] LOSSLESS ✓
+2026-04-09 03:56:46  INFO      agents.text_summarizer                      [Summarizer] Lossless summary accepted on attempt 1 ✓ (2091 → 1635 chars, 22% reduction)
+2026-04-09 03:56:50  INFO      agents.text_summarizer                      [Summarizer] Text (1075 chars) exceeds threshold (600) — summarizing
+2026-04-09 03:56:50  INFO      agents.text_summarizer                      [Summarizer] Compressing 1075 chars (policy section 7 'Information Security Policy Management' being scanned for GV.OC-01 evidence)
+2026-04-09 03:57:08  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 850 chars, 5 key points
+2026-04-09 03:57:08  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 5 key points against summary
+2026-04-09 03:57:12  INFO      agents.text_summarizer                      [Summarizer Validator] LOSSLESS ✓
+2026-04-09 03:57:12  INFO      agents.text_summarizer                      [Summarizer] Lossless summary accepted on attempt 1 ✓ (1075 → 850 chars, 21% reduction)
+2026-04-09 03:57:14  INFO      agents.text_summarizer                      [Summarizer] Text (1297 chars) exceeds threshold (600) — summarizing
+2026-04-09 03:57:14  INFO      agents.text_summarizer                      [Summarizer] Compressing 1297 chars (policy section 8 'Oversight and Monitoring' being scanned for GV.OC-01 evidence)
+2026-04-09 03:57:35  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 898 chars, 4 key points
+2026-04-09 03:57:35  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 4 key points against summary
+2026-04-09 03:57:39  INFO      agents.text_summarizer                      [Summarizer Validator] LOSSLESS ✓
+2026-04-09 03:57:39  INFO      agents.text_summarizer                      [Summarizer] Lossless summary accepted on attempt 1 ✓ (1297 → 898 chars, 31% reduction)
+2026-04-09 03:57:42  INFO      agents.text_summarizer                      [Summarizer] Text (1139 chars) exceeds threshold (600) — summarizing
+2026-04-09 03:57:42  INFO      agents.text_summarizer                      [Summarizer] Compressing 1139 chars (policy section 9 'Asset Management' being scanned for GV.OC-01 evidence)
+2026-04-09 03:58:06  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 1000 chars, 4 key points
+2026-04-09 03:58:06  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 4 key points against summary
+2026-04-09 03:58:09  INFO      agents.text_summarizer                      [Summarizer Validator] LOSSLESS ✓
+2026-04-09 03:58:09  INFO      agents.text_summarizer                      [Summarizer] Lossless summary accepted on attempt 1 ✓ (1139 → 1000 chars, 12% reduction)
+2026-04-09 03:58:12  INFO      agents.text_summarizer                      [Summarizer] Text (1583 chars) exceeds threshold (600) — summarizing
+2026-04-09 03:58:12  INFO      agents.text_summarizer                      [Summarizer] Compressing 1583 chars (policy section 10 'Risk Assessment' being scanned for GV.OC-01 evidence)
+2026-04-09 03:58:37  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 994 chars, 6 key points
+2026-04-09 03:58:37  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 6 key points against summary
+2026-04-09 03:58:41  INFO      agents.text_summarizer                      [Summarizer Validator] LOSSLESS ✓
+2026-04-09 03:58:41  INFO      agents.text_summarizer                      [Summarizer] Lossless summary accepted on attempt 1 ✓ (1583 → 994 chars, 37% reduction)
+2026-04-09 03:58:46  INFO      agents.text_summarizer                      [Summarizer] Text (1101 chars) exceeds threshold (600) — summarizing
+2026-04-09 03:58:46  INFO      agents.text_summarizer                      [Summarizer] Compressing 1101 chars (policy section 11 'Security Awareness and Training' being scanned for GV.OC-01 evidence)
+2026-04-09 03:59:17  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 958 chars, 4 key points
+2026-04-09 03:59:17  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 4 key points against summary
+2026-04-09 03:59:22  INFO      agents.text_summarizer                      [Summarizer Validator] LOSSLESS ✓
+2026-04-09 03:59:22  INFO      agents.text_summarizer                      [Summarizer] Lossless summary accepted on attempt 1 ✓ (1101 → 958 chars, 13% reduction)
+2026-04-09 03:59:30  INFO      agents.text_summarizer                      [Summarizer] Text (776 chars) exceeds threshold (600) — summarizing
+2026-04-09 03:59:30  INFO      agents.text_summarizer                      [Summarizer] Compressing 776 chars (policy section 12 'Data Security' being scanned for GV.OC-01 evidence)
+2026-04-09 03:59:59  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 722 chars, 3 key points
+2026-04-09 03:59:59  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 3 key points against summary
+2026-04-09 04:00:04  INFO      agents.text_summarizer                      [Summarizer Validator] LOSSLESS ✓
+2026-04-09 04:00:04  INFO      agents.text_summarizer                      [Summarizer] Lossless summary accepted on attempt 1 ✓ (776 → 722 chars, 7% reduction)
+2026-04-09 04:00:08  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (600) — skipping
+2026-04-09 04:00:10  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (600) — skipping
+2026-04-09 04:00:13  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (600) — skipping
+2026-04-09 04:00:16  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (600) — skipping
+2026-04-09 04:00:18  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (600) — skipping
+2026-04-09 04:00:20  INFO      agents.nist_gap_agents                        Map: 8 evidence snippets found for GV.OC-01
+2026-04-09 04:00:39  INFO      agents.nist_gap_agents                        Reduce: GV.OC-01 → Partially Addressed
+2026-04-09 04:00:39  INFO      agents.nist_gap_agents                      [2/12] Map-Reduce: GV.OC-02
+2026-04-09 04:00:39  INFO      agents.text_summarizer                      [Summarizer] Text (1078 chars) exceeds threshold (600) — summarizing
+2026-04-09 04:00:39  INFO      agents.text_summarizer                      [Summarizer] Compressing 1078 chars (policy section 3 'Purpose and Scope' being scanned for GV.OC-02 evidence)
+2026-04-09 04:00:55  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 671 chars, 4 key points
+2026-04-09 04:00:55  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 4 key points against summary
+2026-04-09 04:00:58  INFO      agents.text_summarizer                      [Summarizer Validator] LOSSLESS ✓
+2026-04-09 04:00:58  INFO      agents.text_summarizer                      [Summarizer] Lossless summary accepted on attempt 1 ✓ (1078 → 671 chars, 38% reduction)
+2026-04-09 04:01:01  INFO      agents.text_summarizer                      [Summarizer] Text (2246 chars) exceeds threshold (600) — summarizing
+2026-04-09 04:01:01  INFO      agents.text_summarizer                      [Summarizer] Compressing 2246 chars (policy section 4 'Organizational Context and Mission Alignment' being scanned for GV.OC-02 evidence)
+2026-04-09 04:01:38  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 1730 chars, 6 key points
+2026-04-09 04:01:38  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 6 key points against summary
+2026-04-09 04:01:45  INFO      agents.text_summarizer                      [Summarizer Validator] LOSSLESS ✓
+2026-04-09 04:01:45  INFO      agents.text_summarizer                      [Summarizer] Lossless summary accepted on attempt 1 ✓ (2246 → 1730 chars, 23% reduction)
+2026-04-09 04:01:52  INFO      agents.text_summarizer                      [Summarizer] Text (2877 chars) exceeds threshold (600) — summarizing
+2026-04-09 04:01:52  INFO      agents.text_summarizer                      [Summarizer] Compressing 2877 chars (policy section 5 'Risk Management Strategy' being scanned for GV.OC-02 evidence)
+2026-04-09 04:02:21  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 1498 chars, 1 key points
+2026-04-09 04:02:21  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 1 key points against summary
+2026-04-09 04:02:26  INFO      agents.text_summarizer                      [Summarizer Validator] LOSSLESS ✓
+2026-04-09 04:02:26  INFO      agents.text_summarizer                      [Summarizer] Lossless summary accepted on attempt 1 ✓ (2877 → 1498 chars, 48% reduction)
+2026-04-09 04:02:30  INFO      agents.text_summarizer                      [Summarizer] Text (2091 chars) exceeds threshold (600) — summarizing
+2026-04-09 04:02:30  INFO      agents.text_summarizer                      [Summarizer] Compressing 2091 chars (policy section 6 'Roles, Responsibilities, and Authorities' being scanned for GV.OC-02 evidence)
+2026-04-09 04:03:13  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 1615 chars, 12 key points
+2026-04-09 04:03:13  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 12 key points against summary
+2026-04-09 04:03:17  INFO      agents.text_summarizer                      [Summarizer Validator] LOSSLESS ✓
+2026-04-09 04:03:17  INFO      agents.text_summarizer                      [Summarizer] Lossless summary accepted on attempt 1 ✓ (2091 → 1615 chars, 23% reduction)
+2026-04-09 04:03:21  INFO      agents.text_summarizer                      [Summarizer] Text (1075 chars) exceeds threshold (600) — summarizing
+2026-04-09 04:03:21  INFO      agents.text_summarizer                      [Summarizer] Compressing 1075 chars (policy section 7 'Information Security Policy Management' being scanned for GV.OC-02 evidence)

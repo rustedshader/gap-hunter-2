@@ -1,0 +1,138 @@
+[
+  {
+    "number": "1",
+    "title": "Information Security Management System (ISMS) Policy",
+    "content": "# Information Security Management System (ISMS) Policy",
+    "start_line": 1,
+    "end_line": 2,
+    "is_complete": true
+  },
+  {
+    "number": "2",
+    "title": "Version: 3.2 | Effective Date: January 1, 2025 | Classification: Internal",
+    "content": "---",
+    "start_line": 3,
+    "end_line": 6,
+    "is_complete": true
+  },
+  {
+    "number": "3",
+    "title": "Purpose and Scope",
+    "content": "This Information Security Management System (ISMS) Policy establishes the framework for protecting the confidentiality, integrity, and availability of Acme Technologies Inc.'s information assets. The policy applies to all employees, contractors, consultants, and third parties who access, process, or manage organizational information systems.\n\nAcme Technologies Inc.'s mission is to deliver innovative technology solutions that empower our clients' digital transformation while maintaining the highest standards of information security. Cybersecurity decisions are made with explicit awareness of this mission and what would cause the most harm if disrupted. All security priorities are aligned with protecting mission-critical business functions including client data platforms, software development pipelines, and customer support systems.\n\nThe scope of this ISMS encompasses all information assets owned or managed by Acme Technologies Inc., including hardware, software, data, personnel, and processes located at all company facilities and remote working environments.\n\n---",
+    "start_line": 7,
+    "end_line": 16,
+    "is_complete": true
+  },
+  {
+    "number": "4",
+    "title": "Organizational Context and Mission Alignment",
+    "content": "Acme Technologies Inc. operates in a regulated environment serving enterprise clients in the financial, healthcare, and government sectors. Our cybersecurity program must align with our mission to deliver trusted technology solutions.\n\n**Stakeholder Requirements:**\nThe organization has identified the following key stakeholders with cybersecurity risk expectations:\n- **Internal:** Board of Directors, Executive Leadership (CEO, CTO, CISO), IT Operations, Legal/Compliance, HR, Software Development teams\n- **External:** Enterprise clients, regulatory bodies (SOC 2 auditors, state regulators), insurance underwriters, and third-party auditors\n\nStakeholder cybersecurity requirements are documented in the Stakeholder Expectations Register, reviewed semi-annually, and updated following organizational changes or regulatory developments.\n\n**Legal and Regulatory Obligations:**\nThe organization maintains a Legal and Regulatory Requirements Register that tracks applicable cybersecurity laws and regulations, including:\n- State data breach notification laws (applicable in all states where we operate)\n- Contractual cybersecurity obligations in client Master Service Agreements (MSAs)\n- SOC 2 Type II audit requirements\n- NIST SP 800-53 security controls for federal clients\n\nEach regulatory requirement is assigned an owner responsible for ongoing compliance tracking. The register is reviewed annually and updated immediately upon discovery of new regulatory obligations.\n\n**Critical Services Identification:**\nThe organization has identified the following critical services that stakeholders depend upon:\n- Client data analytics platform (Tier 1 — zero tolerance for unplanned downtime)\n- Software delivery pipeline (Tier 1 — mission-critical)\n- Customer portal and support systems (Tier 2)\n- Internal collaboration and email (Tier 3)\n\nIncident response plans explicitly prioritize recovery of Tier 1 services before all others.\n\n**Risk Posture Reporting:**\nOutcomes from security assessments, penetration tests, vulnerability scans, and incident post-mortems are used to inform risk management strategy. The CISO presents a quarterly risk posture summary to the Executive Leadership Team, and an annual summary to the Board of Directors.\n\n---",
+    "start_line": 17,
+    "end_line": 50,
+    "is_complete": true
+  },
+  {
+    "number": "5",
+    "title": "Risk Management Strategy",
+    "content": "**Risk Management Objectives:**\nThe organization's risk management objectives, formally approved by the Executive Leadership Team, are:\n1. Reduce the likelihood of a material data breach affecting client data by 30% year-over-year\n2. Maintain regulatory compliance across all applicable frameworks\n3. Ensure 99.9% availability of Tier 1 critical services\n4. Achieve and maintain SOC 2 Type II certification annually\n\nThese objectives are documented in the Information Security Risk Management Standard, reviewed annually, and updated when significant changes occur.\n\n**Risk Appetite and Tolerance:**\nAcme Technologies Inc. has formally established risk appetite statements approved by the Board of Directors:\n- **Operational Risk:** Low appetite — minimal tolerance for incidents affecting client data availability or integrity\n- **Compliance Risk:** Very low appetite — zero tolerance for regulatory violations\n- **Reputational Risk:** Low appetite — incidents with public visibility require immediate executive escalation\n- **Financial Risk:** Moderate appetite — risk transfer via cyber insurance is an accepted response for high-impact, low-probability events\n\nRisk tolerance thresholds are defined in the Risk Assessment Policy. Risk owners are trained on tolerance levels and required to escalate when thresholds are breached.\n\n**Enterprise Risk Management Integration:**\nCybersecurity risk is integrated into the Enterprise Risk Management (ERM) program. The CISO participates in quarterly ERM governance meetings and the enterprise risk register includes cybersecurity risk items. Cybersecurity risk reporting cycles are aligned with the ERM reporting calendar.\n\n**Risk Response Strategy:**\nThe organization employs four risk response strategies:\n- **Mitigate:** Implement controls to reduce likelihood or impact (preferred for Tier 1 risks)\n- **Transfer:** Use cyber insurance or contractual indemnification (applicable to financial risks)\n- **Accept:** Formally accept residual risk with documented rationale (requires CISO approval)\n- **Avoid:** Eliminate the activity creating the risk (used when mitigation cost exceeds value)\n\nRisk response criteria are documented in the Risk Assessment Policy and communicated to all risk owners.\n\n**Risk Communication Channels:**\nInternal risk reporting channels include:\n- Risk register updates via the GRC platform (monthly)\n- Security incident escalation via the Incident Response Hotline\n- Escalation to CISO for risks above the defined tolerance threshold\n\n**Risk Assessment Methodology:**\nThe organization uses a semi-quantitative risk scoring methodology based on likelihood (1–5) × impact (1–5) = risk score (1–25). All risks scoring above 15 are classified as High and require immediate remediation plans. The methodology is documented in the Risk Assessment Policy and all risk assessors receive annual training.\n\n---",
+    "start_line": 51,
+    "end_line": 93,
+    "is_complete": true
+  },
+  {
+    "number": "6",
+    "title": "Roles, Responsibilities, and Authorities",
+    "content": "**Leadership Accountability:**\nThe Board of Directors is ultimately accountable for the organization's cybersecurity risk posture. The CEO is responsible for ensuring adequate resources are allocated to the cybersecurity program. The CISO is responsible for the ISMS program and reports directly to the CEO. Board members receive annual cybersecurity briefings, and cybersecurity performance is included in the CISO's annual performance evaluation.\n\n**Cybersecurity RACI Matrix:**\nA comprehensive RACI (Responsible, Accountable, Consulted, Informed) matrix is maintained and documents cybersecurity responsibilities for all roles. Key assignments include:\n\n| Responsibility | Responsible | Accountable | Consulted | Informed |\n|---|---|---|---|---|\n| ISMS Program Management | CISO | CEO | Legal | Board |\n| Vulnerability Management | Security Team | CISO | IT Ops | Management |\n| Incident Response | IR Team | CISO | Legal, HR | Executives |\n| User Access Reviews | IT Admin | CISO | HR | Managers |\n| Security Awareness Training | Security Team | HR | IT | All Staff |\n\nAll cybersecurity roles are included in job descriptions and communicated during onboarding. Non-compliance with cybersecurity responsibilities is addressed through the HR performance management process.\n\n**Resource Allocation:**\nThe cybersecurity budget is formally tied to identified risks and documented in the annual budget request. Resource gap analysis is presented to leadership annually. Additional resource requests are submitted through the established budget variance process.\n\n**Human Resources Integration:**\nCybersecurity is integrated into HR practices:\n- Background checks are required for all new hires with access to sensitive systems\n- Security awareness training is mandatory at onboarding (within 30 days)\n- Role changes trigger access reviews and re-provisioning\n- Employee termination triggers immediate account deactivation (within 4 hours for standard roles, immediately for privileged accounts)\n- All employment contracts include cybersecurity obligations and acceptable use requirements\n\n---",
+    "start_line": 94,
+    "end_line": 124,
+    "is_complete": true
+  },
+  {
+    "number": "7",
+    "title": "Information Security Policy Management",
+    "content": "**Policy Framework:**\nAll information security policies are derived from the organization's risk assessment findings and strategic security objectives. Policies are published on the internal portal and accessible to all employees. Policy owners are assigned for each policy and are accountable for enforcement and annual review.\n\nEnforcement mechanisms include:\n- Policy attestation required annually from all staff\n- Non-compliance investigated by HR with potential disciplinary action\n- Technical controls enforce policy requirements where feasible\n\n**Policy Review and Update Cycle:**\nAll policies are reviewed at least annually and updated when:\n- Significant changes occur in the threat landscape\n- New regulations or legal requirements are identified\n- Material organizational changes occur (mergers, new business lines)\n- Security incidents reveal policy gaps\n- Technology changes affect policy applicability\n\nPolicy updates are communicated to all affected staff via email and the internal portal. Updated policies require re-attestation from relevant personnel.\n\n---",
+    "start_line": 125,
+    "end_line": 146,
+    "is_complete": true
+  },
+  {
+    "number": "8",
+    "title": "Oversight and Monitoring",
+    "content": "**Cybersecurity Program Oversight:**\nThe CISO presents a quarterly cybersecurity program status report to the Executive Leadership Team, covering:\n- Key risk indicators (KRIs) and their trends\n- Status of remediation plans for identified vulnerabilities\n- Results of security assessments and audits\n- Incident summary and lessons learned\n- Compliance status against applicable frameworks\n\n**Performance Metrics:**\nThe following cybersecurity performance metrics are tracked monthly:\n- Mean time to detect (MTTD) security incidents\n- Mean time to respond (MTTR) to security incidents\n- Percentage of systems with current patches\n- Percentage of staff completing annual security training\n- Number of open critical vulnerabilities and age\n\n**Internal Audit:**\nThe organization conducts an annual internal ISMS audit to assess policy compliance and control effectiveness. Findings are reported to executive leadership and a remediation plan is required within 30 days of the audit report.\n\n**Management Review:**\nThe ISMS is subject to formal management review annually, covering:\n- Status of actions from previous reviews\n- Changes in external and internal issues affecting the ISMS\n- Performance results including audit outcomes and incidents\n- Opportunities for improvement\n- Resource adequacy\n\n---",
+    "start_line": 147,
+    "end_line": 177,
+    "is_complete": true
+  },
+  {
+    "number": "9",
+    "title": "Asset Management",
+    "content": "**Hardware and Software Inventory:**\nThe organization maintains a comprehensive inventory of all hardware and software assets using an automated Configuration Management Database (CMDB). The inventory is updated in real-time through integration with IT service management tools. Key inventory attributes include: asset owner, classification, location, operating system, installed software, and last-seen date.\n\n**Data Asset Inventory:**\nA data asset inventory documents all significant data collections, including:\n- Data type and sensitivity classification\n- Processing locations (on-premises, cloud, third-party)\n- Retention periods and disposal requirements\n- Applicable regulatory obligations\n\n**Network Resource Inventory:**\nNetwork components including routers, switches, firewalls, and wireless access points are inventoried in the CMDB. Network diagrams are maintained and updated quarterly.\n\n**Asset Lifecycle Management:**\nAssets are formally tracked through their full lifecycle: procurement, deployment, operation, and disposal. End-of-life assets undergo secure disposal per the Sanitization and Secure Disposal Standard.\n\n---",
+    "start_line": 178,
+    "end_line": 197,
+    "is_complete": true
+  },
+  {
+    "number": "10",
+    "title": "Risk Assessment",
+    "content": "**Risk Assessment Process:**\nFormal risk assessments are conducted:\n- Annually for all systems within the ISMS scope\n- Prior to implementation of significant new systems or changes\n- Following material security incidents\n- When significant changes in the threat landscape are identified\n\n**Threat Intelligence Integration:**\nThe organization subscribes to threat intelligence feeds from the Information Sharing and Analysis Centers (ISACs) relevant to our industry. Threat intelligence is reviewed monthly and incorporated into risk assessments.\n\n**Vulnerability Identification:**\nVulnerability assessments are conducted quarterly using automated scanning tools. Critical and High vulnerabilities must be remediated within defined SLAs:\n- Critical: 48 hours\n- High: 14 days\n- Medium: 30 days\n- Low: 90 days\n\n**Risk Likelihood and Impact Assessment:**\nEach identified risk is assessed for likelihood and impact using the semi-quantitative methodology defined in the Risk Assessment Policy. Assessments consider both direct impacts (financial loss, operational disruption) and indirect impacts (reputational damage, regulatory penalties).\n\n**Risk Prioritization:**\nRisks are prioritized based on their risk score and alignment with organizational risk appetite. High and Critical risks are escalated to the CISO and require documented remediation plans.\n\n**Risk Treatment Planning:**\nFor each identified risk, a risk treatment plan is developed specifying the selected response (mitigate, transfer, accept, avoid), responsible owner, implementation timeline, and success criteria.\n\n---",
+    "start_line": 198,
+    "end_line": 227,
+    "is_complete": true
+  },
+  {
+    "number": "11",
+    "title": "Security Awareness and Training",
+    "content": "**General Security Awareness Program:**\nAll employees and contractors receive security awareness training:\n- At onboarding (within 30 days of start date, mandatory)\n- Annually thereafter (completion required within 30 days of assignment)\n- Following material security incidents (ad-hoc training on relevant topics)\n\nTraining content covers: phishing recognition, password hygiene, data classification, acceptable use, incident reporting, social engineering, and physical security.\n\n**Role-Based Security Training:**\nPersonnel with elevated security responsibilities (IT administrators, developers, security team members, executives) receive additional role-specific training:\n- IT Administrators: Secure configuration, access management, patch management\n- Developers: Secure coding practices, OWASP Top 10, secure SDLC\n- Executives: Cybersecurity governance, risk decision-making, social engineering targeting executives\n- Security Team: Annual certifications and technical training\n\nTraining completion is tracked in the Learning Management System (LMS) and reported to HR and the CISO monthly.\n\n---",
+    "start_line": 228,
+    "end_line": 248,
+    "is_complete": true
+  },
+  {
+    "number": "12",
+    "title": "Data Security",
+    "content": "**Data Classification:**\nThe organization classifies data into four categories:\n- **Restricted:** Client PII, financial records, credentials (strictest controls)\n- **Confidential:** Internal business strategies, unreleased product information\n- **Internal:** General business operations data\n- **Public:** Marketing materials, public documentation\n\n**Data at Rest Protection:**\nAll Restricted and Confidential data must be encrypted at rest using AES-256. Encryption is enforced on all laptops, portable storage, and storage systems processing sensitive data.\n\n**Data in Transit Protection:**\nAll data transmissions involving Restricted or Confidential data must use TLS 1.2 or higher. Unencrypted protocols (HTTP, FTP, Telnet) are prohibited for sensitive data transfer.\n\n---",
+    "start_line": 249,
+    "end_line": 265,
+    "is_complete": true
+  },
+  {
+    "number": "13",
+    "title": "Monitoring and Detection",
+    "content": "**Security Monitoring:**\nThe organization operates a Security Information and Event Management (SIEM) system that:\n- Collects logs from all critical systems and network infrastructure\n- Provides real-time alerting for defined security events\n- Retains logs for a minimum of 12 months\n\n**Network Monitoring:**\nNetwork traffic is monitored continuously using Intrusion Detection/Prevention Systems (IDS/IPS). Anomalous traffic patterns trigger automated alerts to the security team.\n\n---",
+    "start_line": 266,
+    "end_line": 278,
+    "is_complete": true
+  },
+  {
+    "number": "14",
+    "title": "Incident Response",
+    "content": "**Incident Declaration:**\nSecurity incidents are classified as:\n- **P1 (Critical):** Active breach, ransomware, widespread system compromise\n- **P2 (High):** Suspected breach, significant data loss, major availability impact\n- **P3 (Medium):** Isolated malware infection, policy violation, minor data exposure\n- **P4 (Low):** Suspicious activity, policy questions, minor anomalies\n\n**Incident Response Team:**\nThe Incident Response Team (IRT) is activated for P1 and P2 incidents. The IRT includes the CISO, IT Operations Lead, Legal Counsel, and Communications Lead.\n\n---",
+    "start_line": 279,
+    "end_line": 292,
+    "is_complete": true
+  },
+  {
+    "number": "15",
+    "title": "Business Continuity and Disaster Recovery",
+    "content": "**Recovery Planning:**\nThe organization maintains a Business Continuity Plan (BCP) and Disaster Recovery Plan (DRP) for Tier 1 critical services. Recovery Time Objectives (RTOs) and Recovery Point Objectives (RPOs) are defined:\n- Client data platform: RTO 4 hours, RPO 1 hour\n- Software delivery pipeline: RTO 8 hours, RPO 4 hours\n\n**Backup Procedures:**\nCritical data is backed up daily with backups stored in a geographically separate location. Backup restoration is tested quarterly.\n\n---",
+    "start_line": 293,
+    "end_line": 304,
+    "is_complete": true
+  },
+  {
+    "number": "16",
+    "title": "Policy Compliance and Enforcement",
+    "content": "Compliance with this ISMS Policy is mandatory for all in-scope personnel. Violations are subject to disciplinary action up to and including termination. Compliance is monitored through annual policy attestations, technical control monitoring, and internal audits.\n\nExceptions to this policy require written approval from the CISO and must include a documented risk acceptance rationale and compensating controls.\n\n---",
+    "start_line": 305,
+    "end_line": 312,
+    "is_complete": true
+  },
+  {
+    "number": "17",
+    "title": "Document Control",
+    "content": "| Attribute | Value |\n|---|---|\n| Policy Owner | Chief Information Security Officer |\n| Review Frequency | Annual |\n| Last Reviewed | December 15, 2024 |\n| Next Review Due | December 15, 2025 |\n| Approved By | CEO |\n| Classification | Internal |",
+    "start_line": 313,
+    "end_line": 322,
+    "is_complete": true
+  }
+]

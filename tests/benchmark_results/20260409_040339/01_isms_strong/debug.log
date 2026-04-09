@@ -1,0 +1,564 @@
+2026-04-09 04:03:39  INFO      benchmark                                 Per-policy debug log → /Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_040339/01_isms_strong/debug.log
+2026-04-09 04:03:39  DEBUG     heading_detector                          Pattern markdown   : 17 candidates
+2026-04-09 04:03:39  DEBUG     heading_detector                          Pattern numbered   : 2 candidates
+2026-04-09 04:03:39  DEBUG     heading_detector                          Pattern allcaps    : 0 candidates
+2026-04-09 04:03:39  DEBUG     heading_detector                          Pattern bold       : 41 candidates
+2026-04-09 04:03:39  DEBUG     heading_detector                          Pattern bullet     : 0 candidates
+2026-04-09 04:03:39  DEBUG     heading_detector                          Bullet detection check: bullets=0, markdown=17, ratio=0.0
+2026-04-09 04:03:39  INFO      heading_detector                          Heading detection: pattern='markdown', 17 headings found
+2026-04-09 04:03:39  INFO      extractor                                 Rule-based detection: 17 sections
+2026-04-09 04:03:39  INFO      extractor                                 Saved 17 sections to /Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_040339/01_isms_strong/sections_output.json
+2026-04-09 04:03:39  INFO      benchmark                                 Generating master list (17 sections)…
+2026-04-09 04:03:39  INFO      llm                                       Loading LLM from /Users/shubhang/.cache/huggingface/hub/models--unsloth--gemma-4-E2B-it-GGUF/snapshots/e18a8a48038a5da3e89c1152441ab57546a70873/gemma-4-E2B-it-Q8_0.gguf (n_ctx=65536)
+2026-04-09 04:03:41  INFO      extractor                                 Generating master list for 17 sections
+2026-04-09 04:03:41  INFO      agents.summarizer_agent                   Summarizing section 1: Information Security Management System (ISMS) Policy
+2026-04-09 04:03:43  INFO      agents.summarizer_agent                     -> summary generated (4 chars)
+2026-04-09 04:03:43  INFO      agents.summarizer_agent                   Summarizing section 2: Version: 3.2 | Effective Date: January 1, 2025 | Classification: Internal
+2026-04-09 04:03:44  INFO      agents.summarizer_agent                     -> summary generated (4 chars)
+2026-04-09 04:03:44  INFO      agents.summarizer_agent                   Summarizing section 3: Purpose and Scope
+2026-04-09 04:03:54  INFO      agents.summarizer_agent                     -> summary generated (836 chars)
+2026-04-09 04:03:54  INFO      agents.summarizer_agent                   Summarizing section 4: Organizational Context and Mission Alignment
+2026-04-09 04:04:00  INFO      agents.summarizer_agent                     -> summary generated (308 chars)
+2026-04-09 04:04:00  INFO      agents.summarizer_agent                   Summarizing section 5: Risk Management Strategy
+2026-04-09 04:04:18  INFO      agents.summarizer_agent                     -> summary generated (1275 chars)
+2026-04-09 04:04:18  INFO      agents.summarizer_agent                   Summarizing section 6: Roles, Responsibilities, and Authorities
+2026-04-09 04:04:36  INFO      agents.summarizer_agent                     -> summary generated (1524 chars)
+2026-04-09 04:04:36  INFO      agents.summarizer_agent                   Summarizing section 7: Information Security Policy Management
+2026-04-09 04:04:52  INFO      agents.summarizer_agent                     -> summary generated (1347 chars)
+2026-04-09 04:04:52  INFO      agents.summarizer_agent                   Summarizing section 8: Oversight and Monitoring
+2026-04-09 04:04:56  INFO      agents.summarizer_agent                     -> summary generated (273 chars)
+2026-04-09 04:04:56  INFO      agents.summarizer_agent                   Summarizing section 9: Asset Management
+2026-04-09 04:05:10  INFO      agents.summarizer_agent                     -> summary generated (1089 chars)
+2026-04-09 04:05:10  INFO      agents.summarizer_agent                   Summarizing section 10: Risk Assessment
+2026-04-09 04:05:30  INFO      agents.summarizer_agent                     -> summary generated (1590 chars)
+2026-04-09 04:05:30  INFO      agents.summarizer_agent                   Summarizing section 11: Security Awareness and Training
+2026-04-09 04:05:34  INFO      agents.summarizer_agent                     -> summary generated (347 chars)
+2026-04-09 04:05:34  INFO      agents.summarizer_agent                   Summarizing section 12: Data Security
+2026-04-09 04:05:48  INFO      agents.summarizer_agent                     -> summary generated (989 chars)
+2026-04-09 04:05:48  INFO      agents.summarizer_agent                   Summarizing section 13: Monitoring and Detection
+2026-04-09 04:05:58  INFO      agents.summarizer_agent                     -> summary generated (834 chars)
+2026-04-09 04:05:58  INFO      agents.summarizer_agent                   Summarizing section 14: Incident Response
+2026-04-09 04:06:11  INFO      agents.summarizer_agent                     -> summary generated (919 chars)
+2026-04-09 04:06:11  INFO      agents.summarizer_agent                   Summarizing section 15: Business Continuity and Disaster Recovery
+2026-04-09 04:06:14  INFO      agents.summarizer_agent                     -> summary generated (226 chars)
+2026-04-09 04:06:14  INFO      agents.summarizer_agent                   Summarizing section 16: Policy Compliance and Enforcement
+2026-04-09 04:06:23  INFO      agents.summarizer_agent                     -> summary generated (675 chars)
+2026-04-09 04:06:23  INFO      agents.summarizer_agent                   Summarizing section 17: Document Control
+2026-04-09 04:06:31  INFO      agents.summarizer_agent                     -> summary generated (663 chars)
+2026-04-09 04:06:31  INFO      extractor                                 Master list generated with 17 entries
+2026-04-09 04:06:31  INFO      extractor                                 Saved master list to /Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_040339/01_isms_strong/master_list.json
+2026-04-09 04:06:31  INFO      benchmark                                 Running gap analysis…
+2026-04-09 04:06:31  INFO      gap_analyzer                              Starting NIST CSF gap analysis
+2026-04-09 04:06:31  INFO      gap_analyzer                              Loaded 17 sections from master list
+2026-04-09 04:06:31  INFO      gap_analyzer                              Built policy content (19619 chars)
+2026-04-09 04:06:31  INFO      gap_analyzer                              ============================================================
+2026-04-09 04:06:31  INFO      gap_analyzer                              Step 1: Classifying policy scope
+2026-04-09 04:06:31  INFO      gap_analyzer                              ============================================================
+2026-04-09 04:06:31  INFO      agents.nist_gap_agents                    Classifying policy scope across NIST CSF functions...
+2026-04-09 04:06:53  INFO      agents.nist_gap_agents                      Policy scope: 6/6 functions relevant — Govern, Identify, Protect, Detect, Respond, Recover
+2026-04-09 04:06:53  INFO      gap_analyzer                              ============================================================
+2026-04-09 04:06:53  INFO      gap_analyzer                              Analyzing NIST Function: Govern
+2026-04-09 04:06:53  INFO      gap_analyzer                              ============================================================
+2026-04-09 04:06:53  INFO      agents.nist_gap_agents                    Running NIST Govern gap analysis agent (Map-Reduce)
+2026-04-09 04:06:53  INFO      agents.nist_gap_agents                      31 total subcategories for Govern
+2026-04-09 04:06:53  INFO      agents.nist_gap_agents                      Step 1: Classifying scope...
+2026-04-09 04:06:53  DEBUG     agents.text_summarizer                      [Summarizer] Text (19619 chars) below threshold (32000) — skipping
+2026-04-09 04:07:44  INFO      agents.nist_gap_agents                        Scope classification: 17/31 in-scope
+2026-04-09 04:07:44  INFO      agents.nist_gap_agents                      17 in-scope, 14 out-of-scope → 14 LLM calls saved
+2026-04-09 04:07:44  INFO      agents.nist_gap_agents                      [1/17] Map-Reduce: GV.OC-01
+2026-04-09 04:07:44  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:07:49  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:07:55  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:08:02  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:08:08  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:08:10  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:08:13  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:08:17  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:08:21  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:08:24  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:08:27  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:08:29  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:08:31  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:08:34  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:08:36  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:08:38  INFO      agents.nist_gap_agents                        Map: 8 evidence snippets found for GV.OC-01
+2026-04-09 04:08:56  INFO      agents.nist_gap_agents                        Reduce: GV.OC-01 → Partially Addressed
+2026-04-09 04:08:56  INFO      agents.nist_gap_agents                      [2/17] Map-Reduce: GV.OC-02
+2026-04-09 04:08:56  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:09:00  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:09:10  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:09:15  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:09:21  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:09:25  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:09:29  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:09:31  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:09:34  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:09:40  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:09:42  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:09:46  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:09:49  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:09:52  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:09:55  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:09:57  INFO      agents.nist_gap_agents                        Map: 11 evidence snippets found for GV.OC-02
+2026-04-09 04:10:22  INFO      agents.nist_gap_agents                        Reduce: GV.OC-02 → Partially Addressed
+2026-04-09 04:10:22  INFO      agents.nist_gap_agents                      [3/17] Map-Reduce: GV.OC-03
+2026-04-09 04:10:22  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:10:26  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:10:32  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:10:36  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:10:42  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:10:47  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:10:51  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:10:56  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:11:01  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:11:05  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:11:09  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:11:12  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:11:14  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:11:16  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:11:19  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:11:21  INFO      agents.nist_gap_agents                        Map: 11 evidence snippets found for GV.OC-03
+2026-04-09 04:11:46  INFO      agents.nist_gap_agents                        Reduce: GV.OC-03 → Partially Addressed
+2026-04-09 04:11:46  INFO      agents.nist_gap_agents                      [4/17] Map-Reduce: GV.OC-04
+2026-04-09 04:11:46  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:11:53  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:11:59  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:12:07  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:12:12  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:12:16  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:12:20  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:12:24  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:12:30  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:12:34  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:12:39  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:12:42  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:12:48  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:12:52  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:12:56  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:12:58  INFO      agents.nist_gap_agents                        Map: 14 evidence snippets found for GV.OC-04
+2026-04-09 04:13:16  INFO      agents.nist_gap_agents                        Reduce: GV.OC-04 → Addressed
+2026-04-09 04:13:16  INFO      agents.nist_gap_agents                      [5/17] Map-Reduce: GV.OC-05
+2026-04-09 04:13:16  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:13:20  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:13:25  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:13:30  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:13:35  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:13:38  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:13:43  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:13:48  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:13:53  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:13:56  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:13:58  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:14:02  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:14:04  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:14:06  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:14:08  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:14:10  INFO      agents.nist_gap_agents                        Map: 9 evidence snippets found for GV.OC-05
+2026-04-09 04:14:31  INFO      agents.nist_gap_agents                        Reduce: GV.OC-05 → Partially Addressed
+2026-04-09 04:14:31  INFO      agents.nist_gap_agents                      [6/17] Map-Reduce: GV.RM-01
+2026-04-09 04:14:31  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:14:36  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:14:41  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:14:51  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:14:55  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:14:59  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:15:02  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:15:06  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:15:10  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:15:12  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:15:14  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:15:16  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:15:19  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:15:24  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:15:28  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:15:29  INFO      agents.nist_gap_agents                        Map: 9 evidence snippets found for GV.RM-01
+2026-04-09 04:15:52  INFO      agents.nist_gap_agents                        Reduce: GV.RM-01 → Addressed
+2026-04-09 04:15:52  INFO      agents.nist_gap_agents                      [7/17] Map-Reduce: GV.RM-02
+2026-04-09 04:15:52  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:15:55  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:15:58  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:16:03  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:16:06  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:16:09  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:16:11  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:16:14  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:16:18  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:16:20  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:16:23  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:16:25  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:16:27  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:16:29  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:16:30  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:16:32  INFO      agents.nist_gap_agents                        Map: 2 evidence snippets found for GV.RM-02
+2026-04-09 04:16:46  INFO      agents.nist_gap_agents                        Reduce: GV.RM-02 → Partially Addressed
+2026-04-09 04:16:46  INFO      agents.nist_gap_agents                      [8/17] Map-Reduce: GV.RM-03
+2026-04-09 04:16:46  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:16:52  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:16:57  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:17:03  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:17:10  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:17:13  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:17:19  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:17:21  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:17:27  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:17:30  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:17:34  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:17:36  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:17:38  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:17:40  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:17:43  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:17:45  INFO      agents.nist_gap_agents                        Map: 8 evidence snippets found for GV.RM-03
+2026-04-09 04:18:04  INFO      agents.nist_gap_agents                        Reduce: GV.RM-03 → Partially Addressed
+2026-04-09 04:18:04  INFO      agents.nist_gap_agents                      [9/17] Map-Reduce: GV.RM-04
+2026-04-09 04:18:04  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:18:14  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:18:21  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:18:26  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:18:29  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:18:33  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:18:36  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:18:39  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:18:44  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:18:47  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:18:49  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:18:51  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:18:53  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:18:55  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:18:59  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:19:01  INFO      agents.nist_gap_agents                        Map: 6 evidence snippets found for GV.RM-04
+2026-04-09 04:19:23  INFO      agents.nist_gap_agents                        Reduce: GV.RM-04 → Partially Addressed
+2026-04-09 04:19:23  INFO      agents.nist_gap_agents                      [10/17] Map-Reduce: GV.RM-06
+2026-04-09 04:19:23  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:19:26  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:19:31  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:19:37  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:19:41  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:19:44  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:19:50  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:19:55  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:20:04  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:20:06  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:20:10  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:20:14  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:20:16  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:20:21  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:20:23  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:20:26  INFO      agents.nist_gap_agents                        Map: 5 evidence snippets found for GV.RM-06
+2026-04-09 04:21:06  INFO      agents.nist_gap_agents                        Reduce: GV.RM-06 → Partially Addressed
+2026-04-09 04:21:06  INFO      agents.nist_gap_agents                      [11/17] Map-Reduce: GV.RR-01
+2026-04-09 04:21:06  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:21:15  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:21:22  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:21:29  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:21:34  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:21:38  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:21:43  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:21:46  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:21:54  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:22:00  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:22:02  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:22:04  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:22:07  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:22:09  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:22:12  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:22:15  INFO      agents.nist_gap_agents                        Map: 11 evidence snippets found for GV.RR-01
+2026-04-09 04:22:33  INFO      agents.nist_gap_agents                        Reduce: GV.RR-01 → Addressed
+2026-04-09 04:22:33  INFO      agents.nist_gap_agents                      [12/17] Map-Reduce: GV.RR-02
+2026-04-09 04:22:33  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:22:37  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:22:41  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:22:45  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:22:50  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:22:55  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:23:01  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:23:03  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:23:07  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:23:14  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:23:16  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:23:18  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:23:21  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:23:23  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:23:26  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:23:28  INFO      agents.nist_gap_agents                        Map: 11 evidence snippets found for GV.RR-02
+2026-04-09 04:23:46  INFO      agents.nist_gap_agents                        Reduce: GV.RR-02 → Addressed
+2026-04-09 04:23:46  INFO      agents.nist_gap_agents                      [13/17] Map-Reduce: GV.RR-03
+2026-04-09 04:23:46  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:23:49  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:23:55  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:24:00  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:24:04  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:24:07  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:24:10  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:24:13  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:24:17  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:24:21  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:24:23  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:24:27  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:24:30  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:24:33  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:24:36  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:24:38  INFO      agents.nist_gap_agents                        Map: 13 evidence snippets found for GV.RR-03
+2026-04-09 04:24:54  INFO      agents.nist_gap_agents                        Reduce: GV.RR-03 → Partially Addressed
+2026-04-09 04:24:54  INFO      agents.nist_gap_agents                      [14/17] Map-Reduce: GV.SC-02
+2026-04-09 04:24:54  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:24:58  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:25:03  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:25:06  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:25:09  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:25:11  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:25:14  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:25:16  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:25:18  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:25:20  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:25:22  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:25:24  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:25:26  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:25:27  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:25:31  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:25:32  INFO      agents.nist_gap_agents                        Map: 3 evidence snippets found for GV.SC-02
+2026-04-09 04:25:49  INFO      agents.nist_gap_agents                        Reduce: GV.SC-02 → Partially Addressed
+2026-04-09 04:25:49  INFO      agents.nist_gap_agents                      [15/17] Map-Reduce: GV.SC-03
+2026-04-09 04:25:49  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:25:55  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:26:01  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:26:07  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:26:09  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:26:11  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:26:14  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:26:18  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:26:22  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:26:25  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:26:26  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:26:28  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:26:30  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:26:32  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:26:36  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:26:39  INFO      agents.nist_gap_agents                        Map: 6 evidence snippets found for GV.SC-03
+2026-04-09 04:26:59  INFO      agents.nist_gap_agents                        Reduce: GV.SC-03 → Addressed
+2026-04-09 04:26:59  INFO      agents.nist_gap_agents                      [16/17] Map-Reduce: GV.SC-05
+2026-04-09 04:26:59  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:27:03  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:27:11  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:27:15  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:27:19  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:27:22  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:27:25  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:27:28  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:27:33  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:27:35  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:27:39  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:27:41  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:27:43  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:27:45  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:27:50  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:27:52  INFO      agents.nist_gap_agents                        Map: 4 evidence snippets found for GV.SC-05
+2026-04-09 04:28:12  INFO      agents.nist_gap_agents                        Reduce: GV.SC-05 → Partially Addressed
+2026-04-09 04:28:12  INFO      agents.nist_gap_agents                      [17/17] Map-Reduce: GV.SC-07
+2026-04-09 04:28:12  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:28:17  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:28:31  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:28:39  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:28:43  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:28:46  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:28:55  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:28:58  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:29:06  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:29:09  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:29:15  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:29:18  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:29:21  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:29:24  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:29:29  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:29:31  INFO      agents.nist_gap_agents                        Map: 5 evidence snippets found for GV.SC-07
+2026-04-09 04:29:55  INFO      agents.nist_gap_agents                        Reduce: GV.SC-07 → Partially Addressed
+2026-04-09 04:29:55  INFO      agents.nist_gap_agents                      Govern report assembled (22620 chars)
+2026-04-09 04:29:55  INFO      gap_analyzer                              Saved Govern report to /Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_040339/01_isms_strong/govern_gap_analysis.md
+2026-04-09 04:29:55  INFO      gap_analyzer                              Generating validated summary for Govern
+2026-04-09 04:29:55  INFO      agents.function_summarizer_agent          ========================================
+2026-04-09 04:29:55  INFO      agents.function_summarizer_agent          Summarizing Govern function (with validation loop)
+2026-04-09 04:29:55  INFO      agents.function_summarizer_agent          ========================================
+2026-04-09 04:29:55  DEBUG     agents.function_summarizer_agent            Ground-truth stats for Govern: {'total': 31, 'in_scope': 17, 'addressed': 5, 'partially_addressed': 12, 'not_addressed': 0, 'out_of_scope': 14}
+2026-04-09 04:29:55  INFO      agents.text_summarizer                      [Summarizer] Text (22620 chars) exceeds threshold (4000) — summarizing
+2026-04-09 04:29:55  INFO      agents.text_summarizer                      [Summarizer] Compressing 22620 chars (NIST Govern function gap analysis report)
+2026-04-09 04:31:51  WARNING   agents.text_summarizer                      [Summarizer] Summary exceeded 2200 chars (2733) — truncating at sentence boundary
+2026-04-09 04:31:51  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 1942 chars, 14 key points
+2026-04-09 04:31:51  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 14 key points against summary
+2026-04-09 04:32:03  WARNING   agents.text_summarizer                      [Summarizer Validator] LOSSY — 4 key points missing:
+2026-04-09 04:32:03  WARNING   agents.text_summarizer                        - GV.RR-02 Action: Include RACI matrix roles in job descriptions and onboarding.
+2026-04-09 04:32:03  WARNING   agents.text_summarizer                        - GV.RR-03 Action: Document specific resource requirements per role/control and track allocation annually.
+2026-04-09 04:32:03  WARNING   agents.text_summarizer                        - GV.SC-02 Gap: Define cybersecurity responsibilities in vendor contracts and assign internal owners.
+2026-04-09 04:32:03  WARNING   agents.text_summarizer                        - GV.SC-05 Action: Develop a review process for new vendor contracts to include breach notification timelines.
+2026-04-09 04:32:03  WARNING   agents.text_summarizer                      [Summarizer] Attempt 1/3 lossy — retrying with 4 missing points
+2026-04-09 04:32:03  INFO      agents.text_summarizer                      [Summarizer] Compressing 22620 chars (NIST Govern function gap analysis report)
+2026-04-09 04:33:00  INFO      agents.text_summarizer                      [Summarizer] Produced summary: 1120 chars, 1 key points
+2026-04-09 04:33:00  INFO      agents.text_summarizer                      [Summarizer Validator] Checking 1 key points against summary
+2026-04-09 04:33:07  INFO      agents.text_summarizer                      [Summarizer Validator] LOSSLESS ✓
+2026-04-09 04:33:07  INFO      agents.text_summarizer                      [Summarizer] Lossless summary accepted on attempt 2 ✓ (22620 → 1120 chars, 95% reduction)
+2026-04-09 04:33:07  INFO      agents.function_summarizer_agent            Summarizer: Generating summary for Govern (22620 char report)
+2026-04-09 04:33:07  DEBUG     agents.function_summarizer_agent            Summarizer prompt for Govern (1410 chars):
+Summarize the following NIST CSF **Govern** function gap analysis
+report into a concise executive summary.
+
+## Actual Statistics (use these EXACT numbers)
+
+Total subcategories: 31
+In scope: 17
+Addressed: 5
+Partially addressed: 12
+Not addressed: 0
+Out of scope: 14
+
+## Gap Analysis Report
+
+Govern Function Gap Analysis Report (CIS MS-ISAC NIST CSF Policy Template Guide 2024):
+*   **Overall Maturity**: Substantiially Implemented across 17 in-scope subcategories.
+*   **In-Scope Status**: 5 fully addressed, 12 partially addressed, 0 not addressed.
+*   **Key Gaps Identified (Top Priority)**:
+    *   GV.OC-01: Must document the mission statement, map assets to it, and ensure annual leadership review of alignment.
+    *   GV.OC-02: Must formally map specific stakeholder cybersecurity requirements to policies.
+    *   GV.OC-03: Must assign ownership for Legal/Regulatory Requirements Register entries and establish an annual review cadence.
+*   **Specific Recommendations**: 
+    *   For GV.RR-02, ensure the RACI matrix roles are included in job descriptions and onboarding.
+    *   For GV.RR-03, document specific resource requirements per role/control and track allocation annually.
+    *   For GV.SC-02, define cybersecurity responsibilities in vendor contracts and assign internal owners.
+    *   For GV.SC-05, develop a review process for new vendor contracts to include breach notification timelines.
+
+2026-04-09 04:33:44  INFO      agents.function_summarizer_agent            Summarizer: Generated summary (575 char executive summary)
+2026-04-09 04:33:44  DEBUG     agents.function_summarizer_agent          [Summarizer output — Govern] FunctionGapSummary for Govern:
+  executive_summary: The Govern function is rated as Substantiially Implemented across 17 in-scope subcategories. While no subcategories were left unaddressed, significant gaps exist in documentation and formalization. Critical gaps include the lack of documented mission statement alignment (GV.OC-01), stakeholder requirement mapping (GV.OC-02), and ownership assignment for regulatory requirements (GV.OC-03). Key recommendations involve integrating RACI matrices into job descriptions, documenting resource requirements per role, and establishing formal review processes for vendor contracts.
+  maturity_rating: Substantially Implemented
+  total_subcategories: 31
+  in_scope_count: 17
+  addressed_count: 5
+  partially_addressed_count: 12
+  not_addressed_count: 0
+  out_of_scope_count: 14
+  critical_gaps: ['GV.OC-01: Must document the mission statement, map assets to it, and ensure annual leadership review of alignment.', 'GV.OC-02: Must formally map specific stakeholder cybersecurity requirements to policies.', 'GV.OC-03: Must assign ownership for Legal/Regulatory Requirements Register entries and establish an annual review cadence.']
+  key_recommendations: ['Ensure RACI matrix roles are included in job descriptions and onboarding for GV.RR-02.', 'Document specific resource requirements per role/control and track allocation annually for GV.RR-03.', 'Define cybersecurity responsibilities in vendor contracts and assign internal owners for GV.SC-02.', 'Develop a review process for new vendor contracts to include breach notification timelines for GV.SC-05.']
+  required_policy_documents: []
+2026-04-09 04:33:44  DEBUG     agents.function_summarizer_agent            Validation attempt 1/3 for Govern
+2026-04-09 04:33:44  INFO      agents.function_summarizer_agent            Validator: Govern stats verified by code ✓
+2026-04-09 04:33:44  INFO      agents.function_summarizer_agent            Validator: LLM checking Govern for fabrication/garbled text
+2026-04-09 04:33:44  DEBUG     agents.function_summarizer_agent            Validator prompt for Govern (2098 chars):
+Check this executive summary of the **Govern** function for errors.
+
+## Valid subcategory IDs from the original report (reference list)
+
+GV.OC-01, GV.OC-02, GV.OC-03, GV.OC-04, GV.OC-05, GV.RM-01, GV.RM-02, GV.RM-03, GV.RM-04, GV.RM-06, GV.RR-01, GV.RR-02, GV.RR-03, GV.SC-02, GV.SC-03, GV.SC-05, GV.SC-07, GV.OV-01, GV.OV-02, GV.OV-03, GV.PO-01, GV.PO-02, GV.RM-05, GV.RM-07, GV.RR-04, GV.SC-01, GV.SC-04, GV.SC-06, GV.SC-08, GV.SC-09, GV.SC-10
+
+## Executive Summary to Check
+
+Executive Summary:
+The Govern function is rated as Substantiially Implemented across 17 in-scope subcategories. While no subcategories were left unaddressed, significant gaps exist in documentation and formalization. Critical gaps include the lack of documented mission statement alignment (GV.OC-01), stakeholder requirement mapping (GV.OC-02), and ownership assignment for regulatory requirements (GV.OC-03). Key recommendations involve integrating RACI matrices into job descriptions, documenting resource requirements per role, and establishing formal review processes for vendor contracts.
+
+Critical Gaps:
+  - GV.OC-01: Must document the mission statement, map assets to it, and ensure annual leadership review of alignment.
+  - GV.OC-02: Must formally map specific stakeholder cybersecurity requirements to policies.
+  - GV.OC-03: Must assign ownership for Legal/Regulatory Requirements Register entries and establish an annual review cadence.
+
+Key Recommendations:
+  - Ensure RACI matrix roles are included in job descriptions and onboarding for GV.RR-02.
+  - Document specific resource requirements per role/control and track allocation annually for GV.RR-03.
+  - Define cybersecurity responsibilities in vendor contracts and assign internal owners for GV.SC-02.
+  - Develop a review process for new vendor contracts to include breach notification timelines for GV.SC-05.
+
+## Instructions
+
+1. Check if any subcategory ID in Critical Gaps does NOT appear in the reference list above.
+2. Check if the text contains garbled or nonsensical content.
+If no errors found, set is_acceptable=true with empty issues list.
+
+2026-04-09 04:33:49  INFO      agents.function_summarizer_agent            Validator: Summary ACCEPTED ✓
+2026-04-09 04:33:49  DEBUG     agents.function_summarizer_agent            Validator result for Govern: is_acceptable=True, issues=[]
+2026-04-09 04:33:49  INFO      agents.function_summarizer_agent            Govern summary accepted on attempt 1 ✓
+2026-04-09 04:33:49  INFO      gap_analyzer                              Saved Govern validated summary to /Users/shubhang/dev/hackathon/gap-hunter-2/tests/benchmark_results/20260409_040339/01_isms_strong/govern_gap_summary.md
+2026-04-09 04:33:49  INFO      gap_analyzer                              ============================================================
+2026-04-09 04:33:49  INFO      gap_analyzer                              Analyzing NIST Function: Identify
+2026-04-09 04:33:49  INFO      gap_analyzer                              ============================================================
+2026-04-09 04:33:49  INFO      agents.nist_gap_agents                    Running NIST Identify gap analysis agent (Map-Reduce)
+2026-04-09 04:33:49  INFO      agents.nist_gap_agents                      21 total subcategories for Identify
+2026-04-09 04:33:49  INFO      agents.nist_gap_agents                      Step 1: Classifying scope...
+2026-04-09 04:33:49  DEBUG     agents.text_summarizer                      [Summarizer] Text (19619 chars) below threshold (32000) — skipping
+2026-04-09 04:34:30  INFO      agents.nist_gap_agents                        Scope classification: 17/21 in-scope
+2026-04-09 04:34:30  INFO      agents.nist_gap_agents                      17 in-scope, 4 out-of-scope → 4 LLM calls saved
+2026-04-09 04:34:30  INFO      agents.nist_gap_agents                      [1/17] Map-Reduce: ID.AM-1
+2026-04-09 04:34:30  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:34:36  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:34:39  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:34:44  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:34:51  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:34:53  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:34:56  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:35:01  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:35:05  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:35:08  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:35:12  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:35:15  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:35:18  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:35:20  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:35:22  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:35:23  INFO      agents.nist_gap_agents                        Map: 5 evidence snippets found for ID.AM-1
+2026-04-09 04:35:38  INFO      agents.nist_gap_agents                        Reduce: ID.AM-1 → Partially Addressed
+2026-04-09 04:35:38  INFO      agents.nist_gap_agents                      [2/17] Map-Reduce: ID.AM-2
+2026-04-09 04:35:38  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:35:43  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:35:49  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:35:53  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:35:56  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:35:58  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:36:01  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:36:05  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:36:09  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:36:11  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:36:13  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:36:15  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:36:18  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:36:20  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:36:22  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:36:25  INFO      agents.nist_gap_agents                        Map: 5 evidence snippets found for ID.AM-2
+2026-04-09 04:37:02  INFO      agents.nist_gap_agents                        Reduce: ID.AM-2 → Partially Addressed
+2026-04-09 04:37:02  INFO      agents.nist_gap_agents                      [3/17] Map-Reduce: ID.AM-3
+2026-04-09 04:37:02  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:37:05  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:37:13  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:37:18  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:37:23  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:37:25  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:37:28  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:37:33  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:37:37  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:37:40  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:37:47  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:37:49  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:37:51  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:37:54  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:37:56  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:37:58  INFO      agents.nist_gap_agents                        Map: 2 evidence snippets found for ID.AM-3
+2026-04-09 04:38:16  INFO      agents.nist_gap_agents                        Reduce: ID.AM-3 → Partially Addressed
+2026-04-09 04:38:16  INFO      agents.nist_gap_agents                      [4/17] Map-Reduce: ID.AM-5
+2026-04-09 04:38:16  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:38:20  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:38:24  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:38:31  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:38:33  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:38:35  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:38:38  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:38:41  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping
+2026-04-09 04:38:44  DEBUG     agents.text_summarizer                      [Summarizer] Text (1101 chars) below threshold (8000) — skipping
+2026-04-09 04:38:46  DEBUG     agents.text_summarizer                      [Summarizer] Text (776 chars) below threshold (8000) — skipping
+2026-04-09 04:38:50  DEBUG     agents.text_summarizer                      [Summarizer] Text (485 chars) below threshold (8000) — skipping
+2026-04-09 04:38:51  DEBUG     agents.text_summarizer                      [Summarizer] Text (572 chars) below threshold (8000) — skipping
+2026-04-09 04:38:57  DEBUG     agents.text_summarizer                      [Summarizer] Text (491 chars) below threshold (8000) — skipping
+2026-04-09 04:39:00  DEBUG     agents.text_summarizer                      [Summarizer] Text (417 chars) below threshold (8000) — skipping
+2026-04-09 04:39:01  DEBUG     agents.text_summarizer                      [Summarizer] Text (245 chars) below threshold (8000) — skipping
+2026-04-09 04:39:03  INFO      agents.nist_gap_agents                        Map: 8 evidence snippets found for ID.AM-5
+2026-04-09 04:39:18  INFO      agents.nist_gap_agents                        Reduce: ID.AM-5 → Addressed
+2026-04-09 04:39:18  INFO      agents.nist_gap_agents                      [5/17] Map-Reduce: ID.AM-8
+2026-04-09 04:39:18  DEBUG     agents.text_summarizer                      [Summarizer] Text (1078 chars) below threshold (8000) — skipping
+2026-04-09 04:39:23  DEBUG     agents.text_summarizer                      [Summarizer] Text (2246 chars) below threshold (8000) — skipping
+2026-04-09 04:39:30  DEBUG     agents.text_summarizer                      [Summarizer] Text (2877 chars) below threshold (8000) — skipping
+2026-04-09 04:39:41  DEBUG     agents.text_summarizer                      [Summarizer] Text (2091 chars) below threshold (8000) — skipping
+2026-04-09 04:39:46  DEBUG     agents.text_summarizer                      [Summarizer] Text (1075 chars) below threshold (8000) — skipping
+2026-04-09 04:39:52  DEBUG     agents.text_summarizer                      [Summarizer] Text (1297 chars) below threshold (8000) — skipping
+2026-04-09 04:40:01  DEBUG     agents.text_summarizer                      [Summarizer] Text (1139 chars) below threshold (8000) — skipping
+2026-04-09 04:42:39  DEBUG     agents.text_summarizer                      [Summarizer] Text (1583 chars) below threshold (8000) — skipping

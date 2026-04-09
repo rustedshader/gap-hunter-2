@@ -1,0 +1,121 @@
+[
+  {
+    "number": "1",
+    "title": "Information Security Management System (ISMS) Policy",
+    "summary": "null",
+    "start_line": 1,
+    "end_line": 2
+  },
+  {
+    "number": "2",
+    "title": "Version: 3.2 | Effective Date: January 1, 2025 | Classification: Internal",
+    "summary": "null",
+    "start_line": 3,
+    "end_line": 6
+  },
+  {
+    "number": "3",
+    "title": "Purpose and Scope",
+    "summary": "This section establishes the framework for Acme Technologies Inc.'s Information Security Management System (ISMS) to protect information confidentiality, integrity, and availability. The policy applies universally to everyone who accesses or manages organizational information systems.\n\nKey requirements:\n*   Protect the confidentiality, integrity, and availability of all information assets.\n*   Apply to all employees, contractors, consultants, and third parties accessing company information.\n*   Align cybersecurity priorities with protecting mission-critical functions (e.g., client data platforms).\n*\nCritical compliance points: All security decisions must be explicitly aligned with the organization's mission.",
+    "start_line": 7,
+    "end_line": 16
+  },
+  {
+    "number": "4",
+    "title": "Organizational Context and Mission Alignment",
+    "summary": "This section establishes the organizational context for cybersecurity by aligning its program with the mission and defining stakeholder expectations. It mandates a structured approach to tracking legal obligations, identifying critical services, and reporting risk posture.\n\n*   **Stakeholder Management:** Documented cyberssecurity requirements from internal (Board, Leadership, IT) and external stakeholders are maintained in an Expectations Register reviewed semi-annually.\n*   **Regulatory Compliance Tracking:** The organization must maintain a register of applicable laws/regulations (including state breach notification laws, MSA obligations, SOC 2 Type II needs, and NIST SP 800-53 controls).\n*   **Critical Service Prioritization:** Incident response plans *must* prioritize the recovery of Tier 1 services first.\n*   **Risk Reporting:** The CISO is responsible for presenting quarterly risk posture summaries to Executive Leadership and annual summaries to the Board.",
+    "start_line": 17,
+    "end_line": 50
+  },
+  {
+    "number": "5",
+    "title": "Risk Management Strategy",
+    "summary": "This section outlines Acme Technologies Inc.'s comprehensive strategy for managing cybersecurity risks, defining objectives, appetite, response strategies, and assessment methodology. The core purpose is to ensure that risk management aligns with business goals by setting measurable targets and establishing clear decision-making frameworks.\n\nKey requirements or obligations:\n*   Achieve specific annual security objectives (e.g., 30% reduction in data breach likelihood; maintain SOC 2 Type II certification).\n*   Adhere to formally approved risk appetite statements across operational, compliance, reputational, and financial risks.\n*   Integrate cybersecurity risk into the Enterprise Risk Management (ERM) program through regular governance participation by the CISO.\n*   Employ defined response strategies: Mitigate, Transfer, Accept (with approval), or Avoid based on documented criteria.\n*   Utilize a semi-quantitative scoring methodology where risks scoring above 15 are classified as High and require immediate remediation plans.\n\nCritical compliance points:\n*   Risk owners must be trained on tolerance levels and obligated to escalate when thresholds are breached.\n*   Compliance with risk assessment documentation (in the Risk Assessment Policy) is mandatory.",
+    "start_line": 51,
+    "end_line": 93
+  },
+  {
+    "number": "6",
+    "title": "Roles, Responsibilities, and Authorities",
+    "summary": "This section defines the accountability structure, roles, and resource management for cybersecurity within the organization. It establishes clear lines of responsibility from the Board down to individual staff actions.\n\nKey requirements or obligations:\n*   The Board is ultimately accountable for cyber security risk posture; the CEO must ensure adequate resources are allocated.\n*   A comprehensive RACI matrix documents all specific cybersecuirty responsibilities, which must be documented in job descriptions and communicated during onboarding.\n*   Cybersecurity budget allocation must be formally tied to identified risks and reviewed annually by leadership through a resource gap analysis process.\n*   Human Resources integration mandates background checks for sensitive system access hires, mandatory security awareness training within 30 days of onboarding, immediate account deactivation upon termination (especially privileged accounts), and inclusion of cyber obligations in employment contracts.\n\nCritical compliance points:\n*   Non-compliance with cybersecurity responsibilities will be addressed via the HR performance management process.",
+    "start_line": 94,
+    "end_line": 124
+  },
+  {
+    "number": "7",
+    "title": "Information Security Policy Management",
+    "summary": "This section outlines the framework for managing information security policies, emphasizing their derivation from risk assessments and strategic objectives. It establishes clear accountability structures for policy ownership and enforcement.\n\n**Key Requirements or Obligations:**\n*   Policies must be derived directly from organizational risk assessments and strategic goals.\n*   Policy owners are assigned responsibility for enforcing the policy and conducting annual reviews.\n*   Annual attestation of compliance is required from all staff members.\n*   Non-compliance will result in investigation by HR, potentially leading to disciplinary action.\n*   Policies must be reviewed at least annually or immediately if significant changes (threat landscape shifts, new regulations, organizational changes) occur.\n*   Policy updates and subsequent re-attestations for affected personnel must be communicated clearly.",
+    "start_line": 125,
+    "end_line": 146
+  },
+  {
+    "number": "8",
+    "title": "Oversight and Monitoring",
+    "summary": "This section establishes the framework for oversight, monitoring, and continuous improvement of the cybersecurity program. It mandates regular reporting to leadership on risk status and performance metrics while requiring formal internal audits and management reviews.\n\nKey requirements or obligations:\n*   The Chief Information Security Officer (CISO) must present a quarterly security program status report covering KRIs, remediation plans, assessment results, incident summaries, and compliance status against frameworks.\n*   Monthly tracking of specific performance metrics is required: Mean Time to Detect (MTTD), Mean Time to Respond (MTTR), system patching percentage, staff training completion rate, and open critical vulnerability counts/age.\n*   An annual internal Information Security Management System (ISMS) audit must be conducted; findings require a remediation plan within 30 days of the report issuance.\n*   The ISMS is subject to an annual formal management review covering previous actions, changes in context, performance results, and resource adequacy.\n\nCritical compliance points:\nThe organization MUST ensure timely reporting (quarterly/monthly) and adhere strictly to mandated remediation timelines following internal audits.",
+    "start_line": 147,
+    "end_line": 177
+  },
+  {
+    "number": "9",
+    "title": "Asset Management",
+    "summary": "This section mandates a comprehensive, real-time inventory and lifecycle management process for all organizational assets. The goal is to maintain accurate visibility over hardware, software, data, and network resources.\n\n*   **Hardware/Software Inventory:** Maintain an up-to-date asset inventory in the Configuration Management Database (CMDB), tracking attributes like owner, classification, location, OS, installed software, and last seen date. \n*   **Data Asset Inventory:** Document all significant data collections detailing type, sensitivity, processing locations, retention periods, and regulatory obligations.\n*   **Network Resource Inventory:** Keep network components inventoried in the CMDB and ensure network diagrams are updated quarterly.\n*   **Asset Lifecycle Management:** Formally track assets through procurement, deployment, operation, and disposal. \n\nCritical Compliance Points: End-of-life assets MUST be disposed of securely according to the defined Sanitization and Secure Disposal Standard.",
+    "start_line": 178,
+    "end_line": 197
+  },
+  {
+    "number": "10",
+    "title": "Risk Assessment",
+    "summary": "This section outlines the mandatory, cyclical process for identifying, assessing, prioritizing, and treating risks across all systems within the ISMS scope. The policy mandates regular assessments based on triggers like annual cycles or security incidents.\n\nKey requirements:\n*   Conduct formal risk assessments annually for all in-scope systems,\n*   Perform assessments prior to significant system changes/implementations, following material security incidents, and when threat landscapes change.\n*   Integrate monthly review of industry-relevant Threat Intelligence into these assessments.\n*   Conduct quarterly vulnerability scans; remediation SLAs are: Critical (48 hours), High (14 days), Medium (30 days), Low (90 days).\n*   Assess risks using a semi-quantitative methodology considering direct and indirect impacts.\n*   Prioritize risks based on score/risk appetite, escalating High/Critical risks to the CISO with documented remediation plans.\n*   Develop formal risk treatment plans specifying response strategy, owner, timeline, and success criteria.",
+    "start_line": 198,
+    "end_line": 227
+  },
+  {
+    "number": "11",
+    "title": "Security Awareness and Training",
+    "summary": "This section establishes a mandatory, multi-tiered security awareness and training program for all personnel. The goal is to ensure employees understand fundamental security risks while providing specialized knowledge based on job roles.\n\nKey requirements or obligations:\n*   **General Training:** All employees/contractors must complete initial onboarding training within 30 days of starting employment, followed by annual refresher training (completion required within 30 days of assignment).\n*   Training topics must cover phishing recognition, password hygiene, data classification, acceptable use, incident reporting, social engineering, and physical security.\n*   Role-specific personnel receive additional mandatory training based on their role (e.g., IT Admins need secure configuration knowledge; Developers require secure coding practices like OWASP Top 10).\n*   Training completion must be tracked in the Learning Management System (LMS) and reported monthly to HR and the CISO.\n\nCritical compliance points:\n*   Failure to complete mandatory training by deadlines constitutes a violation. \n*   The policy mandates specific, role-based technical competencies.",
+    "start_line": 228,
+    "end_line": 248
+  },
+  {
+    "number": "12",
+    "title": "Data Security",
+    "summary": "This section establishes the organization's data classification scheme and mandates specific technical controls for protecting sensitive information both when stored (at rest) and during transmission (in transit). The primary goal is to apply appropriate security measures based on the sensitivity level of the data.\n\n*   **Data Classification:** Data must be classified into four tiers: Restricted, Confidential, Internal, and Public. \n    *   Restricted includes Client PII, financial records, and credentials (requiring strict controls).\n*   **Data at Rest Protection:** All 'Restricted' and 'Confidential' data must be encrypted using AES-256 on all relevant devices.\n*   **Data in Transit Protection:** Data transmissions involving Restricted or Confidential data must use TLS 1.2 or higher; unencrypted protocols (HTTP, FTP, Telnet) are strictly prohibited for sensitive transfers.\n\n**Critical Compliance Points:** Organizations MUST ensure that encryption standards meet AES-256 and transport security meets TLS 1.2+ requirements specifically when handling Restricted or Confidential data.",
+    "start_line": 249,
+    "end_line": 265
+  },
+  {
+    "number": "13",
+    "title": "Monitoring and Detection",
+    "summary": "This section outlines the organization's requirements for continuous security monitoring across both system logs and network traffic. The primary goal is to ensure timely detection of potential security incidents.\n\n*   **Security Information and Event Management (SIEM):** Must collect logs from all critical systems/infrastructure, provide real-time alerting on defined events, and retain these logs for a minimum of 12 months.\n*   **Network Monitoring:** Continuous monitoring via Intrusion Detection/Prevention Systems (IDS/IPS) to detect anomalous traffic patterns that trigger automated alerts.\n\n**Critical Compliance Points:** The mandatory retention period of 12 months for security logs must be strictly enforced. Automated alerting based on IDS/IPS findings is a required operational procedure.",
+    "start_line": 266,
+    "end_line": 278
+  },
+  {
+    "number": "14",
+    "title": "Incident Response",
+    "summary": "This section defines the classification of security incidents and establishes the criteria for activating the Incident Response Team (IRT). The purpose is to ensure a structured, tiered response based on the severity of an event.\n\n*   **Incident Classification:** Incidents are categorized into four levels: P1 (Critical - active breach/ransomware), P2 (High - suspected breach/significant data loss), P3 (Medium - isolated infection/policy violation), and P4 (Low - suspicious activity).\n*   **IRT Activation Criteria:** The Incident Response Team must be activated specifically for P1 and P2 incidents.\n*   **Required IRT Members:** When activated, the team *must* include the CISO, IT Operations Lead, Legal Counsel, and Communications Lead.",
+    "start_line": 279,
+    "end_line": 292
+  },
+  {
+    "number": "15",
+    "title": "Business Continuity and Disaster Recovery",
+    "summary": "This section establishes the requirements for business continuity and disaster recovery (BCP/DRP) specifically for Tier 1 critical services. It mandates specific Recovery Time Objectives (RTOs) and Recovery Point Objectives (RPOs), along with defined backup procedures.\n\n*   **Plan Maintenance:** The organization must maintain a formal Business Continuity Plan (BCP) and Disaster Recovery Plan (DRP).\n*   **Objective Definition:** Specific RTO/RPO targets are set for critical systems, including 4 hours RTO / 1 hour RPO for the client data platform.\n*   **Backup Strategy:** Critical data must be backed up daily to a geographically separate location.\n*   **Testing Requirement:** Backup restoration procedures must be tested on a quarterly basis.\n\nCritical Compliance Points: Adherence to defined RTOs/RPOs is mandatory, and documented evidence of quarterly backup testing should be maintained.",
+    "start_line": 293,
+    "end_line": 304
+  },
+  {
+    "number": "16",
+    "title": "Policy Compliance and Enforcement",
+    "summary": "This section establishes that adherence to the ISMS Policy is mandatory for all personnel involved. Non-compliance carries severe disciplinary consequences, while exceptions must be formally approved and documented.\n\n*   Compliance with this policy is mandatory for all in-scope personnel.\n*   Violations are subject to disciplinary action up to termination.\n*   Exceptions require written approval from the CISO.\n*   Any exception must include a documented risk acceptance rationale and compensating controls.\n\n**Critical Compliance Points:** Continuous monitoring occurs through annual policy attestations, technical control monitoring, and internal audits.",
+    "start_line": 305,
+    "end_line": 312
+  },
+  {
+    "number": "17",
+    "title": "Document Control",
+    "summary": "This section establishes the governance and lifecycle management procedures for all organizational documents. It defines who is responsible for oversight, how often documentation must be reviewed, and its official approval process.\n\n*   **Policy Ownership:** The Chief Information Security Officer (CISO) owns this policy.\n*   **Review Schedule:** Policies are subject to an annual review cycle.\n*   **Approval Authority:** Final approval rests with the CEO. \n\nCritical Compliance Points: Organizations must adhere strictly to the defined review frequency and ensure all documents have proper ownership assigned.",
+    "start_line": 313,
+    "end_line": 322
+  }
+]

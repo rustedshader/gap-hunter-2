@@ -1,0 +1,58 @@
+[
+  {
+    "number": "1",
+    "title": "Access Control and Identity Management Policy",
+    "summary": "null",
+    "start_line": 1,
+    "end_line": 2
+  },
+  {
+    "number": "2",
+    "title": "Version: 1.1 | Effective Date: January 2025 | Classification: Internal",
+    "summary": "null",
+    "start_line": 3,
+    "end_line": 6
+  },
+  {
+    "number": "3",
+    "title": "Purpose and Scope",
+    "summary": "This policy establishes the framework for managing user identities, controlling system access, and protecting organizational resources from unauthorized access. It mandates that all access decisions adhere to the principle of least privilege.\n\n*   Access must be granted based on the principle of least privilege (minimum access required for job duties).\n*   All access rights must be tied to a documented business need.\n*   Access rights must be reviewed regularly.\n\n**Critical Compliance Points:** This policy applies universally to all employees, contractors, and third parties accessing Nexus Software Ltd. systems.",
+    "start_line": 7,
+    "end_line": 14
+  },
+  {
+    "number": "4",
+    "title": "Identity Management and User Provisioning",
+    "summary": "This section establishes the mandatory procedures for managing user identities and provisioning access to systems. The core objective is to ensure all users have unique, properly authorized accounts through a formal process.\n\nKey requirements or obligations:\n*   All users must possess a unique individual account; shared accounts are strictly prohibited.\n*   Account creation requires a formal provisioning process, including manager approval and documented business justification.\n*   User identity management must occur within the central identity directory.\n*   Service accounts must be documented with an assigned owner and reviewed quarterly.\n*   **Joiner:** Create accounts within 1 business day of HR notification for new hires.\n*   **Mover:** Review and adjust access rights within 3 business days of a role change.\n*   **Leaver:** Disable all accounts within 4 hours of termination notification; immediately disable privileged accounts upon notification.\n\nCritical compliance points:\n*   Strict adherence to the defined timelines for provisioning (1 day for new hires, 3 days for role changes, 4 hours for terminations).\n*   Mandatory documentation (business justification) for all account creations.",
+    "start_line": 15,
+    "end_line": 27
+  },
+  {
+    "number": "5",
+    "title": "Authentication Requirements",
+    "summary": "This section mandates strict authentication controls, primarily requiring Multi-Factor Authentication (MFA) for high-risk access scenarios. It also establishes specific, stringent requirements for password management and account lockout procedures to enhance security.\n\nKey requirements or obligations:\n*   Implement Multi-Factor Authentication (MFA) for all remote access, access to sensitive data systems, administrative/privileged accounts, and cloud consoles.\n*   Enforce minimum 12-character passwords with complexity (uppercase, lowercase, number, symbol).\n*   Set password expiration: 90 days for standard accounts and 60 days for privileged accounts.\n*   Prohibit the reuse of the last 10 passwords.\n*   Implement an account lockout policy after 5 failed attempts, with a 15-minute lockout period.\n*   Utilize Single Sign-On (SSO) wherever technically feasible for corporate applications.\n*   Ensure all authentication events are logged centrally for auditing purposes.\n\nCritical compliance points:\n*   Compliance hinges on the mandatory enforcement of MFA across all specified access vectors.\n*   Strict adherence to password complexity, rotation, and lockout policies is required.",
+    "start_line": 28,
+    "end_line": 45
+  },
+  {
+    "number": "6",
+    "title": "Access Control and Authorization",
+    "summary": "This section establishes the framework for managing access rights across systems, networks, and physical locations using Role-Based Access Control (RBAC). The primary goal is to ensure that users only have the minimum necessary access required for their job functions. \n\nKey requirements or obligations:\n*   Access rights must be assigned based on defined roles mapped to specific job functions.\n*   Network access must be controlled via firewall rules, network segmentation, and mandatory VPN usage (split tunneling is prohibited).\n*   Physical and logical access controls must be synchronized (e.g., server room access requires both a badge and an account).\n*   Privileged access (administrator, root, service accounts) requires explicit approval from the IT Security team.\n*   Privileged sessions must be recorded whenever technically feasible.\n\nCritical compliance points:\n*   Strict adherence to RBAC principles is mandatory.\n*   Prohibition of split tunneling for remote access is a critical security control.",
+    "start_line": 46,
+    "end_line": 60
+  },
+  {
+    "number": "7",
+    "title": "Access Reviews and Monitoring",
+    "summary": "This section establishes a mandatory process for regularly reviewing user access, monitoring user activity on sensitive systems, and maintaining detailed audit logs. The goal is to ensure that access rights are appropriate, unauthorized activities are detected promptly, and all security events are auditable.\n\nKey requirements or obligations:\n*   Conduct quarterly reviews of all user access rights by system owners.\n*   Flag accounts with no activity in the last 60 days for validation or removal.\n*   Log and monitor user activity on systems containing sensitive data for unauthorized access attempts, out-of-scope data access, bulk downloads, and off-hours access.\n*   Review security alerts from access monitoring within 4 hours during business hours, escalating after hours.\n*   Log all authentication events, access grants/revocations, and privileged actions with forensic detail.\n*   Retain audit logs for a minimum of 12 months and protect them from modification.\n\nCritical compliance points:\n*   Documentation of quarterly reviews must be maintained for 12 months.\n*   Timely review (4 hours during business hours) and escalation procedures for security alerts are mandatory.",
+    "start_line": 61,
+    "end_line": 76
+  },
+  {
+    "number": "8",
+    "title": "Compliance and Enforcement",
+    "summary": "This section establishes the mandatory nature of policy compliance and outlines the procedures for handling exceptions and ongoing policy maintenance. Non-compliance carries severe disciplinary consequences, while formal processes are in place for requesting deviations and ensuring the policy remains relevant.",
+    "start_line": 77,
+    "end_line": 87
+  }
+]

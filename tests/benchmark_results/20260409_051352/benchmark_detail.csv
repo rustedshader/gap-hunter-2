@@ -1,0 +1,107 @@
+Policy,NIST_Function,Subcategory,Expected,Predicted,Score
+06_access_control_short.md,GV,GV.OC-01,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.OC-02,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,GV,GV.OC-03,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.OC-04,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.OC-05,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.RM-01,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.RM-02,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.RM-03,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.RM-04,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.RM-05,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.RM-06,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.RM-07,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.RR-01,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,GV,GV.RR-02,PARTIAL,PARTIALLY ADDRESSED,FN
+06_access_control_short.md,GV,GV.RR-03,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.RR-04,COVERED,ADDRESSED,FN
+06_access_control_short.md,GV,GV.PO-01,PARTIAL,PARTIALLY ADDRESSED,FN
+06_access_control_short.md,GV,GV.PO-02,PARTIAL,PARTIALLY ADDRESSED,FN
+06_access_control_short.md,GV,GV.OV-01,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.OV-02,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.OV-03,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.SC-01,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.SC-02,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.SC-03,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.SC-04,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.SC-05,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.SC-06,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.SC-07,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.SC-08,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.SC-09,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,GV,GV.SC-10,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,ID,ID.AM-1,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,ID,ID.AM-2,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,ID,ID.AM-3,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,ID,ID.AM-4,COVERED,OUT OF SCOPE,FN
+06_access_control_short.md,ID,ID.AM-5,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,ID,ID.AM-7,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,ID,ID.AM-8,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,ID,ID.RA-01,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,ID,ID.RA-02,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,ID,ID.RA-03,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,ID,ID.RA-04,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,ID,ID.RA-05,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,ID,ID.RA-06,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,ID,ID.RA-07,GAP,ADDRESSED,TN
+06_access_control_short.md,ID,ID.RA-08,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,ID,ID.RA-09,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,ID,ID.RA-10,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,ID,ID.IM-01,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,ID,ID.IM-02,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,ID,ID.IM-03,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,ID,ID.IM-04,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,PR,PR.AA-01,COVERED,ADDRESSED,FN
+06_access_control_short.md,PR,PR.AA-02,COVERED,OUT OF SCOPE,FN
+06_access_control_short.md,PR,PR.AA-03,COVERED,ADDRESSED,FN
+06_access_control_short.md,PR,PR.AA-04,COVERED,OUT OF SCOPE,FN
+06_access_control_short.md,PR,PR.AA-05,COVERED,ADDRESSED,FN
+06_access_control_short.md,PR,PR.AA-06,COVERED,OUT OF SCOPE,FN
+06_access_control_short.md,PR,PR.AT-01,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,PR,PR.AT-02,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,PR,PR.DS-01,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,PR,PR.DS-02,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,PR,PR.DS-10,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,PR,PR.DS-11,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,PR,PR.PS-01,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,PR,PR.PS-02,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,PR,PR.PS-03,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,PR,PR.PS-04,GAP,ADDRESSED,TN
+06_access_control_short.md,PR,PR.PS-05,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,PR,PR.PS-06,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,PR,PR.IR-01,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,PR,PR.IR-02,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,PR,PR.IR-03,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,PR,PR.IR-04,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,DE,DE.AE-02,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,DE,DE.AE-03,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,DE,DE.AE-04,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,DE,DE.AE-06,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,DE,DE.AE-07,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,DE,DE.AE-08,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,DE,DE.CM-01,GAP,ADDRESSED,TN
+06_access_control_short.md,DE,DE.CM-02,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,DE,DE.CM-03,COVERED,PARTIALLY ADDRESSED,FN
+06_access_control_short.md,DE,DE.CM-06,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,DE,DE.CM-09,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RS,RS.MA-01,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RS,RS.MA-02,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RS,RS.MA-03,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RS,RS.MA-04,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RS,RS.MA-05,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RS,RS.CO-02,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RS,RS.CO-03,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RS,RS.AN-03,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,RS,RS.AN-06,GAP,ADDRESSED,TN
+06_access_control_short.md,RS,RS.AN-07,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,RS,RS.AN-08,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RS,RS.MI-01,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,RS,RS.MI-02,GAP,PARTIALLY ADDRESSED,TN
+06_access_control_short.md,RC,RC.RP-01,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RC,RC.RP-02,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RC,RC.RP-03,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RC,RC.RP-04,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RC,RC.RP-05,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RC,RC.RP-06,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RC,RC.CO-03,GAP,OUT OF SCOPE,TN
+06_access_control_short.md,RC,RC.CO-04,GAP,OUT OF SCOPE,TN
