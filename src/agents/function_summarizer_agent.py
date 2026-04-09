@@ -82,6 +82,74 @@ def _compute_maturity_rating(stats: dict) -> str:
     return "Not Started"
 
 
+def build_code_summary(
+    function: str,
+    assessments: list,
+) -> FunctionGapSummary:
+    """
+    Build a FunctionGapSummary purely from structured assessment data.
+    Zero LLM calls — all fields computed deterministically.
+    Used in place of run_summarize_with_validation() to eliminate
+    the 2–4 LLM calls (summarizer + validator + retries) per function.
+    """
+    import re
+
+    stats = _compute_stats(assessments)
+    maturity = _compute_maturity_rating(stats)
+
+    in_scope = [a for a in assessments if a.status != "Out of Scope"]
+    not_addressed = [a for a in in_scope if a.status == "Not Addressed"]
+    partial = [a for a in in_scope if a.status == "Partially Addressed"]
+    gap_items = not_addressed + partial
+
+    critical_gaps = [
+        f"{a.subcategory_id}: {a.gap[:120]}"
+        for a in gap_items[:5]
+        if a.gap and a.gap.lower() not in ("none", "none - fully addressed", "n/a")
+    ]
+
+    key_recs = [
+        f"{a.subcategory_id}: {a.recommendation[:120]}"
+        for a in gap_items[:5]
+        if a.recommendation and a.recommendation.strip()
+    ]
+
+    doc_pattern = re.compile(
+        r"([A-Z][a-z]+(?: [A-Z][a-z]+)* (?:Policy|Standard|Plan|Procedure))"
+    )
+    docs: set[str] = set()
+    for a in not_addressed:
+        docs.update(doc_pattern.findall(a.recommendation or ""))
+    required_docs = sorted(docs)[:8]
+
+    addressed_pct = (
+        int(100 * stats["addressed"] / stats["in_scope"])
+        if stats["in_scope"] > 0 else 0
+    )
+    executive_summary = (
+        f"The {function} function has {stats['in_scope']} subcategories in scope, "
+        f"of which {stats['addressed']} are fully addressed ({addressed_pct}%), "
+        f"{stats['partially_addressed']} partially addressed, and "
+        f"{stats['not_addressed']} not addressed. "
+        f"Overall maturity: {maturity}."
+    )
+
+    return FunctionGapSummary(
+        function_name=function,
+        executive_summary=executive_summary,
+        maturity_rating=maturity,
+        total_subcategories=stats["total"],
+        in_scope_count=stats["in_scope"],
+        addressed_count=stats["addressed"],
+        partially_addressed_count=stats["partially_addressed"],
+        not_addressed_count=stats["not_addressed"],
+        out_of_scope_count=stats["out_of_scope"],
+        critical_gaps=critical_gaps,
+        key_recommendations=key_recs,
+        required_policy_documents=required_docs,
+    )
+
+
 def _invoke_with_retries(
     structured_llm, messages: list[dict], retries: int = LLM_INVOKE_RETRIES
 ):
@@ -220,7 +288,7 @@ def run_function_summarizer(
     report_input = summarize_lossless(
         report,
         context_hint=f"NIST {function_name} function gap analysis report",
-        threshold=800,
+        threshold=4_000,
     )
 
     prompt = f"""Summarize the following NIST CSF **{function_name}** function gap analysis
@@ -863,7 +931,7 @@ def run_master_summarizer(
     formatted_input = summarize_lossless(
         formatted,
         context_hint="per-function NIST CSF gap analysis summaries for master report",
-        threshold=1000,
+        threshold=4_000,
     )
 
     prompt = f"""Synthesize the following per-function NIST CSF gap analysis summaries into

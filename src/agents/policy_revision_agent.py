@@ -224,6 +224,25 @@ def parse_gap_targets(
             if a.status not in ("Not Addressed", "Partially Addressed"):
                 continue
 
+            # Skip gaps whose recommendation is to create a SEPARATE policy
+            # document rather than expand the current policy. Adding incident
+            # response, asset management, or risk management content to an
+            # access control policy creates a "Frankenstein" document.
+            rec_lower = (a.recommendation or "").lower()
+            separate_policy_signals = (
+                "dedicated" in rec_lower and "policy" in rec_lower,
+                "separate policy" in rec_lower,
+                "create a" in rec_lower and "policy" in rec_lower,
+                "establish a" in rec_lower and "policy" in rec_lower,
+                "adopt the" in rec_lower and "policy" in rec_lower,
+            )
+            if a.status == "Not Addressed" and any(separate_policy_signals):
+                logger.info(
+                    "  Skipping %s — recommendation points to a separate policy document",
+                    a.subcategory_id,
+                )
+                continue
+
             action, target_num = classify_gap_target(a, sections)
 
             policy_names = _get_policies_for_subcategory(
@@ -331,20 +350,20 @@ def run_write_addition(
     style_sample = summarize_lossless(
         original_section_content,
         context_hint=f"policy section '{original_section_title}' used as style reference only",
-        threshold=600,
+        threshold=4_000,
     )
 
     # Compress recommendation if it is long — keeps the Addition Writer prompt focused
     recommendation = summarize_lossless(
         target.gap.recommendation,
         context_hint=f"NIST {target.subcategory_id} gap recommendation",
-        threshold=600,
+        threshold=4_000,
     )
     nist_guidance = (
         summarize_lossless(
             target.nist_guidance,
             context_hint=f"NIST {target.subcategory_id} implementation guidance",
-            threshold=400,
+            threshold=4_000,
         )
         if target.nist_guidance
         else "(none available)"
@@ -654,7 +673,7 @@ def run_cluster_summarizer(
         compressed = summarize_lossless(
             b.content,
             context_hint=f"policy addition block for {b.subcategory_id} — {b.heading}",
-            threshold=400,
+            threshold=4_000,
         )
         block_inputs.append(
             f"Block for {b.subcategory_id} — {b.heading}:\n{compressed}"
@@ -768,7 +787,7 @@ def run_integration_pass(
     original_summary = summarize_lossless(
         original_content,
         context_hint=f"original policy section '{original_title}' to be preserved intact",
-        threshold=1000,
+        threshold=4_000,
     )
 
     # Pass blocks as a numbered structured list — NOT as a single concatenated
@@ -1032,7 +1051,7 @@ def run_create_section(
 
     prompt = (
         f"## Example Section (style reference)\n\n"
-        f"{summarize_lossless(style_example, context_hint='policy section used as style/format reference for new section creation', threshold=600)}\n\n"
+        f"{summarize_lossless(style_example, context_hint='policy section used as style/format reference for new section creation', threshold=4_000)}\n\n"
         f"---\n\n"
         f"## Gap to Address\n\n"
         f"Subcategory: {target.subcategory_id}\n"
@@ -1118,7 +1137,7 @@ def validate_new_section(
         f"What is missing: {target.gap.gap}\n\n"
         f"Recommendation:\n{target.gap.recommendation}\n\n"
         f"New section content:\n"
-        f"{summarize_lossless(revision.revised_content, context_hint=f'new policy section for {target.subcategory_id} being validated for gap coverage', threshold=800)}\n\n"
+        f"{summarize_lossless(revision.revised_content, context_hint=f'new policy section for {target.subcategory_id} being validated for gap coverage', threshold=4_000)}\n\n"
         f"Check: does the section address the gap? Is the text coherent?"
     )
 

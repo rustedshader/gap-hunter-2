@@ -8,6 +8,16 @@ Usage:
     python src/main.py <policy.pdf> --skip-extraction --run-dir gap_analysis_reports/20260404_030622
 """
 
+# Must be set before ANY import that touches HuggingFace hub or Docling.
+# The hub performs a network HEAD request on every model load to check for
+# updates. With models already cached this only wastes time (or hangs
+# indefinitely without internet). All required Docling models are cached at
+# ~/.cache/huggingface/hub/ so offline mode is safe.
+import os
+
+os.environ["HF_HUB_OFFLINE"] = "1"
+os.environ["TRANSFORMERS_OFFLINE"] = "1"
+
 import argparse
 import logging
 import sys

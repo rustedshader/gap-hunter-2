@@ -377,7 +377,11 @@ def run_policy_revision(
     logger.info("Phase D — Improvement Roadmap")
     logger.info("=" * 60)
 
-    all_summaries = load_summaries(run_output_dir)
+    from agents.function_summarizer_agent import build_code_summary
+    all_summaries = {
+        fn: build_code_summary(fn, assessments)
+        for fn, assessments in all_assessments.items()
+    }
     roadmap = run_roadmap_with_validation(all_assessments, all_summaries)
     roadmap_md = render_improvement_roadmap(roadmap)
     roadmap_path = run_output_dir / "improvement_roadmap.md"
@@ -390,6 +394,31 @@ def run_policy_revision(
 # ---------------------------------------------------------------------------
 
 
+def _strip_section_heading(content: str, title: str) -> str:
+    """
+    Remove a leading ## heading from section content to prevent duplicates.
+    The renderer adds '## N. Title' itself — if the integration editor also
+    emitted a heading, the final doc gets two headings for the same section.
+    Also strips stacked '---' separators at the top/bottom of content.
+    """
+    import re
+    lines = content.splitlines()
+
+    # Drop any leading lines that are ## headings or blank/separator lines
+    while lines and (
+        lines[0].strip() == "" or
+        lines[0].strip() == "---" or
+        re.match(r"^#{1,3}\s+", lines[0])
+    ):
+        lines.pop(0)
+
+    # Drop trailing --- separators (renderer adds its own)
+    while lines and lines[-1].strip() in ("---", ""):
+        lines.pop()
+
+    return "\n".join(lines)
+
+
 def render_revised_policy(sections: list[dict], original_title: str) -> str:
     """Render the complete revised policy as markdown."""
     lines: list[str] = []
@@ -399,10 +428,9 @@ def render_revised_policy(sections: list[dict], original_title: str) -> str:
     )
 
     for section in sections:
-        is_new = section.get("is_new", False)
-        tag = " *(NEW — added per gap analysis)*" if is_new else ""
-        lines.append(f"## {section['number']}. {section['title']}{tag}\n")
-        lines.append(section["content"])
+        lines.append(f"## {section['number']}. {section['title']}\n")
+        content = _strip_section_heading(section["content"], section["title"])
+        lines.append(content)
         lines.append("")
         lines.append("---\n")
 

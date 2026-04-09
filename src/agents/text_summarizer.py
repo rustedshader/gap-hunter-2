@@ -46,7 +46,9 @@ LLM_INVOKE_RETRIES = 3
 
 # Default character threshold above which summarization is triggered.
 # Below this, the text is returned as-is (no LLM call needed).
-DEFAULT_THRESHOLD = 800
+# gemma4:e2b has n_ctx=32 000 (≈128K chars); 4 000 chars ≈ 1K tokens — well
+# within capacity, so there is no benefit to summarising shorter texts.
+DEFAULT_THRESHOLD = 4_000
 
 
 # ---------------------------------------------------------------------------
