@@ -207,6 +207,232 @@ def classify_gap_target(
         return "new_section", None
 
 
+from agents.gap_analysis_tools import build_allowlist_for_templates
+
+# ---------------------------------------------------------------------------
+# Keyword → CIS MS-ISAC template name map.
+# Keys are frozensets of lowercase keywords; values are the EXACT policy
+# template names as they appear in nist_config.yaml "Policies" fields.
+# Covers all 35 documents in src/nist/framework-documents/.
+# ---------------------------------------------------------------------------
+_POLICY_KEYWORD_MAP: list[tuple[frozenset[str], list[str]]] = [
+    (frozenset({"access control", "identity management", "iam", "rbac",
+                "least privilege", "provisioning", "privileged access",
+                "authentication policy", "identification and authentication"}),
+     ["Access Control Policy", "Account Management/Access Control Standard",
+      "Authentication Tokens Standard", "Identification and Authentication Policy",
+      "Remote Access Standard",
+      "Personnel Security Policy"]),  # joiner/mover/leaver HR lifecycle is core IAM
+
+    (frozenset({"incident response", "incident handling", "containment",
+                "eradication", "incident management", "cyber incident"}),
+     ["Computer Security Threat Response Policy", "Cyber Incident Response Standard",
+      "Incident Response Policy"]),
+
+    (frozenset({"contingency planning", "business continuity",
+                "disaster recovery", "bcp", "drp", "continuity of operations"}),
+     ["Contingency Planning Policy"]),
+
+    (frozenset({"risk assessment", "risk management", "risk register",
+                "risk appetite", "risk tolerance"}),
+     ["Risk Assessment Policy", "Information Security Risk Management Standard",
+      "Planning Policy"]),
+
+    (frozenset({"patch management", "patching", "vulnerability management",
+                "software update", "firmware update"}),
+     ["Patch Management Standard", "Vulnerability Scanning Standard"]),
+
+    (frozenset({"vulnerability scanning", "vulnerability assessment",
+                "penetration testing", "vuln scan"}),
+     ["Vulnerability Scanning Standard"]),
+
+    (frozenset({"configuration management", "secure configuration",
+                "hardening", "baseline configuration", "cmdb",
+                "configuration baseline"}),
+     ["Configuration Management Policy", "Secure Configuration Standard"]),
+
+    (frozenset({"data privacy", "data protection", "gdpr", "hipaa",
+                "personal data", "phi", "pii", "personally identifiable",
+                "privacy policy"}),
+     ["Encryption Standard", "Media Protection Policy",
+      "Sanitization Secure Disposal Standard", "Information Classification Standard"]),
+
+    (frozenset({"encryption", "cryptograph", "key management", "tls", "aes",
+                "encryption standard"}),
+     ["Encryption Standard"]),
+
+    (frozenset({"information security management", "isms"}),
+     ["Information Security Policy", "Information Security Risk Management Standard",
+      "Security Awareness and Training Policy",
+      "Acceptable Use of Information Technology Resource Policy"]),
+
+    (frozenset({"information security policy", "overall security policy",
+                "master security policy", "enterprise security policy"}),
+     ["Information Security Policy"]),
+
+    (frozenset({"security awareness", "security training",
+                "awareness training", "phishing training"}),
+     ["Security Awareness and Training Policy",
+      "Acceptable Use of Information Technology Resource Policy"]),
+
+    (frozenset({"acceptable use", "aup", "computer use policy",
+                "it use policy", "technology use"}),
+     ["Acceptable Use of Information Technology Resource Policy"]),
+
+    (frozenset({"auditing", "audit log", "accountability",
+                "audit trail", "auditing and accountability"}),
+     ["Auditing and Accountability Policy", "Security Logging Standard"]),
+
+    (frozenset({"security logging", "log management", "log retention",
+                "logging standard", "siem policy"}),
+     ["Security Logging Standard", "Auditing and Accountability Policy"]),
+
+    (frozenset({"remote access", "vpn", "telework", "work from home",
+                "remote access standard"}),
+     ["Remote Access Standard"]),
+
+    (frozenset({"personnel security", "hr security", "background check",
+                "employee security", "onboarding security", "offboarding",
+                "personnel security policy"}),
+     ["Personnel Security Policy"]),
+
+    (frozenset({"physical security", "environmental protection",
+                "physical access", "facility security",
+                "data center access", "physical and environmental"}),
+     ["Physical and Environmental Protection Policy"]),
+
+    (frozenset({"maintenance policy", "system maintenance",
+                "maintenance window", "maintenance standard"}),
+     ["Maintenance Policy"]),
+
+    (frozenset({"media protection", "media handling",
+                "removable media", "usb", "portable media"}),
+     ["Media Protection Policy"]),
+
+    (frozenset({"mobile device", "byod", "smartphone",
+                "tablet security", "mobile security"}),
+     ["Mobile Device Security"]),
+
+    (frozenset({"information classification", "data classification",
+                "classification standard", "sensitivity label",
+                "classification scheme"}),
+     ["Information Classification Standard"]),
+
+    (frozenset({"system development", "sdlc",
+                "software development life cycle",
+                "secure development", "devops security",
+                "secure sdlc"}),
+     ["Secure System Development Life Cycle Standard"]),
+
+    (frozenset({"security assessment", "security authorization",
+                "authorization policy", "assessment and authorization",
+                "security assessment policy"}),
+     ["Security Assessment and Authorization Policy"]),
+
+    (frozenset({"communications protection", "network security",
+                "network protection", "firewall policy",
+                "system communications protection"}),
+     ["System and Communications Protection Policy"]),
+
+    (frozenset({"system integrity", "information integrity",
+                "malware", "anti-virus", "antivirus",
+                "integrity policy", "system and information integrity"}),
+     ["System and Information Integrity Policy"]),
+
+    (frozenset({"acquisition", "vendor management", "supply chain",
+                "third party", "third-party", "procurement security",
+                "services acquisition"}),
+     ["Systems and Services Acquisition Policy"]),
+
+    (frozenset({"sanitization", "secure disposal",
+                "data destruction", "disk wiping",
+                "sanitization standard"}),
+     ["Sanitization Secure Disposal Standard"]),
+
+    (frozenset({"planning policy", "system security plan",
+                "ssp", "security planning"}),
+     ["Planning Policy"]),
+]
+
+# Subcategory IDs that are EXCLUDED even when their template matches.
+# These map to IAM/access-control templates for indirect reasons
+# (e.g. "access management depends on asset inventory") but adding their
+# full implementation procedures to an IAM policy creates wrong-domain content.
+_EXPLICIT_EXCLUSIONS: dict[str, set[str]] = {
+    "access_control_templates": {
+        "ID.AM-1", "ID.AM-2",          # hardware/software inventory → asset mgmt standard
+        "GV.SC-01", "GV.SC-03", "GV.SC-04", "GV.SC-05",
+        "GV.SC-06", "GV.SC-07", "GV.SC-09", "GV.SC-10",  # supply chain → separate policy
+    }
+}
+
+
+def detect_policy_templates(sections: list[dict]) -> list[str]:
+    """
+    Match the policy's title and first-section content against the keyword map
+    and return the list of CIS MS-ISAC policy template names that best describe
+    this policy's domain. Covers all 35 framework documents.
+
+    No LLM — pure keyword matching, zero latency.
+    """
+    text = " ".join(
+        (s.get("title", "") + " " + s.get("content", ""))
+        for s in sections[:3]
+    ).lower()
+
+    best_templates: list[str] = []
+    best_score = 0
+
+    for keywords, templates in _POLICY_KEYWORD_MAP:
+        score = sum(1 for kw in keywords if kw in text)
+        if score > best_score:
+            best_score = score
+            best_templates = templates
+
+    if best_score == 0:
+        logger.info("  Domain detection: no keyword match — no domain filter applied")
+        return []
+
+    logger.info(
+        "  Domain detection: matched templates %s (score=%d)",
+        best_templates, best_score,
+    )
+    return best_templates
+
+
+def build_revision_allowlist(sections: list[dict]) -> set[str]:
+    """
+    Compute the set of NIST subcategory IDs that should be revised in this policy.
+    Derived from nist_config.yaml — no hardcoded subcategory IDs.
+
+    Returns empty set if domain cannot be determined (no filter applied).
+    """
+    templates = detect_policy_templates(sections)
+    if not templates:
+        return set()   # empty = no restriction
+
+    allowlist = build_allowlist_for_templates(templates)
+
+    # Apply explicit exclusions for known false-positive mappings
+    # (subcategories that map to access-control templates for indirect reasons)
+    ac_templates = {t.lower() for t in templates}
+    ac_indicator = any(
+        t in ac_templates for t in {
+            "access control policy",
+            "identification and authentication policy",
+            "account management/access control standard",
+        }
+    )
+    if ac_indicator:
+        allowlist -= _EXPLICIT_EXCLUSIONS["access_control_templates"]
+        logger.info(
+            "  Applied access-control exclusions: removed ID.AM-1/2 and GV.SC-* from allowlist"
+        )
+
+    logger.info("  Revision allowlist: %d subcategories", len(allowlist))
+    return allowlist
+
+
 def parse_gap_targets(
     all_assessments: dict[str, list[SubcategoryAssessment]],
     sections: list[dict],
@@ -217,6 +443,10 @@ def parse_gap_targets(
     Uses an LLM call per gap for section targeting (no regex).
     Returns list sorted by priority: Not Addressed first, then Partially Addressed.
     """
+    # Build allowlist from nist_config.yaml — zero hardcoded subcategory IDs
+    revision_allowlist = build_revision_allowlist(sections)
+    using_filter = bool(revision_allowlist)
+
     targets: list[GapTarget] = []
 
     for function_name, assessments in all_assessments.items():
@@ -224,10 +454,16 @@ def parse_gap_targets(
             if a.status not in ("Not Addressed", "Partially Addressed"):
                 continue
 
-            # Skip gaps whose recommendation is to create a SEPARATE policy
-            # document rather than expand the current policy. Adding incident
-            # response, asset management, or risk management content to an
-            # access control policy creates a "Frankenstein" document.
+            # Domain filter — skip subcategories that belong in a different policy.
+            if using_filter and a.subcategory_id not in revision_allowlist:
+                logger.info(
+                    "  Skipping %s — not in revision allowlist for this policy domain",
+                    a.subcategory_id,
+                )
+                continue
+
+            # Secondary filter: skip gaps whose recommendation explicitly points
+            # to a separate policy document (belt-and-suspenders with domain filter).
             rec_lower = (a.recommendation or "").lower()
             separate_policy_signals = (
                 "dedicated" in rec_lower and "policy" in rec_lower,
@@ -236,7 +472,7 @@ def parse_gap_targets(
                 "establish a" in rec_lower and "policy" in rec_lower,
                 "adopt the" in rec_lower and "policy" in rec_lower,
             )
-            if a.status == "Not Addressed" and any(separate_policy_signals):
+            if any(separate_policy_signals):
                 logger.info(
                     "  Skipping %s — recommendation points to a separate policy document",
                     a.subcategory_id,

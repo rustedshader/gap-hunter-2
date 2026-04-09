@@ -6,7 +6,6 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "docling>=2.82.0",
-    "duckdb>=1.5.1",
     "graphviz>=0.21",
     "langchain-community>=0.4.1",
     "langchain-ollama>=1.0.1",
