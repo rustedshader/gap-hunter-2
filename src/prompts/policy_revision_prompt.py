@@ -24,6 +24,9 @@ RULES:
 6. Reference the NIST subcategory ID (e.g. PR.AA-03) in your content.
 7. Draw on the provided NIST guidance and framework reference for correct terminology.
 8. Keep your block focused — one subsection per gap, 150-400 words.
+9. Do NOT use placeholder text such as [Specify Frequency], [Insert Value], [e.g., X],
+   or [TBD]. Choose a specific, reasonable default value instead (e.g. "quarterly",
+   "12 months", "within 48 hours"). The output must be publication-ready.
 """
 
 # ---------------------------------------------------------------------------
@@ -110,6 +113,10 @@ RULES:
 7. Do NOT invent new requirements not present in the blocks.
 8. Preserve all NIST subcategory ID references.
 9. The result should read as a single authored section, not a list of stapled additions.
+10. Do NOT include a section heading (## or ###) at the very start of your output —
+    the heading is added externally. Start directly with the body text.
+11. Do NOT use placeholder text such as [Specify Frequency], [Insert Value], or [TBD].
+    Use specific, reasonable default values instead.
 """
 
 # ---------------------------------------------------------------------------
@@ -158,6 +165,10 @@ RULES:
 4. Include numbered or bulleted requirements where appropriate.
 5. Draw from the provided reference framework language for terminology.
 6. The section should be self-contained and ready to insert into a policy document.
+7. Do NOT use placeholder text such as [Specify Frequency], [Insert Value], or [TBD].
+   Use specific, reasonable default values instead (e.g. "quarterly", "12 months").
+8. Do NOT include a top-level ## heading in your output — the heading is added
+   externally. Begin with the section body text directly.
 """
 
 # ---------------------------------------------------------------------------

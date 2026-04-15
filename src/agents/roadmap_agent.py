@@ -88,7 +88,7 @@ def _format_gaps_for_prompt(
             rec_compressed = summarize_lossless(
                 a.recommendation,
                 context_hint=f"NIST {a.subcategory_id} remediation recommendation for roadmap",
-                threshold=300,
+                threshold=2_000,
             )
             parts.append(
                 f"- **{a.subcategory_id}** [{a.status}]: {a.gap}\n"
@@ -149,7 +149,7 @@ def run_roadmap_planner(
     gaps_input = summarize_lossless(
         gaps_text,
         context_hint="NIST CSF in-scope gaps with recommendations for roadmap planning",
-        threshold=800,
+        threshold=4_000,
     )
 
     prompt = f"""Create a prioritized improvement roadmap from these NIST CSF gap analysis results.
@@ -240,12 +240,12 @@ def run_roadmap_detailer(
     roadmap_input = summarize_lossless(
         roadmap_text,
         context_hint="improvement roadmap draft with tiers, action items, and NIST IDs",
-        threshold=800,
+        threshold=4_000,
     )
     gaps_input = summarize_lossless(
         gaps_text,
         context_hint="NIST CSF in-scope gaps with recommendations for detailing context",
-        threshold=600,
+        threshold=4_000,
     )
 
     prompt = f"""Enrich this improvement roadmap with more detailed, actionable content.

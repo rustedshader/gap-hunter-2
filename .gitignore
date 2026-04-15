@@ -10,3 +10,4 @@ wheels/
 .venv
 gap_analysis_reports
 .DS_Store
+tests/

@@ -3,6 +3,14 @@ Centralized LLM factory — creates ChatLlamaCpp instances for all agents.
 
 Replaces ChatOllama throughout the codebase. Ollama's structured output
 breaks above ~19K prompt chars; llama.cpp handles arbitrary sizes correctly.
+
+Model: gemma-4-E2B-it-Q8_0 (gemma4:e2b)
+  - 2.3B effective parameters (5.1B with per-layer embeddings)
+  - 128K token context window with 512-token sliding window attention
+  - n_ctx=65536 used here: covers all realistic policy documents while
+    keeping KV-cache RAM consumption manageable on local hardware
+  - Thinking mode (<|think|>) is NOT enabled: it prepends a reasoning
+    channel block that breaks with_structured_output() JSON parsing
 """
 
 from __future__ import annotations
@@ -32,7 +40,7 @@ _llm_cache: dict[str, ChatLlamaCpp] = {}
 
 def create_llm(
     model_path: str | None = None,
-    n_ctx: int = 32000,
+    n_ctx: int = 65536,
     max_tokens: int = 2048,
     temperature: float = 0,
 ) -> ChatLlamaCpp:
@@ -42,7 +50,9 @@ def create_llm(
     Args:
         model_path: Path to GGUF weights. Defaults to _DEFAULT_MODEL_PATH
                     or GGUF_MODEL_PATH env var.
-        n_ctx: Context window size.
+        n_ctx: Context window size. Default 65536 (64K tokens) — uses half
+               of gemma4:e2b's 128K capacity; comfortably fits any policy
+               document while keeping KV-cache RAM manageable.
         max_tokens: Max tokens to generate.
         temperature: Sampling temperature.
 
@@ -61,11 +71,16 @@ def create_llm(
         model_path=path,
         n_ctx=n_ctx,
         n_gpu_layers=8,
-        n_batch=300,
+        # n_batch=512 aligns with gemma4:e2b's 512-token sliding window;
+        # faster prompt prefill vs the old n_batch=300.
+        n_batch=512,
         max_tokens=max_tokens,
         n_threads=multiprocessing.cpu_count() - 1,
         temperature=temperature,
-        repeat_penalty=1.5,
+        # repeat_penalty=1.1: the old 1.5 was too aggressive and caused the
+        # model to avoid repeating JSON keys and common policy-domain terms,
+        # degrading structured output quality.
+        repeat_penalty=1.1,
         top_p=0.5,
         verbose=False,
     )

@@ -184,6 +184,39 @@ def get_function_subcategories(function_name: str) -> list[dict]:
     return subcategories
 
 
+def build_allowlist_for_templates(policy_templates: list[str]) -> set[str]:
+    """
+    Given a list of CIS MS-ISAC policy template names (exactly as they appear
+    in nist_config.yaml 'Policies' fields), return the set of NIST CSF
+    subcategory IDs that list at least one of those templates.
+
+    This is the authoritative source for domain-based revision filtering —
+    it reads directly from nist_config.yaml, zero hardcoding.
+
+    Args:
+        policy_templates: e.g. ["Access Control Policy",
+                                 "Identification and Authentication Policy"]
+
+    Returns:
+        Set of subcategory IDs (e.g. {"PR.AA-01", "PR.AA-05", ...})
+    """
+    config_path = Path("src/nist/nist_config.yaml")
+    with open(config_path) as f:
+        config = yaml.safe_load(f)
+
+    template_set = {t.lower() for t in policy_templates}
+    allowed: set[str] = set()
+
+    for fn_block in config["NIST_Cybersecurity_Framework"]:
+        for heading in fn_block.get("Subheadings", []):
+            for sub in heading.get("Subparts", []):
+                for pol in sub.get("Policies", []):
+                    if pol.lower() in template_set:
+                        allowed.add(sub["ID"])
+
+    return allowed
+
+
 def get_framework_excerpt(policy_names: list[str], max_chars: int = 600) -> str:
     """
     Load and return truncated excerpts from CIS MS-ISAC framework template docs.

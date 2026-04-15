@@ -21,11 +21,7 @@ from agents.nist_gap_agents import (
 )
 from agents.gap_analysis_tools import get_function_subcategories
 from agents.function_summarizer_agent import (
-    run_summarize_with_validation,
-    run_master_summarize_with_validation,
-    build_out_of_scope_summary,
-    render_function_summary,
-    render_master_summary,
+    build_code_summary,
     FunctionGapSummary,
 )
 
@@ -192,35 +188,17 @@ def run_gap_analysis(
             report_path = run_output_dir / f"{function.lower()}_gap_analysis.md"
             report_path.write_text(report)
 
-            # Code-based summary for out-of-scope function (no LLM)
-            oos_summary = build_out_of_scope_summary(function, out_assessments)
-            all_summaries[function] = oos_summary
-            summary_md = render_function_summary(oos_summary)
-            summary_path = run_output_dir / f"{function.lower()}_gap_summary.md"
-            summary_path.write_text(summary_md)
-            logger.info("Saved %s out-of-scope summary to %s", function, summary_path)
+            all_summaries[function] = build_code_summary(function, out_assessments)
             continue
 
         logger.info("Analyzing NIST Function: %s", function)
         logger.info("=" * 60)
 
         try:
-            # Load raw sections for Map phase (parallel section scanning)
-            raw_sections: list[dict] | None = None
-            if sections_path and sections_path.exists():
-                try:
-                    import json as _json
-
-                    with open(sections_path) as _f:
-                        raw_sections = _json.load(_f)
-                except Exception:
-                    pass
-
             report, assessments = run_nist_gap_agent(
                 function_name=function,
                 policy_content=policy_content,
                 model_name=model_name,
-                policy_sections=raw_sections,
             )
 
             reports[function] = report
@@ -230,19 +208,8 @@ def run_gap_analysis(
             report_path.write_text(report)
             logger.info("Saved %s report to %s", function, report_path)
 
-            # Summarize with validation loop
-            logger.info("Generating validated summary for %s", function)
-            func_summary = run_summarize_with_validation(
-                function_name=function,
-                report=report,
-                assessments=assessments,
-                model_name=model_name,
-            )
-            all_summaries[function] = func_summary
-            summary_md = render_function_summary(func_summary)
-            summary_path = run_output_dir / f"{function.lower()}_gap_summary.md"
-            summary_path.write_text(summary_md)
-            logger.info("Saved %s validated summary to %s", function, summary_path)
+            all_summaries[function] = build_code_summary(function, assessments)
+            logger.info("Built code summary for %s", function)
 
         except Exception as e:
             logger.exception("Failed to analyze %s function", function)
@@ -264,20 +231,6 @@ def run_gap_analysis(
     consolidated_path = run_output_dir / "consolidated_gap_analysis.md"
     consolidated_path.write_text(consolidated_report)
     logger.info("Saved consolidated report to %s", consolidated_path)
-
-    # Build LLM-generated master executive summary (with validation loop)
-    logger.info("=" * 60)
-    logger.info("Building Master Executive Summary (LLM + validation)")
-    logger.info("=" * 60)
-
-    master_summary = run_master_summarize_with_validation(
-        summaries=all_summaries,
-        model_name=model_name,
-    )
-    master_md = render_master_summary(master_summary)
-    master_path = run_output_dir / "master_gap_summary.md"
-    master_path.write_text(master_md)
-    logger.info("Saved master executive summary to %s", master_path)
 
     # Save structured assessments for Phase 3 (policy revision)
     assessments_data = {

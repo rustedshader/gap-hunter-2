@@ -187,12 +187,13 @@ def _build_scope_prompt(policy_content: str, subcategories: list[dict]) -> str:
     # averaging 80-120 chars). No truncation needed.
     sub_list = "\n".join(f"- **{s['id']}**: {s['description']}" for s in subcategories)
 
-    # Compress the policy content — the scope classifier only needs to understand
-    # the policy's subject domain, not every specific requirement.
+    # Only compress if the policy is genuinely large.
+    # gemma4:e2b n_ctx=32000 → ~128K chars capacity; policies under 32K chars
+    # (~8K tokens) fit raw with room to spare — no summarisation needed.
     policy_input = summarize_lossless(
         policy_content,
         context_hint="customer policy document being classified for NIST CSF scope",
-        threshold=600,
+        threshold=32_000,
     )
 
     return f"""You are a cybersecurity policy analyst. Your task is to determine which
@@ -307,12 +308,13 @@ def _map_one_section(
     # Import here to avoid circular import at module level
     from agents.text_summarizer import summarize_lossless
 
-    # Compress the section content before injecting — sections can be long
-    # and the Map call only needs to know "is evidence for this subcategory present?"
+    # Only compress if a section is genuinely large. The Map prompt already contains
+    # the subcategory description (~200 chars) plus response space; a section of up
+    # to 8 000 chars (~2K tokens) leaves the full 32K context with ample headroom.
     section_input = summarize_lossless(
         section_content,
         context_hint=f"policy section {section_number} '{section_title}' being scanned for {sub_id} evidence",
-        threshold=600,
+        threshold=8_000,
     )
 
     prompt = (
@@ -496,11 +498,20 @@ Cybersecurity Framework Policy Template Guide (2024).
 ## Your Task
 Compare the customer policy against this ONE subcategory requirement and the
 reference template above.
-- If the customer policy addresses this requirement, quote the exact relevant
+
+- If the customer policy addresses this requirement: quote the exact relevant
   text from the customer policy as evidence.
-- If partially addressed, explain what is present and what is still missing.
-- If not addressed at all, state clearly what is missing and recommend specific
-  language or sections to add based on the reference template.
+
+- If partially addressed: quote what IS present, then state the specific
+  language or control that is missing from this policy.
+
+- If not addressed at all: set evidence to "None found". For the recommendation,
+  do NOT suggest adding this content to the current policy document. Instead,
+  recommend that the organization create or adopt the dedicated policy document(s)
+  listed in Required Policy Templates above (e.g. "Establish a dedicated
+  Asset Management Policy" or "Adopt the CIS MS-ISAC Incident Response Policy
+  template"). A well-governed organization uses separate, focused policy
+  documents for separate domains — not one bloated policy that covers everything.
 """
 
 
@@ -628,27 +639,29 @@ def run_nist_gap_agent(
     """
     Assess a NIST function's subcategories against the customer policy.
 
-    Map-Reduce architecture:
+    Single-call architecture (reverted from Map-Reduce):
       1. Scope classifier (1 LLM call) — which subcategories are in-scope?
-      2. Map phase — for each in-scope subcategory, scan sections in parallel
-         to collect only the relevant evidence snippets.
-      3. Reduce phase — for each subcategory, assess using only its evidence
-         snippets (not the full policy document).
-      4. Out-of-scope items tagged automatically (no LLM call).
+      2. Per-subcategory assessment (1 LLM call each) — full policy in prompt.
+         The model reads the complete policy text and quotes directly from it,
+         eliminating the hallucination caused by the Map phase where the NIST
+         description sat next to small section chunks in the same prompt.
+      3. Out-of-scope items tagged automatically (no LLM call).
+
+    With n_ctx=65536 the full policy (~5K–20K chars / 1K–5K tokens) fits
+    comfortably in one call. Map-Reduce was solving a context-overflow problem
+    that no longer exists, and introduced 3× more hallucinations and 2.3× more
+    latency as confirmed by test_old_vs_new_arch.py.
 
     Args:
         function_name: NIST function to analyze.
-        policy_content: Full policy document text (used for scope classification
-                        and as fallback if policy_sections is None).
+        policy_content: Full policy document text.
         model_name: Model name (kept for interface compatibility).
-        policy_sections: Optional list of section dicts for the Map phase.
-                         If None, Map phase sends the full policy_content as a
-                         single section (same as the old behaviour).
+        policy_sections: Unused — kept for interface compatibility.
 
     Returns:
         Tuple of (assembled markdown report, list of SubcategoryAssessment objects).
     """
-    logger.info("Running NIST %s gap analysis agent (Map-Reduce)", function_name)
+    logger.info("Running NIST %s gap analysis agent", function_name)
 
     subcategories = get_function_subcategories(function_name)
     if not subcategories:
@@ -660,7 +673,7 @@ def run_nist_gap_agent(
 
     llm = create_llm()
 
-    # Step 1: Scope classification (unchanged)
+    # Step 1: Scope classification
     logger.info("  Step 1: Classifying scope...")
     in_scope_ids = _classify_scope(policy_content, subcategories, llm)
 
@@ -674,68 +687,33 @@ def run_nist_gap_agent(
         len(out_scope_subs),
     )
 
-    # Prepare sections for Map phase.
-    # If the caller passed structured sections, use them.
-    # Otherwise wrap the full content as one pseudo-section.
-    if policy_sections:
-        map_sections = policy_sections
-    else:
-        map_sections = [
-            {"number": "1", "title": "Policy Document", "content": policy_content}
-        ]
-
-    # Step 2 + 3: Map-Reduce per in-scope subcategory
+    # Step 2: One call per in-scope subcategory with FULL policy in prompt
     structured_llm = llm.with_structured_output(SubcategoryAssessment)
     assessments: list[SubcategoryAssessment] = []
 
     for i, sub in enumerate(in_scope_subs, 1):
         sub_id = sub["id"]
-        logger.info("  [%d/%d] Map-Reduce: %s", i, len(in_scope_subs), sub_id)
+        logger.info("  [%d/%d] Assessing %s", i, len(in_scope_subs), sub_id)
 
-        # Map: collect evidence snippets across all sections (parallel)
-        evidence_snippets = _map_sections_for_subcategory(
-            map_sections,
-            sub_id,
-            sub["description"],
-        )
-        logger.info(
-            "    Map: %d evidence snippets found for %s",
-            len(evidence_snippets),
-            sub_id,
-        )
-
-        # Reduce: assess using collected evidence only
         framework_excerpt = get_framework_excerpt(sub.get("policies", []))
+        prompt = _build_subcategory_prompt(policy_content, sub, framework_excerpt)
+
         try:
-            result = _reduce_to_assessment(
-                sub, evidence_snippets, framework_excerpt, structured_llm
-            )
+            result = structured_llm.invoke(prompt)
             assessments.append(result)
-            logger.info("    Reduce: %s → %s", sub_id, result.status)
+            logger.info("    %s → %s", sub_id, result.status)
         except Exception as exc:
-            logger.warning(
-                "    %s reduce assessment failed: %s — using fallback", sub_id, exc
+            logger.warning("    %s assessment failed: %s", sub_id, exc)
+            assessments.append(
+                SubcategoryAssessment(
+                    subcategory_id=sub_id,
+                    title=sub.get("category", sub_id),
+                    status="Not Addressed",
+                    evidence="None found",
+                    gap="Assessment could not be completed — manual review required",
+                    recommendation="Manual review required for this subcategory",
+                )
             )
-            # Fallback: attempt the old full-doc assessment
-            try:
-                prompt = _build_subcategory_prompt(
-                    policy_content, sub, framework_excerpt
-                )
-                result = structured_llm.invoke(prompt)
-                assessments.append(result)
-                logger.info("    %s fallback assessment → %s", sub_id, result.status)
-            except Exception as exc2:
-                logger.warning("    %s fallback also failed: %s", sub_id, exc2)
-                assessments.append(
-                    SubcategoryAssessment(
-                        subcategory_id=sub_id,
-                        title=sub.get("category", sub_id),
-                        status="Not Addressed",
-                        evidence="None found",
-                        gap="Assessment could not be completed — manual review required",
-                        recommendation="Manual review required for this subcategory",
-                    )
-                )
 
     # Step 4: Tag out-of-scope subcategories (no LLM call)
     for sub in out_scope_subs:
